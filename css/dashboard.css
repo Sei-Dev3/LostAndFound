@@ -169,6 +169,11 @@ body{
 .container p{
     margin: 8px;
     font-size: 15px;
+    color: #302F68;
+}
+
+.container h3{
+    margin: 8px;
 }
 
 .recent-listing{
@@ -268,6 +273,23 @@ body{
 
 .descrip p{
     font-size: 15px;
+}
+
+.empty-state{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin-top: 50px;
+}
+
+.empty-state i{
+    font-size: 50px;
+    color: #302F68;
+}
+
+.empty-state p{
+    color: #302F68;
 }
 
 .dashboard {

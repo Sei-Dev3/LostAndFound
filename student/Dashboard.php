@@ -41,19 +41,27 @@
         <div class="container-layout">
             <div class="container">
                 <i class="fa-solid fa-box"></i>
-                <p>Total Lost Items</p> 
+                <p>Total Lost Items</p>
+                <h3>23</h3>
+                <p>+1 this week</p>
             </div>
             <div class="container">
                 <i class="fa-solid fa-bag-shopping"></i>
                 <p>Total Found Items</p>
+                <h3>12</h3>
+                <p>+3 this week</p>
             </div>
             <div class="container">
                 <i class="fa-solid fa-check-circle"></i>
                 <p>Returned Items</p>
+                <h3>18</h3>
+                <p>+4 this week</p>
             </div>
             <div class="container">
                 <i class="fa-solid fa-clock"></i>
                 <p>Pending Claims</p>
+                <h3>10</h3>
+                <p>+5 this week</p>
             </div>
         </div>
         <div class="recent-listing">
@@ -76,6 +84,12 @@
                 <p>Date Found/Lost</p>
                 <p>Status</p>
                 <p>Action</p>
+</div>
+
+            <div class="empty-state">
+                <i class="fa-regular fa-folder-open"></i>
+                <h3>No Items Yet</h3>
+                <p>There are no lost or found items to display.</p>
 </div>
             </div>
 </div>
