@@ -1,0 +1,147 @@
+.title-heading{
+    margin-left: 20px;
+    margin-top: 0;
+    color: #302F68;
+}
+
+.card{
+    display: flex;
+    gap: 15px;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+}
+
+.card-container{
+    width: 22%;
+    min-width: 0;
+    min-height: 140px;
+    box-sizing: border-box;
+    background-color: #E8E5FF;
+    border-radius: 10px;
+    border: 1px solid #B9B5D0;
+}
+
+ .card-container i{
+    width: 35px;
+    height: 35px;
+    font-size: 20px;
+    background-color: #D4CFFC;
+    margin: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50px;
+    color: #6355D9;
+}
+
+.card-container p{
+    margin: 8px;
+    font-size: 14px;
+    color: #302F68;
+}
+
+.card-container h3{
+    margin: 8px;
+}
+
+.report{
+    width: 100%;
+    height: 63%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.submitted-report{
+    width: 95%;
+    height: 100%;
+    min-height: 58vh;
+    margin: 0;
+    box-sizing: border-box;
+    background-color: #F4F3FF;
+    border-radius: 10px;
+    border: 1px solid #B9B5D0;
+}
+
+.report-headings{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+    background-color: #E8E5FF;
+}
+
+.submitted-report h3{
+    color: #302F68;
+    padding: 15px;
+    margin: 0;
+}
+
+.submitted-report a{
+    width: 110px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    background-color: darkblue;
+    color:  white;
+    font-size: 15px;
+    margin-right: 20px;
+    border-radius: 10px;
+}
+
+.submitted-report a:hover {
+    background-color: #45438A;
+    text-decoration: underline;
+}
+
+.submitted-btn{
+    width: 40%;
+    margin: 8px;
+    margin-top: 10px;
+    display: flex;
+    gap: 20px;
+}
+
+.report-lost-item-btn{
+    width: 120px;
+    height: 30px;
+    font-size: 15px;
+    font-weight: bold;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: darkblue;
+    border-radius: 5px;
+    border: none;
+    color: white;
+    cursor: pointer;
+}
+
+.report-found-item-btn{
+    width: 120px;
+    height: 30px;
+    font-size: 15px;
+    font-weight: bold;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #D4CFFC;
+    border-radius: 5px;
+    border: none;
+    color: black;
+    cursor: pointer;
+}
+
+.report-lost-item-btn:hover{
+    background-color: #45438A;
+    color: #FFFFFF;
+}
+
+.report-found-item-btn:hover{
+    background-color: #D4CFFC;
+    color: #302F68;
+}
