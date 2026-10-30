@@ -12,13 +12,15 @@
 >
 </head>
 <body>
-     <header>
+     <header class="sidebar" id="sidebar">
         <nav>
-            <ul>
+            <button class="exit-btn" onclick="hideSidebar()" type="button">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
                 <div class="logo2">
                 <h1>Lost & Found</h1>
                 </div>
-
+                     <ul>
                 <li><a href="../student/dashboard.php">
                     <i class="fa-solid fa-house"></i>
                     <span>Dashboard</span>
@@ -52,7 +54,18 @@
                     <span>Log Out</span>
                 </a></li>
             </ul>
+
         </nav>
     </header>
+
+    <script>
+            function showSidebar() {
+                document.getElementById('sidebar').classList.add('active');
+            }
+
+            function hideSidebar() {
+                document.getElementById('sidebar').classList.remove('active');
+            }
+        </script>
 </body>
 </html> 
