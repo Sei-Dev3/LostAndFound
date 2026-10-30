@@ -76,7 +76,7 @@ body{
 }
 
 .create-acc:hover{
-    background-color: #222;
+    background-color: #5143C4;
 }
 
 .log{
@@ -127,6 +127,10 @@ p{
     font-weight: bold;
 }
 
+.google-btn:hover{
+    background-color: #F0EEFF;
+}
+
 .google-btn img {
     width: 20px;
     height: 20px;
@@ -162,6 +166,10 @@ p{
     color: blue;
 }
 
+.policy{
+    cursor: pointer;
+}
+
 .half-login{
     width: 50%;
     min-height: 100vh;
@@ -182,6 +190,7 @@ p{
     margin-bottom: 10px;
     gap: 10px;
 }
+
 .radio-btn label{
     margin-right: 30px;
 }

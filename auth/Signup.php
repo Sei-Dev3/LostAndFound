@@ -56,10 +56,12 @@
 
         <div class="radio-btn">
             <h4>Role</h4>
-            <input type="radio" id="student" value="checked" required>
-            <label for="container">Student</label>
-            <input type="radio" name="staff" value="checked" required>
-            <label for="container">Staff</label>
+            <label for="container">
+            <input type="radio" name="report" value="student" required>
+            Student</label>
+            <label for="container">
+            <input type="radio" name="report" value="staff" required>
+            Staff</label>
 </div>
         <button type="submit" class="create-acc">Sign Up</button>
         <p>--------------------------or--------------------------<p>

@@ -50,6 +50,16 @@ nav ul li a{
     color: white;
 }
 
+.signup-btn:hover{
+    background-color: #45438A;
+    color: #FFFFFF;
+}
+
+.login-btn:hover{
+    background-color: #D4CFFC;
+    color: #302F68;
+}
+
 .logo{
     display: flex;
     align-items: center;
@@ -97,4 +107,8 @@ nav ul li a{
     justify-content: center;
     text-decoration: none;
     border-radius: 10px;
+}
+
+.text a:hover {
+    background-color: #5143C4;
 }

@@ -35,11 +35,11 @@
                 </a></li>
                 <li><a href="../student/my-claim.php">
                     <i class="fa-solid fa-clipboard-check"></i>
-                    <span>My Claim</span>
+                    <span>My Claims</span>
                 </a></li>
                 <li><a href="../student/message.php">
                     <i class="fa-solid fa-envelope"></i>
-                    <span>Message</span>
+                    <span>Messages</span>
                 </a></li>
                 <li><a href="../student/profile.php">
                     <i class="fa-solid fa-user"></i>
