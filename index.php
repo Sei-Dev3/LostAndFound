@@ -20,6 +20,12 @@
                 <ul>
                 <li><a href="auth/login.php" class="login-btn">Log In</a></li>
                 <li><a href="auth/signup.php" class="signup-btn">Sign up</a></li>
+                <li>
+                    <a href="student/profile.php" class="profile-btn">
+                        <img src="pictures/profile-placeholder.png" alt="">
+                        <span>Profile</span>
+                    </a>
+                </li>
             </ul>
         </nav>
     </header>
