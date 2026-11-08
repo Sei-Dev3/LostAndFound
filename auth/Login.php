@@ -1,3 +1,6 @@
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -11,8 +14,6 @@
 >
 </head>
 <body>
-    
-    
 <div class="half-login">
     <div class="title-text">
         <h2>Lost & Found</h2>
@@ -24,6 +25,7 @@
 
     <div class="container">
     <h2>Log In</h2>
+    <form method="POST">
         <div class="insight">
             <div class="label-icon">
             <i class="fa-solid fa-envelope"></i>
@@ -45,15 +47,11 @@
                 <a href="#">Forgot Password?</a>
         </div>
         <button type="submit" class="create-acc">Log In</button>
-        <p>--------------------------or--------------------------<p>
-        <button type="button" class="google-btn">
-            <img src="../pictures/google.webp" alt="Google logo">
-            Continue with Google
-        </button>
         <div class="log">
         <p class="text">Don't have an account?</p>
             <a href="../auth/signup.php">Sign Up</a>
         </div>
+</form>
         </div>
 
 </body>

@@ -21,31 +21,31 @@
                 <h1>Lost & Found</h1>
                 </div>
                      <ul>
-                <li><a href="../student/dashboard.php">
+                <li><a href="../admin/dashboard.php">
                     <i class="fa-solid fa-house"></i>
                     <span>Dashboard</span>
                 </a></li>
-                <li><a href="../student/report-item.php">
+                <li><a href="../admin/manage-item.php">
                     <i class="fa-solid fa-circle-plus"></i>
                     <span>Manage Item</span>
                 </a></li>
-                <li><a href="../student/my-reports.php">
+                <li><a href="../admin/manage-users.php">
                     <i class="fa-solid fa-solid fa-users"></i>
                     <span>Manage Users</span>
                 </a></li>
-                <li><a href="../student/my-claim.php">
+                <li><a href="../admin/manage-claim.php">
                     <i class="fa-solid fa-clipboard-check"></i>
                     <span>Manage Claims</span>
                 </a></li>
-                <li><a href="../student/my-reports.php">
+                <li><a href="../admin/manage-categories.php">
                     <i class="fa-solid fa-solid fa-tags"></i>
                     <span>Manage Categories</span>
                 </a></li>
-                <li><a href="../student/my-reports.php">
+                <li><a href="../admin/manage-location.php">
                     <i class="fa-solid fa-solid fa-location-dot"></i>
                     <span>Manage Locations</span>
                 </a></li>
-                <li><a href="../student/message.php">
+                <li><a href="../admin/report.php">
                     <i class="fa-solid fa-solid fa-chart-column"></i>
                     <span>Reports</span>
                 </a></li>

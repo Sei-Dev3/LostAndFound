@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="../css/report-item.css">
-    <link rel="stylesheet" href="../css/dashboard.css">
+    <link rel="stylesheet" href="../css/student-dashboard.css">
     <link rel="stylesheet" href="../css/my-report.css">
     <link
     rel="stylesheet"
@@ -34,17 +34,11 @@
 </div>
 </div>
     <div class="title-heading">
-        <h1>Report Items</h1>
-        <p>Report a lost or found item. Fill out the details below</p>
+        <h1>Report Lost Items</h1>
+        <p>Submit a report for an item you've lost.</p>
 </div>
         <div class="fillout">
         <div class="fillout-container">
-            <div class="item-btn">
-            <button type="button" class="lost-button">
-                <i class="fa-solid fa-bag-shopping"></i>Lost Item</button>
-            <button type="button" class="found-button">
-                <i class="fa-solid fa-magnifying-glass"></i>Found Item</button>
-        </div>
         <div class="inputs">
             <div class="column">
                 <div class="label-input">
@@ -75,7 +69,7 @@
                  </select>
                 </div>
                 <div class="label-input">
-                <label>Date Found/Lost</label>
+                <label>Date Lost</label>
                 <input type="date">
                 </div>
         </div>
@@ -88,21 +82,10 @@
                     placeholder="Provide a detailed description of the item."
                     row="4"></textarea>
                 </div>
-                <div class="label-input">
-                <label>Status</label>
-                <select name="status" id="status">
-                    <option value="" disabled selected>Status</option>
-                    <option value="approved">Approved</option>
-                    <option value="pending">Pending</option>
-                    <option value="matched">Matched</option>
-                    <option value="claim-pending">Claim Pending</option>
-                    <option value="returned">Returned</option>
-                 </select>
-                </div>
         </div>
             <div class="label-input photo-field">
                 <div class="labels">
-                <label>Item Photo <span class="required">*</span></label>
+                <label>Item Photo <span class="required">(optional)</span></label>
 </div>
                 <label for="item-photo" class="upload-container">
                     <i class="fa-solid fa-cloud-arrow-up"></i>
@@ -120,6 +103,7 @@
                     <button type="button" class="cancel">
                         Cancel</button>
                     <button type="button" class="submit">
+                        <i class="fa-solid fa-paper-plane"></i>
                         Submit</button>
                 </div>
             </div>

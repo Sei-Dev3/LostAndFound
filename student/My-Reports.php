@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="../css/style.css">
-    <link rel="stylesheet" href="../css/dashboard.css">
+    <link rel="stylesheet" href="../css/student-dashboard.css">
     <link rel="stylesheet" href="../css/my-report.css">
     <link
     rel="stylesheet"
@@ -74,9 +74,6 @@
             <button type="button" class="report-lost-item-btn">
                 Lost Items
 </button>
-            <button type="button" class="report-found-item-btn">
-                Found Items
-            </button>
 </div>
             <div class="descrip">
                 <p>Photo</p>
@@ -90,7 +87,7 @@
             <div class="empty-state">
                 <i class="fa-regular fa-folder-open"></i>
                 <h3>No Items Yet</h3>
-                <p>There are no lost or found items to display.</p>
+                <p>There are no lost item report to display.</p>
 </div>
             </div>
 </div>

@@ -12,7 +12,6 @@
 </head>
 <body>
     
-    
 <div class="half-signup">
     <div class="title-text">
         <h2>Lost & Found</h2>
@@ -54,21 +53,7 @@
             <input type="password" name="confirmpassword" id="confirmpassword" placeholder="Confirm your password" required>
         </div>
 
-        <div class="radio-btn">
-            <h4>Role</h4>
-            <label for="container">
-            <input type="radio" name="report" value="student" required>
-            Student</label>
-            <label for="container">
-            <input type="radio" name="report" value="staff" required>
-            Staff</label>
-</div>
         <button type="submit" class="create-acc">Sign Up</button>
-        <p>--------------------------or--------------------------<p>
-        <button type="button" class="google-btn">
-            <img src="../pictures/google.webp" alt="Google logo">
-            Sign up with Google
-        </button>
         <div class="log">
         <p class="text">Already have an Account?</p>
             <a href="../auth/login.php">Log In</a>

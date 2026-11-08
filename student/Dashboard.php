@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Student Dashboard</title>
     <link rel="stylesheet" href="../css/style.css">
-    <link rel="stylesheet" href="../css/dashboard.css">
+    <link rel="stylesheet" href="../css/student-dashboard.css">
     <!-- http://localhost/LostAndFound/student/dashboard.php -->
 </head>
 <body>
@@ -101,8 +101,8 @@
                     <i class="fa-solid fa-circle-plus"></i> 
                     Report Lost Item</button>
                     <button type="button" class="found-btn">
-                    <i class="fa-solid fa-magnifying-glass"></i>
-                    Report Found Item</button>
+                    <i class="fa-solid fa-file-lines"></i>
+                    My Reports</button>
                     </div>
 </div>
                     <div class="category">

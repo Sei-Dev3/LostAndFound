@@ -27,7 +27,7 @@
                 </a></li>
                 <li><a href="../student/report-item.php">
                     <i class="fa-solid fa-circle-plus"></i>
-                    <span>Report Item</span>
+                    <span>Report Lost Item</span>
                 </a></li>
                 <li><a href="../student/my-reports.php">
                     <i class="fa-solid fa-file-lines"></i>

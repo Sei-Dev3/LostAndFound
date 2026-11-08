@@ -1,0 +1,266 @@
+.admin-container-layout{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    width: 100%;
+}
+
+.admin-container{
+    width: 23%;
+    min-width: 0;
+    min-height: 140px;
+    box-sizing: border-box;
+    background-color: #E8E5FF;
+    border-radius: 10px;
+    border: 1px solid #B9B5D0;
+}
+
+.admin-container i{
+    width: 35px;
+    height: 35px;
+    background-color: #D4CFFC;
+    margin: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50px;
+    color: #6355D9;
+}
+
+.admin-container p{
+    font-size: 13px;
+    margin: 8px;
+    color: #302F68;
+}
+
+.admin-container h3{
+    font-size: 20px;
+    margin: 14px;
+}
+
+.admin-container h5{
+    margin: 8px;
+    font-size: 17px;
+}
+
+.quick-action-container{
+    width: 100%;
+    height: 15%;
+    margin-top: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.quick-box{
+    width: 96%;
+    height: 100%;
+    border-radius: 10px;
+    border: 1px solid #B9B5D0;
+}
+
+.quick-box h3{
+    margin-left: 10px;
+}
+
+.quick-btn-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    gap: 15px;
+    width: 100%;
+}
+
+.quick-btn{
+    width: 23%;
+    height: 65px;
+    min-width: 0;
+    min-height: 0;
+    box-sizing: border-box;
+    background-color: #E8E5FF;
+    border-radius: 10px;
+    border: 1px solid #B9B5D0;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px;
+    cursor: pointer;
+}
+
+.quick-btn i {
+    font-size: 28px;
+    color: #4935CC;
+}
+
+.text-btn{
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.text-btn h3,
+.text-btn p{
+    margin: 0;
+}
+
+.text-btn h3{
+    font-size: 18px;
+}
+
+.text-btn p{
+    font-size: 14px;
+    color: #6355D9;
+}
+
+.box-layout{
+    width: 100%;
+    height: 45%;
+    margin-top: 15px;
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+}
+
+.recent-activity{
+    width: 35%;
+    min-height: 300px;
+    height: fit-content;
+    border: 1px solid #B9B5D0;
+    border-radius: 10px;
+}
+
+.recent-admin{
+    width: 100%;
+    height: 50px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.recent-admin h3{
+    margin: 0;
+    font-size: 20px;
+    margin-left: 10px;
+}
+
+.recent-admin a{
+    text-decoration: none;
+    margin-right: 10px;
+}
+
+.item-activity{
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 0;
+    border-bottom: 1px solid #e2e5e2;
+}
+
+.item-activity i{
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    background-color: #E8E5FF;
+    color: #4935CC;
+    margin-left: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.activity-details{
+    flex: 1;
+}
+
+.activity-details h4,
+.activity-details p{
+    margin: 0;
+}
+
+.activity-details h4{
+    font-size: 13px;
+    color: #302F68;
+}
+
+.activity-details p{
+    font-size: 11px;
+    color: #6355D9;
+}
+
+.item-activity span{
+    font-size: 11px;
+    color: #6355D9;
+    white-space: nowrap;
+    margin-right: 10px;
+}
+
+.pending-claims{
+    width: 60%;
+    min-height: 40vh;
+    margin: 0;
+    box-sizing: border-box;
+    border-radius: 10px;
+    border: 1px solid #B9B5D0;
+}
+
+.pending-header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+}
+
+.pending-claims h3{
+    color: #302F68;
+    padding: 15px;
+    margin: 0;
+}
+
+.pending-header a{
+    text-decoration: none;
+    color: #302F68;
+    font-size: 15px;
+    margin-right: 20px;
+}
+
+.pending-listing a:hover {
+    color: #6355D9;
+    text-decoration: underline;
+}
+
+.pending-descrip{
+    background-color:#D4CFFC;
+    width: 95%;
+    height: 30px;
+    margin: 8px;
+    border-radius: 5px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5px;
+}
+
+.pending-descrip p{
+    font-size: 15px;
+}
+
+.pending-empty-state{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin-top: 50px;
+}
+
+.pending-empty-state i{
+    font-size: 30px;
+    color: #302F68;
+}
+
+.pendingempty-state p{
+    color: #302F68;
+}
