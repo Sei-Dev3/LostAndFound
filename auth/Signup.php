@@ -1,3 +1,25 @@
+<?php 
+
+require_once __DIR__. '/../vendor/autoload.php';
+use App\Models\Authentication;
+$message= "";
+if(isset($_POST["sub"])){
+    $fullname=$_POST["fullname"];
+    $email=$_POST["email"];
+    $password=$_POST["password"];
+    $confirmpassword=$_POST["confirmpassword"];
+
+     
+    $auth=new Authentication();
+    $message=$auth->signup($fullname, $email, $password, $confirmpassword);
+    if($message == "Account created successfully!"){
+        header("Location: login.php");
+    }
+}
+
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -24,6 +46,7 @@
 
 <div class="container">
     <h2>Create an Account</h2>
+    <form method="POST">
     <div class="insight">
         <div class="label-icon">
             <i class="fa-solid fa-user"></i>
@@ -51,9 +74,15 @@
             <label for="password">Confirm Password:</label>
 </div>
             <input type="password" name="confirmpassword" id="confirmpassword" placeholder="Confirm your password" required>
+            <?php 
+            if($message !== ""){
+                echo "<p>$message</p>";
+            }
+            ?>
         </div>
 
-        <button type="submit" class="create-acc">Sign Up</button>
+        <button type="submit" name="sub" class="create-acc" href="login.php">Sign Up</button>
+</form>
         <div class="log">
         <p class="text">Already have an Account?</p>
             <a href="../auth/login.php">Log In</a>

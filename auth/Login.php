@@ -1,3 +1,27 @@
+<?php 
+session_start();
+
+require_once __DIR__. '/../vendor/autoload.php';
+
+use App\Models\Authentication;
+
+$message = "";
+
+if(isset($_POST["sub"])){
+    $email=$_POST["email"];
+    $password=$_POST["password"];
+
+    $auth=new Authentication();
+    $message=$auth->login($email, $password);
+    
+    if($message=="Login Successful"){
+    $_SESSION["email"]=$email;
+    header("Location: ../student/dashboard.php");
+    exit();
+}
+}
+
+?>
 
 
 
@@ -39,6 +63,11 @@
             <label for="password">Password:</label>
 </div>
             <input type="password" name="password" id="password" placeholder="Password" required>
+            <?php 
+            if($message !== ""){
+                echo "<p>$message</p>";
+            }
+            ?>
         </div>
         <div class="check">
             <label>
@@ -46,7 +75,7 @@
                 </label>
                 <a href="#">Forgot Password?</a>
         </div>
-        <button type="submit" class="create-acc">Log In</button>
+        <button type="submit" name="sub" class="create-acc" href="../student/dashboard.php">Log In</button>
         <div class="log">
         <p class="text">Don't have an account?</p>
             <a href="../auth/signup.php">Sign Up</a>
