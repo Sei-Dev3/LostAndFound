@@ -12,10 +12,9 @@ if(isset($_POST["sub"])){
     $password=$_POST["password"];
 
     $auth=new Authentication();
-    $message=$auth->login($email, $password);
-    
-    if($message=="Login Successful"){
-    $_SESSION["email"]=$email;
+    $user=$auth->login($email, $password);
+    if($message==="Login Successful"){
+    $_SESSION["email"]=$user["email"];
     header("Location: ../student/dashboard.php");
     exit();
 }
@@ -75,7 +74,7 @@ if(isset($_POST["sub"])){
                 </label>
                 <a href="#">Forgot Password?</a>
         </div>
-        <button type="submit" name="sub" class="create-acc" href="../student/dashboard.php">Log In</button>
+        <button type="submit" name="sub" class="create-acc">Log In</button>
         <div class="log">
         <p class="text">Don't have an account?</p>
             <a href="../auth/signup.php">Sign Up</a>

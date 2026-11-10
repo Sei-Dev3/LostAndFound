@@ -30,10 +30,9 @@ class Authentication{
         $stmt->execute([$email]);
         $user=$stmt->fetch();
 
-        if($email==$user["email"] && password_verify($password,$user["password"])){
+        if($user && password_verify($password,$user["password"])){
             return "Login Successful";
-        }
-        else{
+        }else{
             return "Invalid Credentials";
         }
     }

@@ -53,7 +53,7 @@
                     <i class="fa-solid fa-gear"></i>
                     <span>Settings</span>
                 </a></li>
-                <li><a href="../student/logout.php">
+                <li><a href="../auth/admin-logout.php">
                     <i class="fa-solid fa-right-from-bracket"></i>
                     <span>Log Out</span>
                 </a></li>
