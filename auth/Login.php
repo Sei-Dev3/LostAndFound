@@ -12,9 +12,9 @@ if(isset($_POST["sub"])){
     $password=$_POST["password"];
 
     $auth=new Authentication();
-    $user=$auth->login($email, $password);
+    $message=$auth->login($email, $password);
     if($message==="Login Successful"){
-    $_SESSION["email"]=$user["email"];
+    $_SESSION["email"]=$email;
     header("Location: ../student/dashboard.php");
     exit();
 }
