@@ -1,12 +1,34 @@
+<?php 
+session_start();
+if (!isset($_SESSION["email"])) {
+    header("Location: ../auth/loguot.php");
+    exit();
+}
+
+require_once __DIR__. '/../vendor/autoload.php';
+use App\Models\Item;
+
+$itemModel=new Item();
+$userID=$_SESSION["UserID"];
+
+try{
+    $item=$itemModel->myclaim($userID);
+    $totalLost=$itemModel->personalcountreport($userID);
+}catch(PDOException $e){
+    echo $e->getMessage();
+    $item=[];
+}
+?> 
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="../css/style.css">
     <link rel="stylesheet" href="../css/student-dashboard.css">
-    <link rel="stylesheet" href="../css/my-report.css">
+    <link rel="stylesheet" href="../css/my-report.css?v=2">
     <link
     rel="stylesheet"
     href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
@@ -22,7 +44,10 @@
                 </button>
                 <div class="search">
                     <i class="fa-solid fa-magnifying-glass"></i>
-                <input type="search" placeholder="Search items...">
+                <input type="search"
+    id="search"
+    name="search"
+    placeholder="Search items...">
 </div>
         <div class="topbar-action">
             <button type="button" class="notification">
@@ -75,19 +100,55 @@
                 <option>Manual Verification</option>
             </select>
 </div>
-            <div class="descrip">
-                <p>Item Photo</p>
-                <p>Item Name</p>
-                <p>Claim Date</p>
-                <p>Status</p>
-                <p>Action</p>
-</div>
-
-            <div class="empty-state">
+           <table>
+                <tr>
+                    <th>Photo</th>
+                    <th>Item Details</th>
+                    <th>Category</th>
+                    <th>Date Reported</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                </tr>
+                <?php 
+                if(empty($item)){
+                ?>
+                <tr>
+                    <td colspan="6">
+                <div class="empty-state">
                 <i class="fa-regular fa-folder-open"></i>
-                <h3>No More Claims</h3>
-                <p>You haven't submitted any claim request yet.</p>
+                <h3>No Items Yet</h3>
+                <p>There are no lost or found items to display.</p>
 </div>
+</td>
+</tr>
+                <?php }else{
+                        foreach($item as $i){
+                ?>
+                <tr>
+                    <td><?php if(!empty($i["Photo"])){?>
+                <img src="../pictures/<?= htmlspecialchars($i["Photo"]) ?>"
+                         alt="Item Photo" width="60">
+                <?php } else { ?>
+                    No Image
+                <?php } ?></td>
+                    <td><?php echo $i["ItemName"]?>
+                    <br>
+                    <small>
+                    <?php echo (substr($i["Description"], 0, 40)) ?>...
+                    </small>
+                </td>
+                    <td><?php echo $i["CategoryName"]?></td>
+                    <td><?php echo $i["ClaimDate"]?></td>
+                    <td><?php echo $i["Status"]?></td>
+                    <td>
+                        <a href="viewbyId.php?id=<?php echo $i["ItemID"]?>" class="view-btn2-user">View</a>
+                        <?php if($i["ReportType"]==="Found"){?>
+                        <a href=""?id=?<?php echo $i["ItemID"]?> class="claim2" onclick="return confirm('Are you sure?')">Delete</a></td>
+                        <?php }?>
+                    </td>
+                </tr>
+                 <?php }}?>
+            </table>
             </div>
 </div>
 </div>

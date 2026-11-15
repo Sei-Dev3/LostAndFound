@@ -1,0 +1,93 @@
+
+body{
+    font-family: 'Poppins',sans-serif;
+}
+table{
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+}
+
+/* thead tr {
+    background-color: #D4CFFC;
+    border-radius: 10px;
+    margin-bottom: 10px;
+} */
+
+th{
+    background-color: #D4CFFC;
+    text-align: left;
+    height: 40px;
+}
+
+/* tbody::before {
+    content: "";
+    display: block;
+    height: 10px;
+} */
+
+td{
+    margin-top: 10px;
+    border: 1px solid;
+}
+
+table tr th:nth-child(1){
+    width: 110px;
+    border-radius: 10px 0 0 10px;
+}
+
+table tr th:nth-child(2){
+    width: 300px;
+}
+table tr th:nth-child(3){
+    width: 110px;
+}
+
+table tr th:nth-child(4){
+    width: 110px;
+}
+table tr th:nth-child(5){
+    width: 100px;
+}
+
+table tr th:nth-child(6){
+    width: 80px;
+}
+
+table tr th:nth-child(7){
+    width: 100px;
+    border-radius: 0 10px 10px 0;
+}
+
+.view-btn{
+    width: 60px;
+    height: 30px;
+    background-color: #6355D9;
+    color: white;
+    border: none;
+    border-radius: 10px;
+}
+
+.claim-btn{
+    width: 60px;
+    height: 30px;
+    border: none;
+    background-color: #16A36A;
+    color: white;
+    border-radius: 10px;
+}
+
+.view-btn:hover {
+    background-color: #5043B8;
+}
+
+.claim-btn:hover {
+    background-color: #128354;
+}
+
+.item-photo {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 8px;
+}

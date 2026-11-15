@@ -1,3 +1,22 @@
+<?php 
+session_start();
+if (!isset($_SESSION["email"])) {
+    header("Location: ../auth/loguot.php");
+    exit();
+}
+
+require_once __DIR__. '/../vendor/autoload.php';
+use App\Models\Item;
+$userID=$_SESSION["UserID"];
+$itemModel=new Item();
+try{
+    $item=$itemModel->getAllclaim();
+}catch(PDOException $e){
+    echo $e->getMessage();
+    $item=[];
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,7 +26,7 @@
     <link rel="stylesheet" href="../css/manage-item.css">
     <link rel="stylesheet" href="../css/student-dashboard.css">
     <link rel="stylesheet" href="../css/my-report.css">
-    <link rel="stylesheet" href="../css/manage.css">
+    <link rel="stylesheet" href="../css/manage-claim.css">
     <link
     rel="stylesheet"
     href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
@@ -64,20 +83,54 @@
 </div>
 </div>
             <div class="users-container2">
-                <div class="claim-container-navbar">
-                    <p>#</p>
-                    <p>Item Photo</p>
-                    <p>Item Name</p>
-                    <p>Claimant</p>
-                    <p>Claim Date</p>
-                    <p>Status</p>
-                    <p>Action</p>
-                </div>
+                <table>
+                <tr>
+                    <th>Item Photo</th>
+                    <th>Item Name</th>
+                    <th>Claimant</th>
+                    <th>Claim Date</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                </tr>
+                <?php 
+                if(empty($item)){
+                ?>
+                <tr>
+                    <td colspan="8">
                 <div class="empty-state">
-                <i class="fa-solid fa-clipboard-check"></i>
-                <h3>No Claims Yet</h3>
-                <p>There are no claim requests to display.</p>
+                <i class="fa-regular fa-folder-open"></i>
+                <h3>No Items Yet</h3>
+                <p>There are no lost or found items to display.</p>
 </div>
+</td>
+</tr>
+                <?php }else{
+                        foreach($item as $i){
+                ?>
+                <tr>
+                    <td><?php if(!empty($i["Photo"])){?>
+                <img src="../pictures/<?= htmlspecialchars($i["Photo"]) ?>"
+                         alt="Item Photo" width="60">
+                <?php } else { ?>
+                    No Image
+                <?php } ?></td>
+                    <td><?php echo $i["ItemName"]?>
+                </td>
+                <td><?php echo $i["fullname"]?></td>
+                <td>
+                <?php echo $i["ClaimDate"]?>
+</td>
+                    
+                    <td><?php echo $i["Status"]?></td>
+                    <td>
+                        <a href="viewbyuser.php" class="view-btn-claim">View</a>
+                        <a href="" class="approve-claim">Approve</a>
+                        <a href="" class="reject-claim" onclick="return confirm('Are you sure?')">Reject</a></td>
+                        
+                    </td>
+                </tr>
+                 <?php }}?>
+            </table>
             </div>
 </div>
 </main>

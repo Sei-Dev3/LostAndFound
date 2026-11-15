@@ -1,3 +1,23 @@
+<?php 
+session_start();
+if (!isset($_SESSION["email"])) {
+    header("Location: ../auth/loguot.php");
+    exit();
+}
+
+require_once __DIR__. '/../vendor/autoload.php';
+use App\Models\Item;
+$userID=$_SESSION["UserID"];
+$itemModel=new Item();
+try{
+    $item=$itemModel->getAllUsers();
+}catch(PDOException $e){
+    echo $e->getMessage();
+    $item=[];
+}
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,9 +25,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="../css/manage-item.css">
-    <link rel="stylesheet" href="../css/student-dashboard.css">
-    <link rel="stylesheet" href="../css/my-report.css">
     <link rel="stylesheet" href="../css/manage.css">
+    <link rel="stylesheet" href="../css/manage-claim.css">
     <link
     rel="stylesheet"
     href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
@@ -64,21 +83,52 @@
 </div>
 </div>
             <div class="users-container2">
-                <div class="users-container-navbar">
-                    <p>#</p>
-                    <p>Profile</p>
-                    <p>Name</p>
-                    <p>Email</p>
-                    <p>Role</p>
-                    <p>Status</p>
-                    <p>Date Registered</p>
-                    <p>Action</p>
-                </div>
+                <table>
+                <tr>
+                    <th>Profile</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Role</th>
+                    <th>Date Registered</th>
+                    <th>Actions</th>
+                </tr>
+                <?php 
+                if(empty($item)){
+                ?>
+                <tr>
+                    <td colspan="8">
                 <div class="empty-state">
-                <i class="fa-solid fa-solid fa-users"></i>
-                <h3>No Users Yet</h3>
-                <p>There are no users to display.</p>
+                <i class="fa-regular fa-folder-open"></i>
+                <h3>No Items Yet</h3>
+                <p>There are no lost or found items to display.</p>
 </div>
+</td>
+</tr>
+                <?php }else{
+                        foreach($item as $i){
+                ?>
+                <tr>
+                    <td><?php if(!empty($i["Photo"])){?>
+                <img src="../pictures/<?= htmlspecialchars($i["Photo"]) ?>"
+                         alt="Item Photo" width="60">
+                <?php } else { ?>
+                    No Image
+                <?php } ?></td>
+                    <td><?php echo $i["fullname"]?>
+                </td>
+                <td><?php echo $i["email"]?></td>
+                <td>
+                <?php echo $i["role"]?>
+</td>
+                    
+                    <td><?php echo $i["created_at"]?></td>
+                    <td>
+                        <a href="viewbyuser.php" class="view-btn">View</a>
+                        <a href="" class="claim" onclick="return confirm('Are you sure?')">Delete</a></td>
+                    </td>
+                </tr>
+                 <?php }}?>
+            </table>
             </div>
 </div>
 </main>

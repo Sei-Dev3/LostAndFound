@@ -10,13 +10,22 @@ $message = "";
 if(isset($_POST["sub"])){
     $email=$_POST["email"];
     $password=$_POST["password"];
-
     $auth=new Authentication();
-    $message=$auth->login($email, $password);
-    if($message==="Login Successful"){
+    $user=$auth->login($email, $password);
+    
+    if($user){
     $_SESSION["email"]=$email;
-    header("Location: ../student/dashboard.php");
-    exit();
+    $_SESSION["UserID"]=$user["UserID"];
+    $_SESSION["role"] = $user["role"];
+
+    if ($_SESSION["role"] === "User") {
+        header("Location: ../student/dashboard.php");
+        exit();
+    } else {
+        $message = "Only for user account.";
+    }
+} else {
+    $message = "Invalid credentials";
 }
 }
 

@@ -19,9 +19,12 @@
     margin-bottom: 5px;
 }
 
-.manage-heading button{
-    width: 20%;
+.manage-heading a{
+    width: 13%;
     height: 35px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     background-color: darkblue;
     color: white;
     margin-right: 20px;
@@ -29,10 +32,11 @@
     font-size: 15px;
     border-radius: 5px;
     border: none;
+    text-decoration: none;
     cursor: pointer;
 }
 
-.manage-heading button:hover{
+.manage-heading a:hover{
     background-color: #45438A;
 }
 
@@ -102,9 +106,8 @@
 }
 
 .container2{
-    width: 96%;
+    width: 99%;
     height: 50%;
-    border-radius: 10px;
     border: 1px solid #B9B5D0;
 }
 
@@ -112,13 +115,12 @@
     width: 100%;
     height: 8%;
     background-color: #E8E5FF;
-    display: grid;
-    grid-template-columns: 40px 100px 1.3fr 0.8fr 1fr 1fr 1.2fr 1fr 80px;
-    justify-content: space-between;
-    border-radius: 10px;
     font-size: 15px;
+    border-radius: 10px;
 }
 
 .container-navbar p{
     margin: 10px;
 }
+
+

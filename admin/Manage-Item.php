@@ -1,3 +1,24 @@
+<?php 
+    session_start();
+if (!isset($_SESSION["email"])) {
+    header("Location: ../auth/loguot.php");
+    exit();
+}
+
+require_once __DIR__. '/../vendor/autoload.php';
+use App\Models\Item;
+$userID=$_SESSION["UserID"];
+$itemModel= new Item();
+try{
+    $item=$itemModel->getAll();
+    $totalLost=$itemModel->countlost();
+    $totalFound=$itemModel->countfound();
+}catch(PDOException $e){
+    echo $e->getMessage();
+    $item=[];
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,7 +27,6 @@
     <title>Document</title>
     <link rel="stylesheet" href="../css/manage-item.css">
     <link rel="stylesheet" href="../css/student-dashboard.css">
-    <link rel="stylesheet" href="../css/my-report.css">
     <link
     rel="stylesheet"
     href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
@@ -34,7 +54,7 @@
         <h1>Manage Items</h1>
         <p>View, edit, and manage all found and lost items.</p>
 </div>
-<button type="button">+ Add item</button>
+<a href="claim.php">+ Add item</a>
 </div>
         <div class="layout-container">
             <div class="container1">
@@ -68,22 +88,74 @@
             </select>
 </div>
             <div class="container2">
-                <div class="container-navbar">
-                    <p>#</p>
-                    <p>Item Photo</p>
-                    <p>Item Name</p>
-                    <p>Item Type</p>
-                    <p> Category</p>
-                    <p>Location</p>
-                    <p>Date Reported</p>
-                    <p>Status</p>
-                    <p>Action</p>
-                </div>
+                <table>
+                <tr>
+                    <th>Photo</th>
+                    <th>Item Details</th>
+                    <th>Report Type</th>
+                    <th>Category</th>
+                    <th>Location</th>
+                    <th>Date Reported</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                </tr>
+                <?php 
+                if(empty($item)){
+                ?>
+                <tr>
+                    <td colspan="8">
                 <div class="empty-state">
                 <i class="fa-regular fa-folder-open"></i>
                 <h3>No Items Yet</h3>
                 <p>There are no lost or found items to display.</p>
 </div>
+</td>
+</tr>
+                <?php }else{
+                        foreach($item as $i){
+                ?>
+                <tr>
+                    <td><?php if(!empty($i["Photo"])){?>
+                <img src="../pictures/<?= htmlspecialchars($i["Photo"]) ?>"
+                         alt="Item Photo" width="60">
+                <?php } else { ?>
+                    No Image
+                <?php } ?></td>
+                    <td><?php echo $i["ItemName"]?>
+
+                    <br>
+                    <small>
+                    <?php echo (substr($i["Description"], 0, 40)) ?>...
+                    </small>
+                </td>
+                <td>
+                <?php if ($i["ReportType"] === "Found") { ?>
+                <p>Found</p>
+                    <?php } else { ?>
+                     <p>Lost</p>
+    
+                     <?php } ?>
+</td>
+                    <td><?php echo $i["CategoryName"]?></td>
+                    <td><?php echo htmlspecialchars($i["LocationName"]); ?></td>
+                    <td><?php if ($i["ReportType"] === "Found"){
+                        echo $i["DateFound"];
+                    }else{
+                        echo $i["DateLost"];
+                    }?>
+                </td>
+                    <td><?php echo $i["Status"]?></td>
+                    <td>
+                        <a href="viewbyid.php?id=<?php echo $i["ItemID"]?>" class="view-btn">View</a>
+                        <?php if($i["ReportType"]==="Found"){?>
+                        <a href=""?id=?<?php echo $i["ItemID"]?> class="claim" onclick="return confirm('Are you sure?')">Delete</a></td>
+                        <?php }?>
+                    </td>
+                </tr>
+                 <?php }}?>
+
+            </table>
+
             </div>
 </div>
 </main>

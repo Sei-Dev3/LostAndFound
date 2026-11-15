@@ -1,0 +1,64 @@
+.info-user-layout{
+    width: 100%;
+    height: 60%;
+    margin-top: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.info-user-container{
+    width: 80%;
+    height: 100%;
+    display: flex;
+    border: 1px solid #B9B5D0;
+    border-radius: 10px;
+    justify-content: center;
+}
+
+.profile{
+    width: 95%;
+    height: 30%;
+    display: flex;
+}
+
+.profile i{
+    width: 80px;
+    height: 80px;
+    font-size: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.user-name{
+    width: 100%;
+}
+
+.user-name h2{
+    margin:0;
+    margin-top: 20px;
+}
+
+.user-name p{
+    margin: 10px;
+}
+
+.spacing{
+    margin: 0;
+    gap: 0;
+}
+
+.spacing h2,
+.spacing h4,
+.spacing p {
+    margin: 0;
+}
+
+.spacing h4 {
+    margin-bottom: 5px;
+}
+
+.spacing h2 {
+    margin-bottom: 30px;
+}

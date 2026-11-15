@@ -31,9 +31,9 @@ class Authentication{
         $user=$stmt->fetch();
 
         if($user && password_verify($password,$user["password"])){
-            return "Login Successful";
+            return $user;
         }else{
-            return "Invalid Credentials";
+            return false;
         }
     }
 }

@@ -1,3 +1,27 @@
+<?php 
+session_start();
+if (!isset($_SESSION["email"])) {
+    header("Location: ../auth/loguot.php");
+    exit();
+}
+
+require_once __DIR__. '/../vendor/autoload.php';
+use App\Models\Item;
+
+$itemModel=new Item();
+$userID=$_SESSION["UserID"];
+
+try{
+    $item=$itemModel->myreport($userID);
+    $totalLost=$itemModel->personalcountreport($userID);
+}catch(PDOException $e){
+    echo $e->getMessage();
+    $item=[];
+}
+?>
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,7 +29,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="../css/style.css">
-    <link rel="stylesheet" href="../css/student-dashboard.css">
     <link rel="stylesheet" href="../css/my-report.css">
     <link
     rel="stylesheet"
@@ -42,7 +65,7 @@
             <div class="card-container">
                 <i class="fa-solid fa-file-lines"></i>
                 <p>Total Reports</p>
-                <h3>23</h3>
+                <h3><?php echo $totalLost["total"]?></h3>
                 <p>All your submitted reports</p>
             </div>
             <div class="card-container">
@@ -70,25 +93,56 @@
             <h3>Your Submitted Reports</h3>
             <a href="report-item.php" class="new-report-btn">+ New Report</a>
 </div>
-            <div class="submitted-btn">
-            <button type="button" class="report-lost-item-btn">
-                Lost Items
-</button>
-</div>
-            <div class="descrip">
-                <p>Photo</p>
-                <p>Item Details</p>
-                <p>Category</p>
-                <p>Date Reported</p>
-                <p>Status</p>
-                <p>Action</p>
-</div>
-
-            <div class="empty-state">
+            
+            <table>
+                <tr>
+                    <th>Photo</th>
+                    <th>Item Details</th>
+                    <th>Category</th>
+                    <th>Date Reported</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                </tr>
+                <?php 
+                if(empty($item)){
+                ?>
+                <tr>
+                    <td colspan="6">
+                <div class="empty-state">
                 <i class="fa-regular fa-folder-open"></i>
                 <h3>No Items Yet</h3>
-                <p>There are no lost item report to display.</p>
+                <p>There are no lost or found items to display.</p>
 </div>
+</td>
+</tr>
+                <?php }else{
+                        foreach($item as $i){
+                ?>
+                <tr>
+                    <td><?php if(!empty($i["Photo"])){?>
+                <img src="../pictures/<?= htmlspecialchars($i["Photo"]) ?>"
+                         alt="Item Photo" width="60">
+                <?php } else { ?>
+                    No Image
+                <?php } ?></td>
+                    <td><?php echo $i["ItemName"]?>
+                    <br>
+                    <small>
+                    <?php echo (substr($i["Description"], 0, 40)) ?>...
+                    </small>
+                </td>
+                    <td><?php echo $i["CategoryName"]?></td>
+                    <td><?php echo $i["DateLost"]?></td>
+                    <td><?php echo $i["Status"]?></td>
+                    <td>
+                        <a href="viewbyId.php?id=<?php echo $i["ItemID"]?>" class="view-btn">View</a>
+                        <?php if($i["ReportType"]==="Found"){?>
+                        <a href=""?id=?<?php echo $i["ItemID"]?> class="claim" onclick="return confirm('Are you sure?')">Claim</a></td>
+                        <?php }?>
+                    </td>
+                </tr>
+                 <?php }}?>
+            </table>
             </div>
 </div>
 </div>

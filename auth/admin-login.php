@@ -12,12 +12,21 @@ if(isset($_POST["sub"])){
     $password=$_POST["password"];
 
     $auth=new Authentication();
-    $message=$auth->login($email, $password);
+    $user=$auth->login($email, $password);
     
-    if($message==="Login Successful"){
+    if($user){
     $_SESSION["email"]=$email;
-    header("Location: ../admin/dashboard.php");
-    exit();
+    $_SESSION["UserID"]=$user["UserID"];
+    $_SESSION["role"] = $user["role"];
+
+    if ($_SESSION["role"] === "Admin") {
+        header("Location: ../admin/dashboard.php");
+        exit();
+    } else {
+        $message = "You are not authorized to access the admin account.";
+    }
+} else {
+    $message = "Invalid credentials";
 }
 }
 

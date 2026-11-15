@@ -5,6 +5,18 @@ if (!isset($_SESSION["email"])) {
     exit();
 }
 
+require_once __DIR__. '/../vendor/autoload.php';
+use App\Models\Item;
+$userID=$_SESSION["UserID"];
+$itemModel=new Item();
+try{
+    $item=$itemModel->getAll();
+    $totalLost=$itemModel->countlost();
+    $totalFound=$itemModel->countfound();
+}catch(PDOException $e){
+    echo $e->getMessage();
+    $item=[];
+}
 ?>
 
 
@@ -53,13 +65,13 @@ if (!isset($_SESSION["email"])) {
             <div class="container">
                 <i class="fa-solid fa-box"></i>
                 <p>Total Lost Items</p>
-                <h3>23</h3>
+                <h3><?php echo $totalLost["total"];?></h3>
                 <p>+1 this week</p>
             </div>
             <div class="container">
                 <i class="fa-solid fa-bag-shopping"></i>
                 <p>Total Found Items</p>
-                <h3>12</h3>
+                <h3><?php echo $totalFound["total"];?></h3>
                 <p>+3 this week</p>
             </div>
             <div class="container">
@@ -88,34 +100,75 @@ if (!isset($_SESSION["email"])) {
                 Found Items
             </button>
 </div>
-            <div class="descrip">
-                <p>Photo</p>
-                <p>Item Details</p>
-                <p>Category</p>
-                <p>Date Found/Lost</p>
-                <p>Status</p>
-                <p>Action</p>
-</div>
-
-            <div class="empty-state">
+            <table>
+                <tr>
+                    <th>Photo</th>
+                    <th>Item Details</th>
+                    <th>Report Type</th>
+                    <th>Category</th>
+                    <th>Location</th>
+                    <th>Date Reported</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                </tr>
+                <?php 
+                if(empty($item)){
+                ?>
+                <tr>
+                    <td colspan="6">
+                <div class="empty-state">
                 <i class="fa-regular fa-folder-open"></i>
                 <h3>No Items Yet</h3>
                 <p>There are no lost or found items to display.</p>
 </div>
+</td>
+</tr>
+                <?php }else{
+                        foreach($item as $i){
+                ?>
+                <tr>
+                    <td><?php if(!empty($i["Photo"])){?>
+                <img src="../pictures/<?= htmlspecialchars($i["Photo"]) ?>"
+                         alt="Item Photo" width="60">
+                <?php } else { ?>
+                    No Image
+                <?php } ?></td>
+                    <td><?php echo $i["ItemName"]?>
+                    <br>
+                    <small>
+                    <?php echo (substr($i["Description"], 0, 40)) ?>...
+                    </small>
+                </td>
+                <td>
+                <?php if ($i["ReportType"] === "Found") { ?>
+                <p>Found</p>
+                    <?php } else { ?>
+                     <p>Lost</p>
+    
+                     <?php } ?>
+</td>
+                    <td><?php echo $i["CategoryName"]?></td>
+                    <td><?php echo htmlspecialchars($i["LocationName"]); ?></td>
+                    <td><?php if ($i["ReportType"] === "Found"){
+                        echo $i["DateFound"];
+                    }else{
+                        echo $i["DateLost"];
+                    }?>
+                </td>
+                    <td><?php echo $i["Status"]?></td>
+                    <td>
+                        <a href="viewbyId.php?id=<?php echo $i["ItemID"]?>" class="view-btn">View</a>
+                        <?php if($i["ReportType"]==="Found"){?>
+                        <a href="submit-claim.php?id=<?php echo $i["ItemID"]?>" class="claim" >Claim</a></td>
+                        <?php }?>
+                    </td>
+                </tr>
+                 <?php }}?>
+            </table>
+
             </div>
 </div>
-            <div class="dashboard">
-                <div class="quick-action">
-                    <h3>Quick Action</h3>
-                    <div class="buttons">
-                    <button type="button" class="lost-btn">
-                    <i class="fa-solid fa-circle-plus"></i> 
-                    Report Lost Item</button>
-                    <button type="button" class="found-btn">
-                    <i class="fa-solid fa-file-lines"></i>
-                    My Reports</button>
-                    </div>
-</div>
+           
                     <div class="category">
                         <h3>Filter by Category</h3>
                         <button type="button" class="category-btn">
@@ -138,11 +191,6 @@ if (!isset($_SESSION["email"])) {
                             <i class="fa-solid fa-shirt"></i>
                             Clothing
                         </button>
-                        <button type="button" class="category-btn">
-                            <i class="fa-solid fa-ellipsis"></i>
-                            Others
-                        </button>
-                </div>
                 </div>
       </div>
         </main>

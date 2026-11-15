@@ -180,9 +180,10 @@ body{
 }
 
 .recent-listing{
-    width: 100%;
+    width: 154%;
     min-height: 58vh;
     margin: 0;
+    margin-top: 25px;
     box-sizing: border-box;
     background-color: #E8E5FF;
     border-radius: 10px;
@@ -262,20 +263,102 @@ body{
     color: #302F68;
 }
 
-.descrip{
-    background-color:#D4CFFC;
-    width: 95%;
-    height: 30px;
-    margin: 8px;
-    border-radius: 5px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 5px;
+
+body{
+    font-family: 'Poppins',sans-serif;
+}
+table{
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
 }
 
-.descrip p{
-    font-size: 15px;
+/* thead tr {
+    background-color: #D4CFFC;
+    border-radius: 10px;
+    margin-bottom: 10px;
+} */
+
+th{
+    background-color: #D4CFFC;
+    text-align: left;
+    height: 40px;
+    /* border: 1px solid; */
+}
+
+/* tbody::before {
+    content: "";
+    display: block;
+    height: 10px;
+} */
+
+td{
+    margin-top: 10px;
+}
+
+table tr th:nth-child(1){
+    width: 80px;
+}
+
+table tr th:nth-child(2){
+    width: 150px;
+}
+table tr th:nth-child(3){
+    width: 85px;
+}
+
+table tr th:nth-child(4){
+    width: 30px;
+}
+table tr th:nth-child(5){
+    width: 70px;
+}
+
+table tr th:nth-child(6){
+    width: 50px;
+}
+
+table tr th:nth-child(7){
+    width: 60px;
+}
+
+table tr th:nth-child(8){
+    width: 110px;
+}
+
+.view-btn{
+    padding: 5px 15px;
+    background-color: #6355D9;
+    color: white;
+    text-decoration: none;
+    border-radius: 8px;
+    text-align: center;
+}
+
+
+
+.claim{
+    padding: 5px 15px;
+    background-color: #16A36A;
+    color: white;
+    text-decoration: none;
+    border-radius: 10px;
+    text-align: center;
+}
+
+.view-btn:hover {
+    background-color: #5043B8;
+}
+
+.claim:hover {
+    background-color: #128354;
+}
+
+.item-photo {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 8px;
 }
 
 .empty-state{
@@ -295,90 +378,40 @@ body{
     color: #302F68;
 }
 
-.dashboard {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-    min-width: 0;
-}
-
-.quick-action,
 .category {
-    width: 100%;
-    padding: 15px;
+    flex: 1;
+    min-height: 80px;
+    min-width: 0;
+    padding: 20px;
     box-sizing: border-box;
     background-color: #E8E5FF;
     border: 1px solid #D5D2E5;
-    border-radius: 10px;    
+    border-radius: 10px;
+    margin-left: 0;
+    margin-top: 0;
 }
 
-.quick-action{
-    min-height: 180px;
+.category {
+    height: 280px;
+    min-height: unset;
+    padding: 15px;
+    box-sizing: border-box;
+    overflow: hidden;
 }
 
-.quick-action h3,
 .category h3 {
     margin: 0;
     color: #302F68;
 }
 
-.lost-btn{
-    width: 90%;
-    height: 50px;
-    font-size: 15px;
-    font-weight: bold;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: darkblue;
-    border-radius: 5px;
-    border: none;
-    color: white;
-    cursor: pointer;
-    margin: 10px;
-}
-
-.found-btn{
-    width: 90%;
-    height: 50px;
-    font-size: 15px;
-    font-weight: bold;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: #D4CFFC;
-    border-radius: 5px;
-    border: none;
-    color: black;
-    cursor: pointer;
-    margin: 10px;
-}
-
-.lost-btn,
-.found-btn{
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-}
-
-.lost-btn:hover{
-    background-color: #45438A;
-    color: #FFFFFF;
-}
-
-.found-btn:hover{
-    background-color: #D4CFFC;
-    color: #302F68;
-}
 
 .category {
     min-height: 200px;
 }
 
 .category-btn{
-    width: 100%;
-    height: 50px;
+    width: 90%;
+    height: 45px;
     display: inline-flex;
     align-items: center;
     justify-content: flex-start;

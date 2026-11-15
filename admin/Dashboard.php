@@ -3,6 +3,17 @@ session_start();
 if (!isset($_SESSION["email"])) {
     header("Location: ../auth/admin-login.php");
     exit();
+    
+}
+require_once __DIR__. '/../vendor/autoload.php';
+use App\Models\Item;
+$userID=$_SESSION["UserID"];
+$itemModel=new Item();
+try{
+    $item=$itemModel->getAllclaim();
+}catch(PDOException $e){
+    echo $e->getMessage();
+    $item=[];
 }
 ?>
 
@@ -17,6 +28,7 @@ if (!isset($_SESSION["email"])) {
     <link rel="stylesheet" href="../css/student-dashboard.css">
     <link rel="stylesheet" href="../css/admin-dashboard.css">
     <link rel="stylesheet" href="../css/manage.css">
+    <link rel="stylesheet" href="../css/manage-claim.css">
     <link
     rel="stylesheet"
     href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
@@ -112,19 +124,46 @@ if (!isset($_SESSION["email"])) {
             <h3>Pending Claims</h3>
             <a href="view.php">View All Claims →</a>
 </div>
-            <div class="pending-descrip">
-                <p>Claim ID</p>
-                <p>Item Name</p>
-                <p>Claim Date</p>
-                <p>Status</p>
-                <p>Action</p>
-</div>
-
-            <div class="pending-empty-state">
+            <table>
+                <tr>
+                    <th>Claimant</th>
+                    <th>Item Name</th>
+                    <th>Date</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                </tr>
+                <?php 
+                if(empty($item)){
+                ?>
+                <tr>
+                    <td colspan="8">
+                <div class="empty-state">
                 <i class="fa-regular fa-folder-open"></i>
-                <h3>No Claims Yet</h3>
-                <p>There are no Claims to display.</p>
+                <h3>No Items Yet</h3>
+                <p>There are no lost or found items to display.</p>
 </div>
+</td>
+</tr>
+                <?php }else{
+                        foreach($item as $i){
+                ?>
+                <tr>
+                    <td><?php echo $i["fullname"]?>
+                </td>
+                <td><?php echo $i["ItemName"]?></td>
+                <td>
+                <?php echo $i["ClaimDate"]?>
+</td>
+                    
+                    <td><?php echo $i["Status"]?></td>
+                    <td>
+                        <a href="viewbyuser.php" class="view-btn-claim">View</a>
+                        <a href="" class="approve-claim">Approve</a>
+                        <a href="" class="reject-claim" onclick="return confirm('Are you sure?')">Reject</a></td>
+                    </td>
+                </tr>
+                 <?php }}?>
+            </table>
             </div>
             <div class="recent-activity">
                 <div class="recent-admin">

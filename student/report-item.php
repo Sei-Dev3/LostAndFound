@@ -1,3 +1,80 @@
+<?php 
+session_start();
+if (!isset($_SESSION["email"])) {
+    header("Location: ../auth/loguot.php");
+    exit();
+}
+
+require_once __DIR__. '/../vendor/autoload.php';
+use App\Models\Item;
+$message ="";
+$itemModel=new Item();
+if(isset($_POST["sub"])){
+    $iname =$_POST["itemname"];
+    $category=$_POST["category"];
+    $location=$_POST["location"];
+    $datelost=$_POST["datelost"];
+    $description=$_POST["description"];
+
+$fileNameNew = NULL;
+if (isset($_FILES["item_photo"])) {
+    if ($_FILES["item_photo"]["error"]=== UPLOAD_ERR_NO_FILE) {
+    $fileNameNew = NULL;
+
+    }elseif ($_FILES["item_photo"]["error"] === UPLOAD_ERR_OK) {
+
+    $fileName=$_FILES["item_photo"]["name"];
+    $fileTmpName=$_FILES["item_photo"]["tmp_name"];
+    $fileSize=$_FILES["item_photo"]["size"];
+
+    $fileExt =  explode('.', $fileName);
+    $fileActualExt = strtolower(end($fileExt));
+
+    $allowed = array('jpg', 'jpeg', 'png', 'jfif');
+
+    if (!in_array($fileActualExt, $allowed)) {
+        $message = "You cannot upload this file type!";
+
+    } elseif ($fileSize > 5000000) {
+        $message = "Your file is too big!";
+
+    } else {
+        $fileNameNew = uniqid('', true) . "." . $fileActualExt;
+        $fileDestination = __DIR__ . '/../pictures/' . $fileNameNew;
+
+        if (!move_uploaded_file($fileTmpName, $fileDestination)) {
+            $message = "Failed to upload the photo!";
+        }
+    }
+    } else {
+        $message = "There was an error uploading the photo!";
+    }
+    }else {
+    $fileNameNew = NULL;
+}
+if ($message === "") {
+    try {
+        $userID=$_SESSION["UserID"];
+        $result = $itemModel->insert(
+            $iname,
+            $category,
+            $location,
+            $datelost,
+            $description,
+            $fileNameNew,
+            $userID
+        );
+        
+        header("Location: dashboard.php?uploadsuccess");
+        exit();
+    } catch (PDOException $e) {
+        $message = "Database error: " . $e->getMessage();
+    }
+}
+}
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -37,24 +114,24 @@
         <h1>Report Lost Items</h1>
         <p>Submit a report for an item you've lost.</p>
 </div>
+<form method="POST" enctype="multipart/form-data">
         <div class="fillout">
         <div class="fillout-container">
         <div class="inputs">
             <div class="column">
                 <div class="label-input">
                 <label>Item Name</label>
-                <input type="text" placeholder="e.g Black wallet, iphone 13, Backpack">
+                <input type="text" name="itemname" placeholder="e.g Black wallet, iphone 13, Backpack">
                 </div>
                 <div class="label-input">
                 <label>Category</label>
                  <select name="category" id="category">
                     <option value="" disabled selected>Select Category</option>
-                    <option value="bags">Bags</option>
-                    <option value="electronics">Electronics</option>
-                    <option value="wallets">Wallets</option>
-                    <option value="keys">Keys</option>
-                    <option value="clothing">Clothing</option>
-                    <option value="others">Others</option>
+                    <option value="1">Bags</option>
+                    <option value="2">Electronics</option>
+                    <option value="3">Wallets</option>
+                    <option value="4">Keys</option>
+                    <option value="5">Clothing</option>
                  </select>
                 </div>
             </div>
@@ -63,14 +140,14 @@
                 <label>Location</label>
                  <select name="location" id="location">
                     <option value="" disabled selected>Select Location</option>
-                    <option value="Library">Library</option>
-                    <option value="canteen">Canteen</option>
-                    <option value="classroom">Classroom</option>
+                    <option value="1">Library</option>
+                    <option value="2">Canteen</option>
+                    <option value="3">Office</option>
                  </select>
                 </div>
                 <div class="label-input">
                 <label>Date Lost</label>
-                <input type="date">
+                <input type="date" name="datelost">
                 </div>
         </div>
         <div class="column">
@@ -94,21 +171,36 @@
                     <input type="file"
                         id="item-photo"
                         name="item_photo"
-                        hidden
-                        required>
+                        accept=".jpg,.jpeg,.png,.jfif"
+                        hidden>
+                        <p id="file-name">No image selected</p>
                 </label>
+                <?php if ($message !== ""): ?>
+                <p class="error-message">
+                <?= htmlspecialchars($message) ?>
+                </p>
+                <?php endif; ?>
                 </div>
+</form>
                 <hr class="devider">
                 <div class="submit-cancel-btn">
                     <button type="button" class="cancel">
                         Cancel</button>
-                    <button type="button" class="submit">
-                        <i class="fa-solid fa-paper-plane"></i>
-                        Submit</button>
+                <input type="Submit" value="Submit" name="sub" class="submit">    
                 </div>
             </div>
         </div>
 </main>
 </div>
+<script>
+    const photoInput = document.getElementById("item-photo");
+    const fileName = document.getElementById("file-name");
+
+    photoInput.addEventListener("change", function () {
+    fileName.textContent = this.files.length > 0
+        ? this.files[0].name
+        : "No image selected";
+});
+</script>
 </body>
 </html>
