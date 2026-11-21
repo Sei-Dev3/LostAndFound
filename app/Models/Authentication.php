@@ -13,7 +13,7 @@ class Authentication{
         return "Password does not match";
     }
         $hashPass=password_hash($password, PASSWORD_DEFAULT);
-        $sql="INSERT INTO users(fullname, email, password) VALUES(?,?,?)";
+        $sql="INSERT INTO user(fullname, email, password_hash) VALUES(?,?,?)";
         $stmt=$this->conn->prepare($sql);
         $stmt->execute([
             $fullname,
@@ -25,12 +25,12 @@ class Authentication{
         }
 
     public function login($email, $password){
-        $sql="SELECT * FROM users WHERE email=?";
+        $sql="SELECT * FROM user WHERE email=?";
         $stmt=$this->conn->prepare($sql);
         $stmt->execute([$email]);
         $user=$stmt->fetch();
 
-        if($user && password_verify($password,$user["password"])){
+        if($user && password_verify($password,$user["password_hash"])){
             return $user;
         }else{
             return false;

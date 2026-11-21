@@ -1,64 +1,113 @@
-.info-user-layout{
+.info-user-layout {
     width: 100%;
-    height: 60%;
-    margin-top: 20px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    padding: 20px;
+    box-sizing: border-box;
 }
 
-.info-user-container{
-    width: 80%;
-    height: 100%;
-    display: flex;
+.info-user-container {
+    width: 85%;
+    margin: 0 auto;
+    padding: 30px;
+    box-sizing: border-box;
+    background-color: #FFFFFF;
     border: 1px solid #B9B5D0;
-    border-radius: 10px;
-    justify-content: center;
+    border-radius: 12px;
 }
 
-.profile{
-    width: 95%;
-    height: 30%;
-    display: flex;
-}
-
-.profile i{
-    width: 80px;
-    height: 80px;
-    font-size: 60px;
+.profile-header {
     display: flex;
     align-items: center;
+    gap: 20px;
+    margin-bottom: 25px;
+}
+
+.profile-icon {
+    width: 75px;
+    height: 75px;
+    display: flex;
     justify-content: center;
+    align-items: center;
+    background-color: #E8E5FF;
+    border-radius: 50%;
+    flex-shrink: 0;
 }
 
-.user-name{
-    width: 100%;
+.profile-icon i {
+    font-size: 55px;
+    color: #302F68;
 }
 
-.user-name h2{
-    margin:0;
-    margin-top: 20px;
+.profile-heading h1 {
+    margin: 0 0 5px;
+    color: #302F68;
 }
 
-.user-name p{
-    margin: 10px;
+.profile-heading p {
+    margin: 0 0 10px;
+    color: #777;
 }
 
-.spacing{
+.role-badge {
+    display: inline-block;
+    padding: 5px 15px;
+    background-color: #E8E5FF;
+    color: #6355D9;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: bold;
+}
+
+.info-user-container hr {
+    border: none;
+    border-top: 1px solid #E2E0EF;
+    margin: 25px 0;
+}
+
+.section-title {
+    color: #302F68;
+    margin-bottom: 20px;
+}
+
+.user-information {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+}
+
+.info-box {
+    padding: 18px;
+    background-color: #F6F7FD;
+    border-radius: 10px;
+    border: 1px solid #E2E0EF;
+}
+
+.info-box h4 {
+    margin: 0 0 10px;
+    color: #777;
+    font-size: 14px;
+}
+
+.info-box h3 {
     margin: 0;
-    gap: 0;
+    color: #302F68;
+    font-size: 17px;
+    overflow-wrap: anywhere;
 }
 
-.spacing h2,
-.spacing h4,
-.spacing p {
-    margin: 0;
+.profile-actions {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 25px;
 }
 
-.spacing h4 {
-    margin-bottom: 5px;
+.back-btn {
+    padding: 10px 20px;
+    background-color: #6355D9;
+    color: white;
+    text-decoration: none;
+    border-radius: 8px;
 }
 
-.spacing h2 {
-    margin-bottom: 30px;
+.back-btn:hover {
+    background-color: #5043B8;
 }

@@ -226,3 +226,40 @@
     color: #6355D9;
     margin-top: 8px;
 }
+
+.view-btn-claim{
+    padding: 5px 15px;
+    background-color: #6355D9;
+    color: white;
+    text-decoration: none;
+    border-radius: 8px;
+    text-align: center;
+}
+
+
+
+.reject-claim{
+    padding: 5px 15px;
+    background-color: red;
+    color: white;
+    text-decoration: none;
+    border-radius: 10px;
+    text-align: center;
+}
+
+.approve-claim{
+    padding: 5px 15px;
+    background-color: #16A36A;
+    color: white;
+    text-decoration: none;
+    border-radius: 10px;
+    text-align: center;
+}
+
+.view-btn:hover {
+    background-color: #5043B8;
+}
+
+.claim:hover {
+    background-color: #128354;
+}

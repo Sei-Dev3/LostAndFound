@@ -6,11 +6,11 @@ if (!isset($_SESSION["email"])) {
 }
 
 require_once __DIR__. '/../vendor/autoload.php';
-use App\Models\Item;
+use App\Models\user;
 $userID=$_SESSION["UserID"];
-$itemModel=new Item();
+$userModel=new User();
 try{
-    $item=$itemModel->getAllUsers();
+    $item=$userModel->getAllUsers();
 }catch(PDOException $e){
     echo $e->getMessage();
     $item=[];
@@ -24,9 +24,9 @@ try{
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="../css/manage-claim.css">
     <link rel="stylesheet" href="../css/manage-item.css">
     <link rel="stylesheet" href="../css/manage.css">
-    <link rel="stylesheet" href="../css/manage-claim.css">
     <link
     rel="stylesheet"
     href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
@@ -123,7 +123,9 @@ try{
                     
                     <td><?php echo $i["created_at"]?></td>
                     <td>
-                        <a href="viewbyuser.php" class="view-btn">View</a>
+                        <a href="viewbyuser.php?id=<?php echo $i["UserID"]; ?>" class="view-btn">
+                            View
+                        </a>
                         <a href="" class="claim" onclick="return confirm('Are you sure?')">Delete</a></td>
                     </td>
                 </tr>

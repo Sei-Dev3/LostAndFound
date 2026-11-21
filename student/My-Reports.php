@@ -99,6 +99,7 @@ try{
                     <th>Photo</th>
                     <th>Item Details</th>
                     <th>Category</th>
+                    <th>Location</th>
                     <th>Date Reported</th>
                     <th>Status</th>
                     <th>Actions</th>
@@ -132,14 +133,39 @@ try{
                     </small>
                 </td>
                     <td><?php echo $i["CategoryName"]?></td>
-                    <td><?php echo $i["DateLost"]?></td>
+        
+                    <td><?php echo $i["LocationName"]?></td>
+                    <td>
+    <?php
+    if ($i["ReportType"] == "Lost") {
+        echo $i["DateLost"];
+    } else {
+        echo $i["DateFound"];
+    }
+    ?>
+</td>
                     <td><?php echo $i["Status"]?></td>
                     <td>
-                        <a href="viewbyId.php?id=<?php echo $i["ItemID"]?>" class="view-btn">View</a>
-                        <?php if($i["ReportType"]==="Found"){?>
-                        <a href=""?id=?<?php echo $i["ItemID"]?> class="claim" onclick="return confirm('Are you sure?')">Claim</a></td>
-                        <?php }?>
-                    </td>
+    <div class="action-dropdown">
+        <button type="button" class="action-btn">
+            <i class="fa-solid fa-ellipsis-vertical"></i>
+        </button>
+
+        <div class="dropdown-menu">
+
+            <a href="viewbyid.php?id=<?php echo $i['ItemID']; ?>">
+                <i class="fa-solid fa-eye"></i> View
+            </a>
+
+            <a href="delete-item.php?id=<?php echo $i['ItemID']; ?>"
+               onclick="return confirm('Are you sure you want to delete this item?')"
+               class="delete-option">
+                <i class="fa-solid fa-trash"></i> Delete
+            </a>
+
+        </div>
+    </div>
+</td>
                 </tr>
                  <?php }}?>
             </table>

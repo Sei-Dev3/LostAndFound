@@ -163,6 +163,10 @@ th{
     /* border: 1px solid; */
 }
 
+td{
+    font-size: 14px;
+}
+
 /* tbody::before {
     content: "";
     display: block;

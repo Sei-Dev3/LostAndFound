@@ -144,13 +144,28 @@ try{
                         echo $i["DateLost"];
                     }?>
                 </td>
-                    <td><?php echo $i["Status"]?></td>
-                    <td>
-                        <a href="viewbyid.php?id=<?php echo $i["ItemID"]?>" class="view-btn">View</a>
-                        <?php if($i["ReportType"]==="Found"){?>
-                        <a href=""?id=?<?php echo $i["ItemID"]?> class="claim" onclick="return confirm('Are you sure?')">Delete</a></td>
-                        <?php }?>
-                    </td>
+                    <td><?php echo $i["ItemStatus"]?></td>
+                   <td>
+    <div class="action-dropdown">
+        <button type="button" class="action-btn">
+            <i class="fa-solid fa-ellipsis-vertical"></i>
+        </button>
+
+        <div class="dropdown-menu">
+
+            <a href="viewbyid.php?id=<?php echo $i['ItemID']; ?>">
+                <i class="fa-solid fa-eye"></i> View
+            </a>    
+
+            <a href="delete.php?id=<?php echo $i['ItemID']; ?>"
+               onclick="return confirm('Are you sure you want to delete this item?')"
+               class="delete-option">
+                <i class="fa-solid fa-trash"></i> Delete
+            </a>
+
+        </div>
+    </div>
+</td>
                 </tr>
                  <?php }}?>
 

@@ -1,27 +1,32 @@
-<?php 
+<?php
 session_start();
+
 if (!isset($_SESSION["email"])) {
-    header("Location: ../auth/loguot.php");
+    header("Location: ../student/my-reports.php");
     exit();
 }
 
-require_once __DIR__. '/../vendor/autoload.php';
+require_once __DIR__ . '/../vendor/autoload.php';
 use App\Models\Item;
 
-$itemModel=new Item();
-
-if(isset($_GET["id"])){
-    $id=$_GET["id"];
-try{
+$itemModel = new Item();
+if (!isset($_GET["id"])) {
+    exit("No Item ID provided.");
+}
+$id = $_GET["id"];
+try {
+    if (isset($_POST["up"])) {
+        header("Location: viewbyid.php?id=" . urlencode($id));
+        exit();
+    }
     $item = $itemModel->ViewById($id);
-
-}catch(PDOException $e){
+    if (!$item) {
+        exit("Item not found.");
+    }
+} catch (PDOException $e) {
     echo $e->getMessage();
 }
-}else {
-    echo "No item ID provided.";
-}
-?>  
+?>
 
 
 
@@ -30,76 +35,110 @@ try{
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="../css/manage-item.css">
-    <link rel="stylesheet" href="../css/student-dashboard.css">
+    <title>Edit Lost Item Report</title>
+
+
+    <link rel="stylesheet" href="../css/update.css">
     <link rel="stylesheet" href="../css/style.css">
-    <link
-    rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
->
+
+    <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 </head>
+
 <body>
-    <div class="layout">
-        <main class="dashboard-content">
-            <div class="topbar1">
-        <div class="topbar-action">
-            <button type="button" class="notification">
-                    <i class="fa-solid fa-bell"></i>
-                    <!-- <span class="notification-badge">3</span> -->
-                    </button>
-                <button type="button" class="circle-profile">
-</button>
-</div>
-</div>
-        <div class="view-item">
-        <a href="dashboard.php" class="view">← Dashboard</a>
-</div>
-            <div class="view-container">
-                <div class="view-layout">
-                    <div class="view-photo">
-                        <?php
-                             if(!empty($item["Photo"])){?>
-                             <img src="../pictures/<?php echo htmlspecialchars($item["Photo"]) ?>"
-                                    alt="Item Photo" width="60">
-                            <?php } else { ?>
-                             <h1>No image</h1>
-                        <?php } ?>
-                       
+
+<div class="layout">
+    <main class="dashboard-content">
+
+        <div class="edit-header">
+            <a href="manage-item.php?id=<?php echo urlencode((string)$id); ?>" class="back-btn">
+                <i class="fa-solid fa-arrow-left"></i> Back
+            </a>
+            <h1>Edit Lost and Found Item Report</h1>
+            <p>Update your item information and the Status of the Item.</p>
+        </div>
+        <div class="edit-container">
+            <form action="updatefound.php" method="POST" enctype="multipart/form-data">
+                <div class="edit-grid">
+
+                    <div class="edit-fields">
+                        <input type="hidden" name="ItemID"
+                        value="<?php echo htmlspecialchars((string)$item["ItemID"]); ?>">
+                        <label>Item Name</label>
+                        <input type="text" name="ItemName"
+                        value="<?php echo htmlspecialchars($item["ItemName"]); ?>" required>
+
+                        <label>Category</label>
+                        <select name="category" id="category">
+                            <option value="" disabled selected>Select Category</option>
+                            <option value="1" <?php echo ($item["CategoryID"] == 1) ? "selected" : ""; ?>>Bags</option>
+                            <option value="2" <?php echo ($item["CategoryID"] == 2) ? "selected" : ""; ?>>Electronics</option>
+                            <option value="3" <?php echo ($item["CategoryID"] == 3) ? "selected" : ""; ?>>Wallets</option>
+                            <option value="4" <?php echo ($item["CategoryID"] == 4) ? "selected" : ""; ?>>Keys</option>
+                            <option value="5" <?php echo ($item["CategoryID"] == 5) ? "selected" : ""; ?>>Clothing</option>
+                        </select>
+
+                        <label>Location</label>
+                        <select name="location" id="location">
+                            <option value="" disabled selected>Select Location</option>
+                            <option value="1" <?php echo ($item["LocationID"] == 1) ? "selected" : ""; ?>>Library</option>
+                            <option value="2" <?php echo ($item["LocationID"] == 2) ? "selected" : ""; ?>>Canteen</option>
+                            <option value="3" <?php echo ($item["LocationID"] == 3) ? "selected" : ""; ?>>Office</option>   
+                        </select>
+
+                        <label>Date Reported</label>
+                            <input type="date" name="datereported" value="<?php if ($item["ReportType"] === "Found") {
+                                    echo htmlspecialchars($item["DateFound"]);
+                            } else {
+                             echo htmlspecialchars($item["DateLost"]);
+                            }
+                            ?>" required>
+
+                        <label>Description</label>
+                        <textarea name="description" rows="5" required><?php
+                            echo htmlspecialchars($item["Description"]);
+                        ?></textarea>
+                        <label for="status">Select Status</label>
+        <select name="status" id="status" required>
+            <option value="Lost" <?php echo ($item["Status"] == "Lost") ? "selected" : ""; ?>>
+                Lost
+            </option>
+            <option value="Available" <?php echo ($item["Status"] == "Available") ? "selected" : ""; ?>>
+                Available
+            </option>
+            <option value="Claimed" <?php echo ($item["Status"] == "Claimed") ? "selected" : ""; ?>>
+                Claimed
+            </option>
+            <option value="Returned" <?php echo ($item["Status"] == "Returned") ? "selected" : ""; ?>>
+                Returned
+            </option>
+        </select>
                     </div>
-                    <div class="info-view">
-                    <input type="text" name="pname" value="<?php echo $item["ItemName"]?>">
-                    <div class="info">
-                        <p class="lost">
-                            <?php if ($item["ReportType"] === "Found") { ?>
-                                Found
-                            <?php } else { ?>
-                                Lost
-                            <?php } ?>
-                        </p>
-                        <p class="date"><?php if ($item["ReportType"] === "Lost"){
-                            echo $item["DateLost"];
-                        }else{
-                            echo $item["DateFound"];
-                        }?></p>
-                    </div>
-                    <hr>
                     
-                    <h3>Category:<?php echo htmlspecialchars($item["CategoryName"]);?> </h3>
-                    <h3>Location:<?php echo $item["LocationName"]?> </h3>
-                    <h3>Description: <?php echo $item["Description"]?></h3>
-                    <hr>
-                    <div class="btns">
-<button type="Submit">Update</button>
-<a  href="manage-item.php">Cancel</a>
-</div>
+                    <div class="edit-photo">
+                        <label>Current Photo</label>
+                        <?php if (!empty($item["Photo"])) { ?>
+                            <img src="../pictures/<?php echo htmlspecialchars($item["Photo"]); ?>"
+                                 alt="Current Item Photo">
+                        <?php } else { ?>
+                            <p>No image uploaded.</p>
+                        <?php } ?>
+                        <label for="Photo">Change Photo</label>
+                        <input type="file" name="item_photo" id="Photo" accept="image/*">
 
+                        <p class="photo-note">
+                            Leave this empty if you want to keep the current photo.
+                        </p>
+                    </div>
                 </div>
+                <div class="edit-actions">
+                    <a href="view.php?id=<?php echo urlencode((string)$id); ?>"
+                       class="cancel-btn">Cancel</a>
+                    <input type="submit" name="up" value="Save_status">
                 </div>
-
-            </div>
-</div>
-</main>
+            </form>
+        </div>
+    </main>
 </div>
 </body>
 </html>

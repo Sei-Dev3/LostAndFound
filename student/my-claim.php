@@ -6,13 +6,15 @@ if (!isset($_SESSION["email"])) {
 }
 
 require_once __DIR__. '/../vendor/autoload.php';
+use App\Models\Claim;
 use App\Models\Item;
 
-$itemModel=new Item();
+$claimModel=new Claim();
+$itemModel= new Item();
 $userID=$_SESSION["UserID"];
 
 try{
-    $item=$itemModel->myclaim($userID);
+    $item=$claimModel->myclaim($userID);
     $totalLost=$itemModel->personalcountreport($userID);
 }catch(PDOException $e){
     echo $e->getMessage();
@@ -28,7 +30,8 @@ try{
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="../css/student-dashboard.css">
-    <link rel="stylesheet" href="../css/my-report.css?v=2">
+    <link rel="stylesheet" href="../css/my-report.css">
+    <link rel="stylesheet" href="../css/my-claim.css">
     <link
     rel="stylesheet"
     href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
@@ -134,16 +137,20 @@ try{
                     <td><?php echo $i["ItemName"]?>
                     <br>
                     <small>
-                    <?php echo (substr($i["Description"], 0, 40)) ?>...
+                    <?php echo (substr($i["ClaimDetails"], 0, 40)) ?>...
                     </small>
                 </td>
                     <td><?php echo $i["CategoryName"]?></td>
                     <td><?php echo $i["ClaimDate"]?></td>
-                    <td><?php echo $i["Status"]?></td>
+                    <td><?php echo htmlspecialchars($i["ClaimStatus"]); ?></td>
                     <td>
-                        <a href="viewbyId.php?id=<?php echo $i["ItemID"]?>" class="view-btn2-user">View</a>
+                        <a href="viewclaim.php?id=<?php echo $i["ClaimID"]?>" class="view-btn-claim">View</a>
                         <?php if($i["ReportType"]==="Found"){?>
-                        <a href=""?id=?<?php echo $i["ItemID"]?> class="claim2" onclick="return confirm('Are you sure?')">Delete</a></td>
+                        <a href="delete-claim.php?id=<?php echo $i["ClaimID"]; ?>"
+   class="reject-claim"
+   onclick="return confirm('Are you sure you want to delete this claim?')">
+   Delete
+</a></td>
                         <?php }?>
                     </td>
                 </tr>

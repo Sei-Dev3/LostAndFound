@@ -109,11 +109,11 @@ if ($message === "") {
             <div class="column">
                 <div class="label-input">
                 <label>Item Name</label>
-                <input type="text" name="itemname" placeholder="e.g Black wallet, iphone 13, Backpack">
+                <input type="text" name="itemname" placeholder="e.g Black wallet, iphone 13, Backpack" required>
                 </div>
                 <div class="label-input">
                 <label>Category</label>
-                 <select name="category" id="category">
+                 <select name="category" id="category" required>
                     <option value="" disabled selected>Select Category</option>
                     <option value="1">Bags</option>
                     <option value="2">Electronics</option>
@@ -126,7 +126,7 @@ if ($message === "") {
             <div class="column">
                 <div class="label-input">
                 <label>Location</label>
-                 <select name="location" id="location">
+                 <select name="location" id="location" required>
                     <option value="" disabled selected>Select Location</option>
                     <option value="1">Library</option>
                     <option value="2">Canteen</option>
@@ -135,7 +135,7 @@ if ($message === "") {
                 </div>
                 <div class="label-input">
                 <label>Date Found</label>
-                <input type="date" name="datefound">
+                <input type="date" name="datefound" required>
                 </div>
         </div>
         <div class="column">
@@ -145,6 +145,7 @@ if ($message === "") {
                     name="description"
                     id="description"
                     placeholder="Provide a detailed description of the item."
+                    required
                     row="4"></textarea>
                 </div>
         </div>

@@ -123,4 +123,78 @@
     margin: 10px;
 }
 
+.action-dropdown {
+    position: relative;
+    display: inline-block;
+}
 
+.action-btn {
+    background: none;
+    border: none;
+    padding: 8px 12px;
+    cursor: pointer;
+    color: #302F68;
+    font-size: 18px;
+}
+
+.dropdown-menu {
+    display: none;
+    position: absolute;
+    right: 0;
+    top: 100%;
+    background: white;
+    min-width: 150px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.12);
+    border-radius: 8px;
+    z-index: 10;
+}
+
+.action-dropdown:hover .dropdown-menu {
+    display: block;
+}
+
+.dropdown-menu a {
+    display: block;
+    padding: 10px 14px;
+    text-decoration: none;
+    color: #302F68;
+    font-size: 14px;
+}
+
+.dropdown-menu a:hover {
+    background: #F0EEFF;
+}
+
+.dropdown-menu .delete-option {
+    color: #DC2626;
+}
+
+.claim-actions {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: auto;
+    padding-top: 20px;
+}   
+
+.approve-claim {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 10px 16px;
+    background-color: #6355D9;
+    color: #FFFFFF;
+    text-decoration: none;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 500;
+    transition: 0.2s ease;
+}
+
+.approve-claim:hover {
+    background-color: #4D40B5;
+}
+
+.approve-claim i {
+    font-size: 14px;
+}

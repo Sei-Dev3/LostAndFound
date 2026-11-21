@@ -283,7 +283,12 @@ th{
     background-color: #D4CFFC;
     text-align: left;
     height: 40px;
+    font-size: 15;
     /* border: 1px solid; */
+}
+
+td{
+    font-size: 14px;
 }
 
 /* tbody::before {
@@ -307,20 +312,20 @@ table tr th:nth-child(3){
     width: 85px;
 }
 
-table tr th:nth-child(4){
-    width: 100px;
-}
-table tr th:nth-child(5){
-    width: 70px;
+table tr th:nth-child(4) {
+    width: 120px;
 }
 
-table tr th:nth-child(6){
-    width: 30px;
+table tr th:nth-child(5) {
+    width: 120px;
 }
 
-table tr th:nth-child(7){
+table tr th:nth-child(6) {
     width: 100px;
-    border-radius: 0 10px 10px 0;
+}
+
+table tr th:nth-child(7) {
+    width: 120px;
 }
 
 .submitted-report td:last-child {
@@ -478,25 +483,6 @@ table tr th:nth-child(7){
     margin: 0;
 }
 
-.submitted-report a{
-    width: 60px;
-    height: 30px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-decoration: none;
-    background-color: darkblue;
-    color:  white;
-    font-size: 15px;
-    margin-right: 20px;
-    border-radius: 10px;
-}
-
-.submitted-report a:hover {
-    background-color: #45438A;
-    text-decoration: underline;
-}
-
 .submitted-btn{
     width: 40%;
     margin: 8px;
@@ -563,10 +549,65 @@ table tr th:nth-child(7){
         cursor: pointer;
     }
 
-.view-btn2-user{
-    background-color: darkblue;
+.action-dropdown {
+    position: relative;
+    display: inline-block;
 }
 
-.claim2{
-    background-color: red !important;
+.action-btn {
+    background: none;
+    border: none;
+    padding: 8px 12px;
+    cursor: pointer;
+    color: #302F68;
+    font-size: 18px;
+}
+
+.dropdown-menu {
+    display: none;
+    position: absolute;
+    right: 0;
+    top: 100%;
+    background: white;
+    min-width: 150px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.12);
+    border-radius: 8px;
+    z-index: 10;
+}
+
+.action-dropdown:hover .dropdown-menu {
+    display: block;
+}
+
+.dropdown-menu a {
+    display: block;
+    padding: 10px 14px;
+    text-decoration: none;
+    color: #302F68;
+    font-size: 14px;
+}
+
+.dropdown-menu a:hover {
+    background: #F0EEFF;
+}
+
+.dropdown-menu .delete-option {
+    color: #DC2626;
+}
+
+.submitted-report td:last-child {
+    white-space: nowrap;
+    text-align: center;
+    vertical-align: middle;
+}
+
+.submitted-report td:last-child .dropdown-menu a {
+    display: flex;
+    width: auto;
+    height: auto;
+    margin: 0;
+    padding: 10px 14px;
+    justify-content: flex-start;
+    align-items: center;
+    box-sizing: border-box;
 }

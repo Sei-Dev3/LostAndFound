@@ -1,0 +1,172 @@
+.claim-header {
+    margin: 25px 20px;
+}
+
+.back-btn {
+    text-decoration: none;
+    color: #302F68;
+    font-size: 14px;
+}
+
+.claim-header h1 {
+    color: #302F68;
+    margin-top: 20px;
+    margin-bottom: 5px;
+}
+
+.claim-header p {
+    color: #555;
+}
+
+.claim-container {
+    background: #FFFFFF;
+    border: 1px solid #DAD9EA;
+    border-radius: 12px;
+    padding: 25px;
+    margin: 20px;
+}
+
+.claim-title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+}
+
+.claim-title h2 {
+    color: #302F68;
+    font-size: 22px;
+}
+
+.status {
+    padding: 7px 15px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.pending {
+    background: #FFF1CC;
+    color: #A66A00;
+}
+
+.claim-content {
+    display: flex;
+    gap: 100px;
+    align-items: flex-start;
+}
+
+.item-photo {
+    width: 260px;
+    height: 230px;
+    flex-shrink: 0;
+}
+
+.item-photo img {
+    width: 100%;
+    height: 210px;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+.claim-info {
+    flex: 1;
+}
+
+.claim-info h3,
+.claim-description h3,
+.status-section h3 {
+    color: #302F68;
+    margin-bottom: 15px;
+}
+
+.info-group {
+    margin-bottom: 13px;
+}
+
+.info-group label,
+.status-section label {
+    display: block;
+    color: #777;
+    font-size: 13px;
+    margin-bottom: 5px;
+}
+
+.info-group p {
+    color: #222;
+    font-size: 14px;
+}
+
+.claim-content .claim-info .info-group {
+    margin-bottom: 22px;
+}
+
+.claim-description {
+    margin-top: 30px;
+    padding: 20px;
+    background: #F6F7FD;
+    border-radius: 10px;
+}
+
+.claim-description p {
+    color: #555;
+    line-height: 1.6;
+    font-size: 14px;
+}
+
+.status-section {
+    margin-top: 25px;
+}
+
+.status-section select {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #DAD9EA;
+    border-radius: 8px;
+    background: #FFFFFF;
+    outline: none;
+    font-size: 14px;
+}
+
+.status-note {
+    margin-top: 12px;
+    padding: 13px;
+    background: #F0EFFF;
+    color: #5145A5;
+    border-radius: 8px;
+    font-size: 13px;
+    line-height: 1.5;
+}
+
+.claim-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+    margin-top: 30px;
+}
+
+.cancel-btn,
+.save-btn {
+    padding: 11px 22px;
+    border-radius: 8px;
+    font-size: 14px;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.cancel-btn {
+    background: #EEEEF4;
+    color: #333;
+    border: none;
+}
+
+.save-btn {
+    background: #6355D9;
+    color: white;
+    border: none;
+}
+
+.save-btn:hover {
+    background: #5042C2;
+}
+

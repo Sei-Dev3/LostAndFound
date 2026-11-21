@@ -6,8 +6,10 @@ if (!isset($_SESSION["email"])) {
 }
 
 require_once __DIR__. '/../vendor/autoload.php';
+use App\Models\Claim;
 use App\Models\Item;
 $message ="";
+$claimModel=new Claim();
 $itemModel=new Item();
 if(isset($_POST["sub"]) && (isset($_GET["id"]))){
     $id=$_GET["id"];
@@ -52,7 +54,7 @@ if (isset($_FILES["item_photo"])) {
 if ($message === "") {
     try {
         $userID=$_SESSION["UserID"];
-        $result = $itemModel->claimitem(
+        $result = $claimModel->claimitem(
             $description,
             $fileNameNew,
             $userID,
@@ -66,16 +68,18 @@ if ($message === "") {
     }
 }
 }
-if(isset($_GET["id"])){
-    $id=$_GET["id"];
-try{
-    $item = $itemModel->ViewById($id);
+if (isset($_GET["id"])) {
+    $id = $_GET["id"];
 
-}catch(PDOException $e){
-    echo $e->getMessage();
-}
-}else {
-    echo "No item ID provided.";
+    try {
+        $item = $itemModel->ViewById($id);
+
+       
+
+    } catch (PDOException $e) {
+         $e->getMessage();
+    }
+
 }
 
 ?>
@@ -172,7 +176,7 @@ try{
                 </p>
                 <?php endif; ?>
                 </div>
-</form>
+
                 <hr class="devider">
                 <div class="submit-cancel-btn">
                     <button type="button" class="cancel">
@@ -181,6 +185,7 @@ try{
                 </div>
             </div>
         </div>
+        </form>
 </main>
 </div>
 <script>

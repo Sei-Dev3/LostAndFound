@@ -6,11 +6,11 @@ if (!isset($_SESSION["email"])) {
 }
 
 require_once __DIR__. '/../vendor/autoload.php';
-use App\Models\Item;
+use App\Models\claim;
 $userID=$_SESSION["UserID"];
-$itemModel=new Item();
+$claimModel=new Claim();
 try{
-    $item=$itemModel->getAllclaim();
+    $item=$claimModel->getAllclaim();
 }catch(PDOException $e){
     echo $e->getMessage();
     $item=[];
@@ -24,7 +24,6 @@ try{
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="../css/manage-item.css">
-    <link rel="stylesheet" href="../css/student-dashboard.css">
     <link rel="stylesheet" href="../css/my-report.css">
     <link rel="stylesheet" href="../css/manage-claim.css">
     <link
@@ -108,8 +107,8 @@ try{
                         foreach($item as $i){
                 ?>
                 <tr>
-                    <td><?php if(!empty($i["Photo"])){?>
-                <img src="../pictures/<?= htmlspecialchars($i["Photo"]) ?>"
+                    <td><?php if(!empty($i["PhotoClaim"])){?>
+                <img src="../pictures/<?= htmlspecialchars($i["PhotoClaim"]) ?>"
                          alt="Item Photo" width="60">
                 <?php } else { ?>
                     No Image
@@ -121,13 +120,12 @@ try{
                 <?php echo $i["ClaimDate"]?>
 </td>
                     
-                    <td><?php echo $i["Status"]?></td>
+                    <td><?php echo $i["ClaimStatus"]?></td>
                     <td>
-                        <a href="viewbyuser.php" class="view-btn-claim">View</a>
-                        <a href="" class="approve-claim">Approve</a>
-                        <a href="" class="reject-claim" onclick="return confirm('Are you sure?')">Reject</a></td>
-                        
-                    </td>
+                       <a href="viewmanageclaim.php?id=<?php echo $i["ClaimID"]; ?>" class="view-btn-claim">
+    View
+</a>
+</td>
                 </tr>
                  <?php }}?>
             </table>

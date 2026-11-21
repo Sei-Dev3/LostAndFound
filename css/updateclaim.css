@@ -1,0 +1,222 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background: #F6F7FD;
+    color: #302F68;
+}
+
+.layout {
+    display: flex;
+    min-height: 100vh;
+}
+
+.dashboard-content {
+    flex: 1;
+    min-width: 0;
+    padding: 30px;
+}
+
+/* HEADER */
+
+.edit-header {
+    margin-bottom: 25px;
+}
+
+.back-btn {
+    display: inline-block;
+    text-decoration: none;
+    color: #6355D9;
+    font-size: 14px;
+    font-weight: 500;
+    margin-bottom: 18px;
+}
+
+.back-btn:hover {
+    color: #302F68;
+}
+
+.edit-header h1 {
+    font-size: 27px;
+    margin-bottom: 6px;
+}
+
+.edit-header p {
+    color: #77788C;
+    font-size: 14px;
+}
+
+/* MAIN CONTAINER */
+
+.edit-container {
+    background: #FFFFFF;
+    padding: 30px;
+    border-radius: 14px;
+    box-shadow: 0 3px 15px rgba(48, 47, 104, 0.06);
+    max-width: 1100px;
+}
+
+/* FORM GRID */
+
+.edit-grid {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr;
+    gap: 35px;
+}
+
+.edit-fields {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.edit-fields label,
+.edit-photo label {
+    font-size: 14px;
+    font-weight: 600;
+    color: #302F68;
+    margin-top: 10px;
+}
+
+/* INPUTS */
+
+.edit-fields input,
+.edit-fields select,
+.edit-fields textarea {
+    width: 100%;
+    padding: 12px 14px;
+    border: 1px solid #E2E5EC;
+    border-radius: 8px;
+    background: #FFFFFF;
+    color: #33334F;
+    font-family: inherit;
+    font-size: 14px;
+    outline: none;
+    transition: 0.2s ease;
+}
+
+.edit-fields input:focus,
+.edit-fields select:focus,
+.edit-fields textarea:focus {
+    border-color: #6355D9;
+    box-shadow: 0 0 0 3px rgba(99, 85, 217, 0.10);
+}
+
+.edit-fields textarea {
+    resize: vertical;
+    min-height: 120px;
+}
+
+/* PHOTO SECTION */
+
+.edit-photo {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.edit-photo img {
+    width: 100%;
+    max-width: 320px;
+    height: 240px;
+    object-fit: cover;
+    border-radius: 10px;
+    border: 1px solid #E2E5EC;
+}
+
+.edit-photo input[type="file"] {
+    font-size: 13px;
+    padding: 10px;
+    border: 1px dashed #B8B4E8;
+    border-radius: 8px;
+    background: #F9F8FF;
+}
+
+.photo-note {
+    font-size: 12px;
+    color: #85859A;
+}
+
+/* ACTION BUTTONS */
+
+.edit-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+    margin-top: 30px;
+    padding-top: 20px;
+    border-top: 1px solid #ECECF3;
+}
+
+.cancel-btn,
+.edit-actions input[type="submit"] {
+    padding: 11px 24px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-family: inherit;
+    font-weight: 600;
+    cursor: pointer;
+    text-decoration: none;
+    transition: 0.2s ease;
+}
+
+.cancel-btn {
+    background: #F1F1F7;
+    color: #55556F;
+    border: 1px solid #E2E5EC;
+}
+
+.cancel-btn:hover {
+    background: #E6E6F0;
+}
+
+.edit-actions input[type="submit"] {
+    background: #6355D9;
+    color: white;
+    border: none;
+}
+
+.edit-actions input[type="submit"]:hover {
+    background: #4F43B8;
+}
+
+/* RESPONSIVE */
+
+@media (max-width: 768px) {
+    .dashboard-content {
+        padding: 18px;
+    }
+
+    .edit-container {
+        padding: 20px;
+    }
+
+    .edit-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+
+    .edit-photo img {
+        max-width: 100%;
+    }
+}
+
+@media (max-width: 480px) {
+    .edit-header h1 {
+        font-size: 22px;
+    }
+
+    .edit-actions {
+        flex-direction: column-reverse;
+    }
+
+    .cancel-btn,
+    .edit-actions input[type="submit"] {
+        width: 100%;
+        text-align: center;
+    }
+}

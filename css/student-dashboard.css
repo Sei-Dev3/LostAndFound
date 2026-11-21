@@ -294,10 +294,15 @@ th{
 
 td{
     margin-top: 10px;
+    font-size: 14px;
+}
+
+th{
+    font-size: 15px;
 }
 
 table tr th:nth-child(1){
-    width: 80px;
+    width: 70px;
 }
 
 table tr th:nth-child(2){
@@ -323,7 +328,7 @@ table tr th:nth-child(7){
 }
 
 table tr th:nth-child(8){
-    width: 110px;
+    width: 90px;
 }
 
 .view-btn{

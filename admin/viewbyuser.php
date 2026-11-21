@@ -1,3 +1,27 @@
+<?php 
+session_start();
+if (!isset($_SESSION["email"])) {
+    header("Location: ../student/my-reports.php");
+    exit();
+}
+
+require_once __DIR__. '/../vendor/autoload.php';
+use App\Models\User;
+
+$userModel=new User();
+
+if(isset($_GET["id"])){
+    $userID = $_GET["id"];
+try{
+    $user = $userModel->ViewUserById($userID);
+
+}catch(PDOException $e){
+    echo $e->getMessage();
+}
+}
+?>  
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -33,33 +57,49 @@
 
         <div class ="info-user-layout">
             <div class="info-user-container">
-                <div class="profile">
-                    <i class="fa-solid fa-circle-user"></i>
-                    <div class="user-name">
-                    <h2>Full Name</h2>
-                    <p>User</p>
-                    <hr>
-                    <div class="spacing">
-                    <h1>Personal Information</h1>
-                    <div class="spacing">
-                    <h4>Full Name</h4>
-                    <h2>ashfafui</h2>
-</div>
-                    <div class="spacing">
-                    <h4>Email Address</h4>                
-                    <h2>ashfafuiaff</h2>
-</div>
-                    <div class="spacing">
-                    <h4>Role</h4>
-                    <h2>ashfafui</h2>
-</div>
-                    <div class="spacing">
-                    <h4>Account Created</h4>
-                    <h2>ashfafui</h2>
-</div>
-</div>
-                </div>
+                <div class="profile-header">
+            <div class="profile-icon">
+                <i class="fa-solid fa-circle-user"></i>
             </div>
+            <div class="profile-heading">
+                <h1><?= htmlspecialchars($user["fullname"]); ?></h1>
+                <p><?= htmlspecialchars($user["email"]); ?></p>
+                <span class="role-badge">
+                    <?= htmlspecialchars($user["role"]); ?>
+                </span>
+            </div>
+        </div>
+
+        <hr>
+
+         <h2 class="section-title">Personal Information</h2>
+
+        <div class="user-information">
+
+            <div class="info-box">
+                <h4>Full Name</h4>
+                <h3><?= htmlspecialchars($user["fullname"]); ?></h3>
+            </div>
+
+            <div class="info-box">
+                <h4>Email Address</h4>
+                <h3><?= htmlspecialchars($user["email"]); ?></h3>
+            </div>
+
+            <div class="info-box">
+                <h4>Role</h4>
+                <h3><?= htmlspecialchars($user["role"]); ?></h3>
+            </div>
+
+            <div class="info-box">
+                <h4>Account Created</h4>
+                <h3><?= htmlspecialchars($user["created_at"]); ?></h3>
+            </div>
+
+        </div>
+
+
+                
         </div>
 </main>
 </div>

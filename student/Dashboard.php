@@ -9,8 +9,14 @@ require_once __DIR__. '/../vendor/autoload.php';
 use App\Models\Item;
 $userID=$_SESSION["UserID"];
 $itemModel=new Item();
-try{
-    $item=$itemModel->getAll();
+   $search = trim($_GET["search"] ?? "");
+
+try {
+    if ($search !== "") {
+        $item = $itemModel->search($search);
+    } else {
+        $item = $itemModel->getAll();
+    }
     $totalLost=$itemModel->countlost();
     $totalFound=$itemModel->countfound();
 }catch(PDOException $e){
@@ -40,10 +46,13 @@ try{
                 <button class="menu-btn" onclick="showSidebar()" type="button">
                     <i class="fa-solid fa-bars"></i>
                 </button>
+                <form method="GET">
             <div class="search">
                 <i class="fa-solid fa-magnifying-glass"></i>
-                <input type="search" placeholder="Search items...">
+                <input type="search" placeholder="Search items..." name="search"
+                value="<?php echo htmlspecialchars($_GET['search'] ?? ''); ?>">
 </div>
+</form>
         <div class="topbar-action">
             <button type="button" class="notification">
                     <i class="fa-solid fa-bell"></i>
@@ -195,5 +204,14 @@ try{
       </div>
         </main>
     </div>
+    <script>
+const searchInput = document.querySelector('input[name="search"]');
+
+searchInput.addEventListener('input', function() {
+    if (this.value.trim() === "") {
+        window.location.href = window.location.pathname;
+    }
+});
+</script>
 </body>
 </html>

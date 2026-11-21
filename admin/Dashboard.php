@@ -6,11 +6,11 @@ if (!isset($_SESSION["email"])) {
     
 }
 require_once __DIR__. '/../vendor/autoload.php';
-use App\Models\Item;
+use App\Models\claim;
 $userID=$_SESSION["UserID"];
-$itemModel=new Item();
+$ClaimModel=new Claim();
 try{
-    $item=$itemModel->getAllclaim();
+    $item=$ClaimModel->getAllclaim();
 }catch(PDOException $e){
     echo $e->getMessage();
     $item=[];
@@ -157,10 +157,30 @@ try{
                     
                     <td><?php echo $i["Status"]?></td>
                     <td>
-                        <a href="viewbyuser.php" class="view-btn-claim">View</a>
-                        <a href="" class="approve-claim">Approve</a>
-                        <a href="" class="reject-claim" onclick="return confirm('Are you sure?')">Reject</a></td>
-                    </td>
+    <div class="action-dropdown">
+        <button type="button" class="action-btn">
+            <i class="fa-solid fa-ellipsis-vertical"></i>
+        </button>
+
+        <div class="dropdown-menu">
+
+            <a href="viewbyid.php?id=<?php echo $i['ItemID']; ?>">
+                <i class="fa-solid fa-eye"></i> View
+            </a>
+
+            <a href="update.php?id=<?php echo $i['ItemID']; ?>">
+                <i class="fa-solid fa-pen"></i> Update
+            </a>
+
+            <a href="delete.php?id=<?php echo $i['ItemID']; ?>"
+               onclick="return confirm('Are you sure you want to delete this item?')"
+               class="delete-option">
+                <i class="fa-solid fa-trash"></i> Delete
+            </a>
+
+        </div>
+    </div>
+</td>
                 </tr>
                  <?php }}?>
             </table>

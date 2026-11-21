@@ -1,0 +1,145 @@
+.edit-header {
+    margin-bottom: 20px;
+}
+
+.back-btn {
+    display: inline-block;
+    padding: 10px 20px;
+    border: 1px solid #D6D3F0;
+    border-radius: 8px;
+    color: #6355D9;
+    text-decoration: none;
+    margin-bottom: 20px;
+}
+
+.edit-header h1 {
+    color: #1A1935;
+    margin-bottom: 5px;
+}
+
+.edit-header p {
+    color: #777;
+}
+
+.edit-container {
+    background: #FFFFFF;
+    border: 1px solid #E2E0F0;
+    border-radius: 12px;
+    padding: 30px;
+    max-width: 1100px;
+}
+
+.edit-grid {
+    display: flex;
+    gap: 35px;
+}
+
+.edit-fields {
+    flex: 1.5;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.edit-fields label,
+.edit-photo label {
+    font-weight: 600;
+    color: #302F68;
+    margin-top: 8px;
+}
+
+.edit-fields input,
+.edit-fields select,
+.edit-fields textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #DAD8E8;
+    border-radius: 8px;
+    font-size: 14px;
+    box-sizing: border-box;
+    font-family: inherit;
+}
+
+.edit-fields input:focus,
+.edit-fields select:focus,
+.edit-fields textarea:focus {
+    outline: none;
+    border-color: #6355D9;
+}
+
+.edit-fields textarea {
+    resize: vertical;
+}
+
+.edit-photo {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.edit-photo img {
+    width: 100%;
+    height: 230px;
+    object-fit: contain;
+    border: 1px solid #E2E0F0;
+    border-radius: 10px;
+    background: #F6F7FD;
+}
+
+.edit-photo input {
+    font-size: 13px;
+}
+
+.photo-note {
+    font-size: 12px;
+    color: #777;
+}
+
+.edit-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+    margin-top: 30px;
+    padding-top: 20px;
+    border-top: 1px solid #EAE8F2;
+}
+
+.cancel-btn,
+.save-btn {
+    padding: 11px 20px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.cancel-btn {
+    background: #F0EFF7;
+    color: #302F68;
+}
+
+.save-btn {
+    background: #6355D9;
+    color: white;
+    border: none;
+}
+
+.save-btn:hover {
+    background: #4D40B5;
+}
+
+@media (max-width: 700px) {
+    .edit-grid {
+        flex-direction: column;
+    }
+
+    .edit-container {
+        padding: 18px;
+    }
+
+    .edit-actions {
+        flex-wrap: wrap;
+    }
+}
