@@ -15,6 +15,7 @@ body{
 .dashboard-content {
     flex: 1;
     min-width: 0;
+    overflow-x: hidden;
     min-height: 100vh;
     box-sizing: border-box;
     background-color: #F6F7FD;
@@ -99,19 +100,18 @@ body{
     opacity: 1;
 }
 
-.dashboard-grid{
-    display: grid;
-    grid-template-columns: minmax(0, 65%) minmax(220px, 1fr);
-    gap: 20px;
-    align-items: start;
-    margin: 10px 10px 0;
+.dashboard-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    margin: 10px;
 }
-
 .dashboard-top {
+    flex: 1;
+    min-width: 0;
     display: flex;
     flex-direction: column;
     gap: 15px;
-    min-width: 0;
 }
 
 .box-container {
@@ -180,10 +180,10 @@ body{
 }
 
 .recent-listing{
-    width: 154%;
-    min-height: 58vh;
+    width: 100%;
+    min-width: 0;
+    min-height: 40vh;
     margin: 0;
-    margin-top: 25px;
     box-sizing: border-box;
     background-color: #E8E5FF;
     border-radius: 10px;
@@ -222,6 +222,13 @@ body{
     display: flex;
     gap: 20px;
 }
+
+.table-container {
+    width: 100%;
+    max-height: 440px;
+    overflow: auto;
+}
+
 
 .lost-item-btn{
     width: 120px;
@@ -279,22 +286,33 @@ table{
     margin-bottom: 10px;
 } */
 
-th{
+th {
     background-color: #D4CFFC;
     text-align: left;
-    height: 40px;
-    /* border: 1px solid; */
+    height: 45px;
+    padding: 0 12px;
+    color: #302F68;
+    font-size: 14px;
+    white-space: nowrap;
 }
 
+table th {
+    position: sticky;
+    top: 0;
+    background-color: #D4CFFC;
+    z-index: 2;
+}
 /* tbody::before {
     content: "";
     display: block;
     height: 10px;
 } */
 
-td{
-    margin-top: 10px;
-    font-size: 14px;
+td {
+    padding: 12px;
+    font-size: 13px;
+    border-bottom: 1px solid #D5D2E5;
+    color: #302F68;
 }
 
 th{
@@ -384,16 +402,15 @@ table tr th:nth-child(8){
 }
 
 .category {
-    flex: 1;
-    min-height: 80px;
-    min-width: 0;
-    padding: 20px;
+    width: 280px;
+    flex-shrink: 0;
+    height: 280px;
+    padding: 15px;
     box-sizing: border-box;
     background-color: #E8E5FF;
     border: 1px solid #D5D2E5;
     border-radius: 10px;
-    margin-left: 0;
-    margin-top: 0;
+    overflow: hidden;
 }
 
 .category {
@@ -414,17 +431,20 @@ table tr th:nth-child(8){
     min-height: 200px;
 }
 
-.category-btn{
-    width: 90%;
+.category-btn {
+    width: 100%;
     height: 45px;
-    display: inline-flex;
+    display: flex;
     align-items: center;
     justify-content: flex-start;
-    border: none;
+    padding: 0 10px;
+    box-sizing: border-box;
+    text-decoration: none;
+    border-radius: 8px;
     background-color: #E8E5FF;
-    font-size: 17px;
+    font-size: 16px;
     font-weight: bold;
-    gap: 8px;
+    gap: 12px;
     color: #302F68;
     cursor: pointer;
     transition: background-color 0.2s ease, color 0.2s ease;
@@ -433,67 +453,78 @@ table tr th:nth-child(8){
 .category-btn:hover {
     background-color: #D4CFFC;
     color: #6355D9;
-    border-radius: 10px;
 }
+
+
+.action-buttons {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.action-buttons .view-btn,
+.action-buttons .claim {
+    display: block;
+    position: static;
+    margin: 0;
+    width: 60px;
+    box-sizing: border-box;
+}
+
 
 /*===================================
             MEDIA QUERY
     ===============================*/
 
 /*-------laptop---------*/
-@media (max-width: 1024px){
-.search{
-    width: 450px;
-    height: 20px;
+@media (max-width: 1024px) {
+
+    .dashboard-top {
+        flex: 1;
+        min-width: 0;
+    }
+
+    .category {
+        width: 230px;
+    }
+
+    .recent-listing {
+        width: 100%;
+        min-height: 10vh;
+    }
+
+    .container-layout {
+        width: 100%;
+        gap: 10px;
+}
+
+table th {
+    position: sticky;
+    top: 0;
+    background-color: #D4CFFC;
+    z-index: 2;
+}
+/* tbody::before {
+    content: "";
+    display: block;
+    height: 10px;
+} */
+
+td {
+    padding: 12px;
+    font-size: 13px;
+    border-bottom: 1px solid #D5D2E5;
+    color: #302F68;
+}
+
+th{
+    font-size: 13px;
 }
 
 .circle-profile{
-    margin-right: 20px;
-}
-
-.box-container {
-    width: 95%;
-}
-
-.box h1 {
-    font-size: 28px;
-}
-
-.container-layout{
-    width: 105%;
-}
-
-.container p{
-    margin: 8px;
-    font-size: 12px;
-}
-
-.dashboard {
-    width: 90%;
-    margin-left: 20px;
-}
-
-.btn{
-    width: 50%;
-}
-
-
-.lost-item-btn{
-    width: 200px;
-}
-
-.found-item-btn{
-    width: 200px;
-}
-
-.recent-listing{
-    width: 105%;
-    min-height: 58vh;
-    margin: 0;
-    box-sizing: border-box;
-    background-color: #E8E5FF;
-    border-radius: 10px;
-    border: 1px solid #B9B5D0;
+    margin-right: 0;
 }
 
 }
@@ -580,6 +611,29 @@ table tr th:nth-child(8){
     border-radius: 10px;
 }
 
+.category{
+    width: 90%;
+    box-sizing: border-box;
+}
+
+.category h3{
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 12px;
+}
+
+.category a{
+    text-decoration: none;
+}
+
+.category-btn{
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 16px;
+    margin: 4px;
+}
+
 .quick-action,
 .category {
     width: 90%;
@@ -604,10 +658,84 @@ table tr th:nth-child(8){
     border: 1px solid #B9B5D0;
 }
 
-.recent-listing{
-    width: 100%;
-    min-height: 50vh;
+.recent-listing {
+        width: 90%;
+        margin: 0 auto 40px;
+        padding: 20px;
+        box-sizing: border-box;
+    }
+
+.recent-header h3{
+    font-size: 18px;
+    font-weight: 600;
+    margin: 0;
 }
 
+
+.lost-item-btn,
+.found-item-btn{
+    padding: 10px 24px;
+    border: none;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.table-container {
+    max-width: 400px;
+}
+
+.table-container th{
+    display: none;
+}
+
+.table-container table,
+.table-container tbody,
+.table-container tr,
+.table-container td {
+    display: block;
+    width: auto;
+    box-sizing: border-box;
+}
+
+
+    .table-container tr {
+        background: white;
+        border: 1px solid #D5D2E5;
+        border-radius: 10px;
+        padding: 15px;
+        margin-bottom: 15px;
+    }
+
+    .table-container td {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 10px;
+        padding: 8px 0;
+        border: none;
+        text-align: right;
+    }
+
+    .table-container td::before {
+        content: attr(data-label);
+        font-weight: 600;
+        text-align: left;
+        color: #302F68;
+    }
+
+    .table-container td:last-child {
+        justify-content: center;
+    }
+
+    .item-details {
+    text-align: right;
+}
+
+.action-buttons {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 8px;
+}
 
 }

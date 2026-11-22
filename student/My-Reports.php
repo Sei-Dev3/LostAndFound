@@ -10,13 +10,20 @@ use App\Models\Item;
 
 $itemModel=new Item();
 $userID=$_SESSION["UserID"];
+ $search = trim($_GET["search"] ?? "");
 
+$item = [];
 try{
-    $item=$itemModel->myreport($userID);
+    if ($search !== "") {
+        $item = $itemModel->search($search, $userID);
+    } else {
+        $item = $itemModel->myreport($userID);
+    }
     $totalLost=$itemModel->personalcountreport($userID);
+    $totalReturn=$itemModel->countreturn($userID);
+    $totalUnresolved=$itemModel->countstatuslost($userID);
 }catch(PDOException $e){
     echo $e->getMessage();
-    $item=[];
 }
 ?>
 
@@ -28,7 +35,6 @@ try{
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="../css/style.css">
     <link rel="stylesheet" href="../css/my-report.css">
     <link
     rel="stylesheet"
@@ -43,10 +49,13 @@ try{
                 <button class="menu-btn" onclick="showSidebar()" type="button">
                     <i class="fa-solid fa-bars"></i>
                 </button>
-                <div class="search">
-                    <i class="fa-solid fa-magnifying-glass"></i>
-                <input type="search" placeholder="Search items...">
+                <form method="GET">
+               <div class="search">
+                <i class="fa-solid fa-magnifying-glass"></i>
+                <input type="search" placeholder="Search items..." name="search"
+                value="<?php echo htmlspecialchars($_GET['search'] ?? ''); ?>">
 </div>
+</form>
         <div class="topbar-action">
             <button type="button" class="notification">
                     <i class="fa-solid fa-bell"></i>
@@ -67,24 +76,18 @@ try{
                 <p>Total Reports</p>
                 <h3><?php echo $totalLost["total"]?></h3>
                 <p>All your submitted reports</p>
-            </div>
-            <div class="card-container">
-                <i class="fa-solid fa-circle-exclamation"></i>
-                <p>Pending</p>
-                <h3>12</h3>
-                <p>Awaiting review</p>
-            </div>
+</div>
             <div class="card-container">
                 <i class="fa-solid fa-check-circle"></i>
-                <p>Resolved</p>
-                <h3>18</h3>
-                <p>Successfully claimed</p>
+                <p>Unresolved Items</p>
+                <h3><?php echo $totalUnresolved["total"]?></h3>
+                <p>Items not yet returned</p>
             </div>
             <div class="card-container">
                 <i class="fa-solid fa-clock"></i>
-                <p>This Week</p>
-                <h3>10</h3>
-                <p>Report submitted this week</p>
+                <p>Returned Items</p>
+                <h3><?php echo $totalReturn["total"]?></h3>
+                <p>Item succcessfully returned</p>
             </div>
         </div>
         <div class="report">
@@ -93,7 +96,7 @@ try{
             <h3>Your Submitted Reports</h3>
             <a href="report-item.php" class="new-report-btn">+ New Report</a>
 </div>
-            
+            <div class="table-container">
             <table>
                 <tr>
                     <th>Photo</th>
@@ -169,10 +172,20 @@ try{
                 </tr>
                  <?php }}?>
             </table>
+</div>
             </div>
 </div>
 </div>
 </main>
 </div>
+<script>
+    const searchInput = document.querySelector('input[name="search"]');
+
+searchInput.addEventListener('input', function() {
+    if (this.value.trim() === "") {
+        window.location.href = window.location.pathname;
+    }
+});
+</script>
 </body>
 </html>

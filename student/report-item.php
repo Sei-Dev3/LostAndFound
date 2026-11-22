@@ -55,11 +55,11 @@ if (isset($_FILES["item_photo"])) {
 if ($message === "") {
     try {
         $userID=$_SESSION["UserID"];
+        echo $userID;
         $result = $itemModel->insert(
             $iname,
             $category,
             $location,
-            $datelost,
             $description,
             $fileNameNew,
             $userID
@@ -97,10 +97,6 @@ if ($message === "") {
                 <button class="menu-btn" onclick="showSidebar()" type="button">
                     <i class="fa-solid fa-bars"></i>
                 </button>
-                <div class="search">
-                    <i class="fa-solid fa-magnifying-glass"></i>
-                <input type="search" placeholder="Search items...">
-</div>
         <div class="topbar-action">
             <button type="button" class="notification">
                     <i class="fa-solid fa-bell"></i>

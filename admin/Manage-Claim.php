@@ -6,11 +6,20 @@ if (!isset($_SESSION["email"])) {
 }
 
 require_once __DIR__. '/../vendor/autoload.php';
-use App\Models\claim;
+use App\Models\Claim;
 $userID=$_SESSION["UserID"];
 $claimModel=new Claim();
+$status=$_GET["Status"] ?? "";
+$search = trim($_GET["search"] ?? "");
 try{
-    $item=$claimModel->getAllclaim();
+    if ($search !== "") {
+        $item = $claimModel->search($search, $userID);
+    }
+    else if ($status === "") {
+    $item = $claimModel->getAllclaim();
+} else {
+    $item = $claimModel->getByStatus($status);
+}
 }catch(PDOException $e){
     echo $e->getMessage();
     $item=[];
@@ -56,32 +65,27 @@ try{
 </div>
         <div class="users-layout-container">
             <div class="users-container1">
-                <div class="users-search1">
+               <form method="GET">
+               <div class="search">
                 <i class="fa-solid fa-magnifying-glass"></i>
-                <input type="search" placeholder="Search claims...">
-            </div>
+                <input type="search" placeholder="Search items..." name="search"
+                value="<?php echo htmlspecialchars($_GET['search'] ?? ''); ?>">
+</div>
+</form>
             <div class="users-filter">
-            <select name="location" id="location">
-                    <option value="" disabled selected>All Items</option>
-                    <option value="Library">Library</option>
-                    <option value="canteen">Canteen</option>
-                    <option value="classroom">Classroom</option>
+                <form method="GET" action="manage-claim.php">
+            <select name="Status" onchange="this.form.submit()">
+                <option value="">All Status</option>
+                <option value="Pending" <?php if ($status == "Pending") echo "selected"; ?>>Pending</option>
+                <option value="Manual Verification" <?php if ($status == "Manual Verification") echo "selected"; ?>>Manual Verification</option>
+                <option value="Approved" <?php if ($status == "Approved") echo "selected"; ?>>Approved</option>
+                <option value="Rejected" <?php if ($status == "Rejected") echo "selected"; ?>>Rejected</option>
             </select>
-            <select name="location" id="location">
-                    <option value="" disabled selected>All Status</option>
-                    <option value="Library">Library</option>
-                    <option value="canteen">Canteen</option>
-                    <option value="classroom">Classroom</option>
-            </select>
-            <select name="location" id="location">
-                    <option value="" disabled selected>All Users</option>
-                    <option value="Library">Library</option>
-                    <option value="canteen">Canteen</option>
-                    <option value="classroom">Classroom</option>
-            </select>
+</form>
 </div>
 </div>
             <div class="users-container2">
+                <div class="table-container">
                 <table>
                 <tr>
                     <th>Item Photo</th>
@@ -129,9 +133,19 @@ try{
                 </tr>
                  <?php }}?>
             </table>
+</div>
             </div>
 </div>
 </main>
 </div>
+<script>
+    const searchInput = document.querySelector('input[name="search"]');
+
+searchInput.addEventListener('input', function() {
+    if (this.value.trim() === "") {
+        window.location.href = window.location.pathname;
+    }
+});
+</script>
 </body>
 </html>

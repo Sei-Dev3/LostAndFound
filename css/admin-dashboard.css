@@ -200,7 +200,7 @@
 
 .pending-claims{
     width: 60%;
-    min-height: 40vh;
+    min-height: 60vh;
     margin: 0;
     box-sizing: border-box;
     border-radius: 10px;
@@ -230,6 +230,17 @@
 .pending-listing a:hover {
     color: #6355D9;
     text-decoration: underline;
+}
+
+.table-container {
+    max-height: 460px;
+    overflow-y: auto;
+    overflow-x: auto;
+}
+
+.table-container table {
+    width: 100%;
+    border-collapse: collapse;
 }
 
 .pending-descrip{

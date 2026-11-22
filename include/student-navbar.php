@@ -36,17 +36,9 @@
                     <i class="fa-solid fa-clipboard-check"></i>
                     <span>My Claims</span>
                 </a></li>
-                <li><a href="../student/message.php">
-                    <i class="fa-solid fa-envelope"></i>
-                    <span>Messages</span>
-                </a></li>
                 <li><a href="../student/profile.php">
                     <i class="fa-solid fa-user"></i>
                     <span>Profile</span>
-                </a></li>
-                <li><a href="../student/settings.php">
-                    <i class="fa-solid fa-gear"></i>
-                    <span>Settings</span>
                 </a></li>
                 <li><a href="../auth/login.php">
                     <i class="fa-solid fa-right-from-bracket"></i>

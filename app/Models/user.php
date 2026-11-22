@@ -26,4 +26,20 @@
             $user=$stmt->fetch(PDO::FETCH_ASSOC);
             return $user;
         }
+
+        public function getByRoles($user){
+            $sql="SELECT *   
+            FROM user
+            WHERE user.role = ?
+            ORDER BY user.UserID DESC";
+            $stmt=$this->conn->prepare($sql);
+            $stmt->execute([$user]);
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        }
+        public function countuser(){
+            $sql= "SELECT COUNT(*) AS total FROM user";
+            $stmt=$this->conn->prepare($sql);
+            $stmt->execute();
+            return $stmt->fetch(PDO::FETCH_ASSOC);
+        }
     }

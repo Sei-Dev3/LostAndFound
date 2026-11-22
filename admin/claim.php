@@ -49,11 +49,11 @@ if (isset($_FILES["item_photo"])) {
 if ($message === "") {
     try {
         $userID=$_SESSION["UserID"];
+        echo $userID;
         $result = $itemModel->founditem(
             $iname,
             $category,
             $location,
-            $datefound,
             $description,
             $fileNameNew,
             $userID

@@ -9,13 +9,23 @@ require_once __DIR__. '/../vendor/autoload.php';
 use App\Models\Item;
 $userID=$_SESSION["UserID"];
 $itemModel= new Item();
-try{
-    $item=$itemModel->getAll();
-    $totalLost=$itemModel->countlost();
-    $totalFound=$itemModel->countfound();
-}catch(PDOException $e){
+$categoryID = $_GET["category"] ?? "";
+$search = trim($_GET["search"] ?? "");
+try {
+   if ($search !== "") {
+        $item = $itemModel->search($search, $userID);
+    } 
+    else if ($categoryID === "") {
+    $item = $itemModel->getAll();
+} else {
+    $item = $itemModel->getAllCategory($categoryID);
+}
+    $totalLost = $itemModel->countlost();
+    $totalFound = $itemModel->countfound();
+
+} catch (PDOException $e) {
     echo $e->getMessage();
-    $item=[];
+    $item = [];
 }
 ?>
 
@@ -58,34 +68,24 @@ try{
 </div>
         <div class="layout-container">
             <div class="container1">
-                <div class="search1">
+                <form method="GET">
+               <div class="search">
                 <i class="fa-solid fa-magnifying-glass"></i>
-                <input type="search" placeholder="Search items...">
-            </div>
-            <select name="location" id="location">
-                    <option value="" disabled selected>All types</option>
-                    <option value="Library">Library</option>
-                    <option value="canteen">Canteen</option>
-                    <option value="classroom">Classroom</option>
+                <input type="search" placeholder="Search items..." name="search"
+                value="<?php echo htmlspecialchars($_GET['search'] ?? ''); ?>">
+</div>
+</form>
+            <form method="GET" action="manage-item.php">
+            <select name="category" onchange="this.form.submit()">
+                <option value="">All Categories</option>
+                <option value="1" <?php if ($categoryID == "1") echo "selected"; ?>>Bags</option>
+                <option value="2" <?php if ($categoryID == "2") echo "selected"; ?>>Electronics</option>
+                <option value="3" <?php if ($categoryID == "3") echo "selected"; ?>>Wallets</option>
+                <option value="4" <?php if ($categoryID == "4") echo "selected"; ?>>Keys</option>
+                <option value="5" <?php if ($categoryID == "5") echo "selected"; ?>>Clothing</option>
             </select>
-            <select name="location" id="location">
-                    <option value="" disabled selected>All Locations</option>
-                    <option value="Library">Library</option>
-                    <option value="canteen">Canteen</option>
-                    <option value="classroom">Classroom</option>
-            </select>
-            <select name="location" id="location">
-                    <option value="" disabled selected>All Status</option>
-                    <option value="Library">Library</option>
-                    <option value="canteen">Canteen</option>
-                    <option value="classroom">Classroom</option>
-            </select>
-            <select name="location" id="location">
-                    <option value="" disabled selected>All Categories</option>
-                    <option value="Library">Library</option>
-                    <option value="canteen">Canteen</option>
-                    <option value="classroom">Classroom</option>
-            </select>
+            
+</form>
 </div>
             <div class="container2">
                 <table>
@@ -157,7 +157,7 @@ try{
                 <i class="fa-solid fa-eye"></i> View
             </a>    
 
-            <a href="delete.php?id=<?php echo $i['ItemID']; ?>"
+            <a href="delete-item.php?id=<?php echo $i['ItemID']; ?>"
                onclick="return confirm('Are you sure you want to delete this item?')"
                class="delete-option">
                 <i class="fa-solid fa-trash"></i> Delete
@@ -175,5 +175,14 @@ try{
 </div>
 </main>
 </div>
+<script>
+    const searchInput = document.querySelector('input[name="search"]');
+
+searchInput.addEventListener('input', function() {
+    if (this.value.trim() === "") {
+        window.location.href = window.location.pathname;
+    }
+});
+</script>
 </body>
 </html>

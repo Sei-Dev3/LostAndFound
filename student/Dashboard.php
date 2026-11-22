@@ -9,16 +9,21 @@ require_once __DIR__. '/../vendor/autoload.php';
 use App\Models\Item;
 $userID=$_SESSION["UserID"];
 $itemModel=new Item();
+$categoryID = $_GET["category"] ?? "";
    $search = trim($_GET["search"] ?? "");
 
 try {
     if ($search !== "") {
-        $item = $itemModel->search($search);
-    } else {
-        $item = $itemModel->getAll();
-    }
+    $item = $itemModel->search($search, $userID);
+}  else if ($categoryID === "") {
+    $item = $itemModel->getAll();
+} else {
+    $item = $itemModel->getAllCategory($categoryID);
+}
     $totalLost=$itemModel->countlost();
     $totalFound=$itemModel->countfound();
+    $totalReturn=$itemModel->countreturn();
+    $totalAvailable=$itemModel->countavailable();
 }catch(PDOException $e){
     echo $e->getMessage();
     $item=[];
@@ -75,27 +80,47 @@ try {
                 <i class="fa-solid fa-box"></i>
                 <p>Total Lost Items</p>
                 <h3><?php echo $totalLost["total"];?></h3>
-                <p>+1 this week</p>
             </div>
             <div class="container">
                 <i class="fa-solid fa-bag-shopping"></i>
                 <p>Total Found Items</p>
                 <h3><?php echo $totalFound["total"];?></h3>
-                <p>+3 this week</p>
             </div>
             <div class="container">
                 <i class="fa-solid fa-check-circle"></i>
                 <p>Returned Items</p>
-                <h3>18</h3>
-                <p>+4 this week</p>
+                <h3><?php echo $totalReturn["total"];?></h3>
             </div>
             <div class="container">
                 <i class="fa-solid fa-clock"></i>
-                <p>Pending Claims</p>
-                <h3>10</h3>
-                <p>+5 this week</p>
+                <p>Available Items</p>
+                <h3><?php echo $totalAvailable["total"];?></h3>
             </div>
         </div>
+</div>
+        <div class="category">
+                        <h3>Filter by Category</h3>
+                            <a href="dashboard.php?category=1" class="category-btn">
+                                <i class="fa-solid fa-lock"></i>
+                                Bags
+                            </a>
+                            <a href="dashboard.php?category=2" class="category-btn">
+                                <i class="fa-solid fa-mobile-screen" class="category-btn"></i>
+                                Electronics
+                            </a>
+                            <a href="dashboard.php?category=3" class="category-btn">
+                                <i class="fa-solid fa-wallet"></i>
+                                Wallets
+                            </a>
+                                <a href="dashboard.php?category=4" class="category-btn">
+                                <i class="fa-solid fa-key"></i>
+                                Key
+                            </a>
+                            <a href="dashboard.php?category=5" class="category-btn">
+                                <i class="fa-solid fa-shirt"></i>
+                                Clothing
+                            </a>
+                </div>
         <div class="recent-listing">
             <div class="recent-header">
             <h3>Recent Listings</h3>
@@ -109,7 +134,8 @@ try {
                 Found Items
             </button>
 </div>
-            <table>
+            <div class="table-container">
+    <table>
                 <tr>
                     <th>Photo</th>
                     <th>Item Details</th>
@@ -124,7 +150,7 @@ try {
                 if(empty($item)){
                 ?>
                 <tr>
-                    <td colspan="6">
+                    <td colspan="8">
                 <div class="empty-state">
                 <i class="fa-regular fa-folder-open"></i>
                 <h3>No Items Yet</h3>
@@ -136,19 +162,22 @@ try {
                         foreach($item as $i){
                 ?>
                 <tr>
-                    <td><?php if(!empty($i["Photo"])){?>
+                    <td data-label="Photo"><?php if(!empty($i["Photo"])){?>
                 <img src="../pictures/<?= htmlspecialchars($i["Photo"]) ?>"
                          alt="Item Photo" width="60">
                 <?php } else { ?>
                     No Image
                 <?php } ?></td>
-                    <td><?php echo $i["ItemName"]?>
+                    <td data-label="Item Details">
+                        <div class="item-details">
+                        <?php echo $i["ItemName"]?>
                     <br>
                     <small>
                     <?php echo (substr($i["Description"], 0, 40)) ?>...
                     </small>
+</div>
                 </td>
-                <td>
+                <td data-label="Report Type">
                 <?php if ($i["ReportType"] === "Found") { ?>
                 <p>Found</p>
                     <?php } else { ?>
@@ -156,51 +185,31 @@ try {
     
                      <?php } ?>
 </td>
-                    <td><?php echo $i["CategoryName"]?></td>
-                    <td><?php echo htmlspecialchars($i["LocationName"]); ?></td>
-                    <td><?php if ($i["ReportType"] === "Found"){
+                    <td data-label="Category"><?php echo $i["CategoryName"]?></td>
+                    <td data-label="Location"><?php echo htmlspecialchars($i["LocationName"]); ?></td>
+                    <td data-label="Report Date"><?php if ($i["ReportType"] === "Found"){
                         echo $i["DateFound"];
                     }else{
                         echo $i["DateLost"];
                     }?>
                 </td>
-                    <td><?php echo $i["Status"]?></td>
-                    <td>
+                    <td data-label="Status"><?php echo $i["Status"]?></td>
+                    <td data-label="Actions">
+                        <div class="action-buttons">
                         <a href="viewbyId.php?id=<?php echo $i["ItemID"]?>" class="view-btn">View</a>
                         <?php if($i["ReportType"]==="Found"){?>
                         <a href="submit-claim.php?id=<?php echo $i["ItemID"]?>" class="claim" >Claim</a></td>
                         <?php }?>
+</div>
                     </td>
                 </tr>
                  <?php }}?>
             </table>
-
+</div>
             </div>
 </div>
            
-                    <div class="category">
-                        <h3>Filter by Category</h3>
-                        <button type="button" class="category-btn">
-                            <i class="fa-solid fa-bag-shopping"></i>
-                            Bags
-                        </button>
-                        <button type="button" class="category-btn">
-                            <i class="fa-solid fa-mobile-screen"></i>
-                            Electronics
-                        </button>
-                        <button type="button" class="category-btn">
-                            <i class="fa-solid fa-wallet"></i>
-                            Wallets
-                        </button>
-                        <button type="button" class="category-btn">
-                            <i class="fa-solid fa-key"></i>
-                            Keys
-                        </button>
-                        <button type="button" class="category-btn">
-                            <i class="fa-solid fa-shirt"></i>
-                            Clothing
-                        </button>
-                </div>
+                    
       </div>
         </main>
     </div>

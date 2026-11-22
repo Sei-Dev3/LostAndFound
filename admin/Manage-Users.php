@@ -6,11 +6,16 @@ if (!isset($_SESSION["email"])) {
 }
 
 require_once __DIR__. '/../vendor/autoload.php';
-use App\Models\user;
+use App\Models\User;
 $userID=$_SESSION["UserID"];
 $userModel=new User();
+$user=$_GET["users"] ?? "";
 try{
-    $item=$userModel->getAllUsers();
+    if ($user === "") {
+    $item = $userModel->getAllUsers();
+} else {
+    $item = $userModel->getByRoles($user);
+}
 }catch(PDOException $e){
     echo $e->getMessage();
     $item=[];
@@ -57,35 +62,19 @@ try{
 </div>
         <div class="users-layout-container">
             <div class="users-container1">
-                <div class="users-search1">
-                <i class="fa-solid fa-magnifying-glass"></i>
-                <input type="search" placeholder="Search Users...">
-            </div>
             <div class="users-filter">
-            <select name="location" id="location">
-                    <option value="" disabled selected>All Roles</option>
-                    <option value="Library">Library</option>
-                    <option value="canteen">Canteen</option>
-                    <option value="classroom">Classroom</option>
+            <form method="GET" action="manage-users.php">
+            <select name="users" onchange="this.form.submit()">
+                <option value="">All Roles</option>
+                <option value="User" <?php if ($user == "User") echo "selected"; ?>>User</option>
+                <option value="Admin" <?php if ($user == "Admin") echo "selected"; ?>>Admin</option>
             </select>
-            <select name="location" id="location">
-                    <option value="" disabled selected>All Status</option>
-                    <option value="Library">Library</option>
-                    <option value="canteen">Canteen</option>
-                    <option value="classroom">Classroom</option>
-            </select>
-            <select name="location" id="location">
-                    <option value="" disabled selected>All Users</option>
-                    <option value="Library">Library</option>
-                    <option value="canteen">Canteen</option>
-                    <option value="classroom">Classroom</option>
-            </select>
+</form>
 </div>
 </div>
             <div class="users-container2">
                 <table>
                 <tr>
-                    <th>Profile</th>
                     <th>Name</th>
                     <th>Email</th>
                     <th>Role</th>
@@ -99,8 +88,8 @@ try{
                     <td colspan="8">
                 <div class="empty-state">
                 <i class="fa-regular fa-folder-open"></i>
-                <h3>No Items Yet</h3>
-                <p>There are no lost or found items to display.</p>
+                <h3>No Users Yet</h3>
+                <p>There are no users to display.</p>
 </div>
 </td>
 </tr>
@@ -108,12 +97,6 @@ try{
                         foreach($item as $i){
                 ?>
                 <tr>
-                    <td><?php if(!empty($i["Photo"])){?>
-                <img src="../pictures/<?= htmlspecialchars($i["Photo"]) ?>"
-                         alt="Item Photo" width="60">
-                <?php } else { ?>
-                    No Image
-                <?php } ?></td>
                     <td><?php echo $i["fullname"]?>
                 </td>
                 <td><?php echo $i["email"]?></td>

@@ -54,6 +54,9 @@ if (isset($_FILES["item_photo"])) {
 if ($message === "") {
     try {
         $userID=$_SESSION["UserID"];
+        if ($claimModel->hasClaimed($id, $userID)) {
+            $message = "You have already submitted a claim for this item.";
+        }else{
         $result = $claimModel->claimitem(
             $description,
             $fileNameNew,
@@ -63,6 +66,7 @@ if ($message === "") {
         
         header("Location: dashboard.php?uploadsuccess");
         exit();
+        }
     } catch (PDOException $e) {
         $message = "Database error: " . $e->getMessage();
     }
@@ -70,12 +74,8 @@ if ($message === "") {
 }
 if (isset($_GET["id"])) {
     $id = $_GET["id"];
-
     try {
         $item = $itemModel->ViewById($id);
-
-       
-
     } catch (PDOException $e) {
          $e->getMessage();
     }
@@ -153,6 +153,11 @@ if (isset($_GET["id"])) {
                     id="description"
                     placeholder="Provide a detailed description of the item."
                     row="4"></textarea>
+                    <?php if ($message !== ""): ?>
+                    <p class="error-message">
+                        <?= htmlspecialchars($message) ?>
+                    </p>
+                <?php endif; ?>
                 </div>
         </div>
             <div class="label-input photo-field">
