@@ -1,5 +1,15 @@
-.edit-header {
-    margin-bottom: 20px;
+.layout {
+    display: block;
+    width: 100%;
+    min-height: 100vh;
+}
+
+.dashboard-content {
+    width: 100%;
+    min-width: 0;
+    min-height: 100vh;
+    padding: 20px;
+    box-sizing: border-box;
 }
 
 .back-btn {
@@ -12,6 +22,17 @@
     margin-bottom: 20px;
 }
 
+.edit-container {
+    background: #FFFFFF;
+    border: 1px solid #E2E0F0;
+    border-radius: 12px;
+    padding: 30px;
+    width: 95%;
+    max-width: 1300px;
+    margin: 0 auto;
+    box-sizing: border-box;
+}
+
 .edit-header h1 {
     color: #1A1935;
     margin-bottom: 5px;
@@ -21,21 +42,23 @@
     color: #777;
 }
 
-.edit-container {
-    background: #FFFFFF;
-    border: 1px solid #E2E0F0;
-    border-radius: 12px;
-    padding: 30px;
-    max-width: 1100px;
+.edit-header {
+    width: 95%;
+    max-width: 1300px;
+    margin: 0 auto 20px;
+    box-sizing: border-box;
 }
 
 .edit-grid {
     display: flex;
-    gap: 35px;
+    gap: 50px;
+    width: 100%;
+    box-sizing: border-box;
 }
 
 .edit-fields {
     flex: 1.5;
+    min-width: 0;
     display: flex;
     flex-direction: column;
     gap: 10px;
@@ -73,6 +96,7 @@
 
 .edit-photo {
     flex: 1;
+    min-width: 0;
     display: flex;
     flex-direction: column;
     gap: 12px;

@@ -1,3 +1,27 @@
+<?php 
+session_start();
+if (!isset($_SESSION["email"])) {
+    header("Location: ../auth/login.php");
+    exit();
+}
+
+require_once __DIR__. '/../vendor/autoload.php';
+use App\Models\User;
+
+$userModel=new User();
+$userID = $_SESSION["UserID"];
+try {
+    $user = $userModel->ViewUserById($userID);
+
+    if (!$user) {
+        exit("User not found.");
+    }
+
+} catch (PDOException $e) {
+    exit("Database error: " . $e->getMessage());
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -12,17 +36,7 @@
         <section class="profile-header" aria-labelledby="profile-title">
             <div class="header-top">
                 <h1 id="profile-title">My Profile</h1>
-                <span class="account-status"><span aria-hidden="true"></span>Active Account</span>
-            </div>
-
-            <div class="identity">
-                <div class="avatar" aria-hidden="true">JM</div>
-                <div class="identity-details">
-                    <h2>Juan Miguel Santos</h2>
-                    <p>Student Account</p>
-                    <p>ID: 2026-00125</p>
-                </div>
-            </div>
+            </div>  
         </section>
 
         <section class="profile-content" aria-labelledby="personal-info-title">
@@ -30,27 +44,19 @@
             <dl class="details-grid">
                 <div class="detail">
                     <dt>Full Name</dt>
-                    <dd>Juan Miguel Santos</dd>
-                </div>
-                <div class="detail">
-                    <dt>Username</dt>
-                    <dd>juanmiguel</dd>
+                    <dd><?php echo $user["fullname"]?></dd>
                 </div>
                 <div class="detail">
                     <dt>Email</dt>
-                    <dd><a href="mailto:juanmiguel@gmail.com">juanmiguel@gmail.com</a></dd>
+                    <dd><?php echo $user["email"]?></dd>
                 </div>
                 <div class="detail">
-                    <dt>Contact Number</dt>
-                    <dd><a href="tel:09171234567">0917-123-4567</a></dd>
+                    <dt>Role</dt>
+                    <dd><?php echo $user["role"]?></dd>
                 </div>
                 <div class="detail">
-                    <dt>Department</dt>
-                    <dd>BSIT</dd>
-                </div>
-                <div class="detail">
-                    <dt>Year &amp; Block</dt>
-                    <dd>2nd Year &ndash; 02</dd>
+                    <dt>Account Created</dt>
+                    <dd><?php echo $user["created_at"]?></dd>
                 </div>
             </dl>
 
@@ -59,12 +65,11 @@
                     <h2>Account Settings</h2>
                     <i class="fa-solid fa-gear" aria-hidden="true"></i>
                 </div>
-                <p>This sample profile is read-only. Sign-in and profile editing are not connected yet.</p>
             </div>
 
-            <a class="back-link" href="../index.php">
+            <a class="back-link" href="dashboard.php">
                 <i class="fa-solid fa-arrow-left" aria-hidden="true"></i>
-                Back to Lost &amp; Found
+                Back to Dashboard
             </a>
         </section>
     </main>

@@ -1,7 +1,7 @@
 <?php 
 session_start();
 if (!isset($_SESSION["email"])) {
-    header("Location: ../student/my-reports.php");
+    header("Location: ../auth/login.php");
     exit();
 }
 

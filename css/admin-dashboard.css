@@ -275,3 +275,55 @@
 .pendingempty-state p{
     color: #302F68;
 }
+
+
+@media (max-width: 768px){
+
+    .pending-header{
+        font-size: 15px;
+    }
+    .table-container{
+        width: 100% ;
+        overflow-x: visible;
+        overflow-y: auto;
+        max-height: 400px;
+        min-height: auto;
+    }
+    .table-container table{
+        width: 100% !important;
+        table-layout: fixed !important;
+        font-size: 11px !important;
+        border-collapse: collapse !important;
+    }
+    .table-container td,
+    .table-container th{
+        font-size: 12px !important;
+        padding: 12px 8px !important;
+        white-space: wrap !important;
+    }
+}
+
+@media (max-width: 480px){
+
+    .box-layout{
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center;
+        width: 100%;
+        height: auto;
+        gap: 20px;
+    }
+
+    .pending-claims{
+        width: 90%;
+        min-height: auto;
+        height: auto;
+    }
+
+    .recent-activity{
+        width: 90%;
+        min-height: 300px;
+        height: auto;
+    }
+
+}

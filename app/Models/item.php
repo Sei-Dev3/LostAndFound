@@ -50,7 +50,7 @@
             ON item.locationID = location.LocationID
             WHERE item.ItemID=?";     
             $stmt=$this->conn->prepare($sql);
-            $stmt->execute(["$id"]);
+            $stmt->execute([$id]);
             $item=$stmt->fetch(PDO::FETCH_ASSOC);   
             return $item;
         }
@@ -214,6 +214,21 @@
             ORDER BY item.ItemID DESC";
             $stmt=$this->conn->prepare($sql);
             $stmt->execute(["%$search%", $userID]);
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        }
+
+        public function searchPublic($search){
+            $sql = "SELECT item.*,
+                    item.Status AS ItemStatus,
+                    category.CategoryName,
+                    location.LocationName
+            FROM item
+            INNER JOIN category ON item.CategoryID = category.CategoryID
+            INNER JOIN location ON item.LocationID = location.LocationID
+             WHERE item.ItemName LIKE ?
+            ORDER BY item.ItemID DESC";
+            $stmt = $this->conn->prepare($sql);
+            $stmt->execute(["%$search%"]);
             return $stmt->fetchAll(PDO::FETCH_ASSOC);
         }
 

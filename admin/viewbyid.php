@@ -2,7 +2,7 @@
 session_start();
 
 if (!isset($_SESSION["email"])) {
-    header("Location: ../student/my-reports.php");
+   header("Location: ../auth/admin-login.php");
     exit();
 }
 
@@ -38,8 +38,9 @@ try {
     <title>Edit Lost Item Report</title>
 
 
-    <link rel="stylesheet" href="../css/update.css">
+    
     <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/update.css">
 
     <link rel="stylesheet"
     href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">

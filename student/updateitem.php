@@ -2,7 +2,7 @@
 session_start();
 
 if (!isset($_SESSION["email"])) {
-    header("Location: ../student/my-reports.php");
+    header("Location: ../auth/login.php");
     exit();
 }
 
@@ -19,11 +19,15 @@ if(isset($_POST["up"])){
     $datelost=$_POST["datelost"];
     $description=$_POST["description"];
     try {
-        $item = $itemModel->ViewById($itemID);
+    $item = $itemModel->ViewById($itemID);
 
-        if (!$item) {
-            exit("Item not found.");
-        }
+    if (!$item) {
+        exit("Item not found.");
+    }
+
+    if ($item["UserID"] != $userID || $item["ReportType"] !== "Lost") {
+        exit("You are not authorized to update this item.");
+    }
 
 $fileNameNew = NULL;
 if (isset($_FILES["item_photo"])) {

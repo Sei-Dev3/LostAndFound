@@ -271,3 +271,13 @@ td{
 .claim:hover {
     background-color: #128354;
 }
+
+@media (max-width: 768px){
+    .users-container2 td {
+    padding: 15px 12px;
+    font-size: 12px;
+    color: #333333;
+    border-bottom: 1px solid #E5E5EF;
+    overflow-wrap: break-word;
+}
+}

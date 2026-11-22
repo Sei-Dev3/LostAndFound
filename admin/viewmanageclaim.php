@@ -1,7 +1,7 @@
 <?php 
 session_start();
 if (!isset($_SESSION["email"])) {
-    header("Location: ../student/my-reports.php");
+  header("Location: ../auth/admin-login.php");
     exit();
 }
 
@@ -32,8 +32,12 @@ $claimID = $_GET["id"];
         exit("Item not found.");
     }
     }catch (PDOException $e) {
-        echo $e->getMessage();
-    }
+    exit(
+        "Database Error: " . $e->getMessage() .
+        "<br>File: " . $e->getFile() .
+        "<br>Line: " . $e->getLine()
+    );
+}
 ?>  
 
 <!DOCTYPE html>
@@ -54,15 +58,6 @@ $claimID = $_GET["id"];
 <div class="layout">
 
     <main class="dashboard-content">
-
-        <div class="topbar">
-            <div class="topbar-action">
-                <button class="notification">
-                    <i class="fa-solid fa-bell"></i>
-                </button>
-                <button class="circle-profile"></button>
-            </div>
-        </div>
 
         <div class="claim-header">
             <a href="manage-claim.php" class="back-btn">

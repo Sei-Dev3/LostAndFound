@@ -1,7 +1,7 @@
 <?php 
 session_start();
 if (!isset($_SESSION["email"])) {
-    header("Location: ../auth/loguot.php");
+    header("Location: ../auth/login.php");
     exit();
 }
 
@@ -35,7 +35,9 @@ try{
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    
     <link rel="stylesheet" href="../css/my-report.css">
+    <link rel="stylesheet" href="../css/student-dashboard.css">
     <link
     rel="stylesheet"
     href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
@@ -123,22 +125,22 @@ try{
                         foreach($item as $i){
                 ?>
                 <tr>
-                    <td><?php if(!empty($i["Photo"])){?>
+                    <td data-label="Photo"><?php if(!empty($i["Photo"])){?>
                 <img src="../pictures/<?= htmlspecialchars($i["Photo"]) ?>"
                          alt="Item Photo" width="60">
                 <?php } else { ?>
                     No Image
                 <?php } ?></td>
-                    <td><?php echo $i["ItemName"]?>
+                    <td data-label="Item Name"><?php echo $i["ItemName"]?>
                     <br>
                     <small>
                     <?php echo (substr($i["Description"], 0, 40)) ?>...
                     </small>
                 </td>
-                    <td><?php echo $i["CategoryName"]?></td>
+                    <td data-label="Category"><?php echo $i["CategoryName"]?></td>
         
-                    <td><?php echo $i["LocationName"]?></td>
-                    <td>
+                    <td data-label="Location"><?php echo $i["LocationName"]?></td>
+                    <td data-label="Date Reported">
     <?php
     if ($i["ReportType"] == "Lost") {
         echo $i["DateLost"];
@@ -147,15 +149,14 @@ try{
     }
     ?>
 </td>
-                    <td><?php echo $i["Status"]?></td>
-                    <td>
+                    <td data-label="Status"><?php echo $i["Status"]?></td>
+                    <td data-label="Action">
     <div class="action-dropdown">
         <button type="button" class="action-btn">
             <i class="fa-solid fa-ellipsis-vertical"></i>
         </button>
 
         <div class="dropdown-menu">
-
             <a href="viewbyid.php?id=<?php echo $i['ItemID']; ?>">
                 <i class="fa-solid fa-eye"></i> View
             </a>

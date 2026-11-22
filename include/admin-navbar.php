@@ -37,22 +37,6 @@
                     <i class="fa-solid fa-clipboard-check"></i>
                     <span>Manage Claims</span>
                 </a></li>
-                <li><a href="../admin/manage-categories.php">
-                    <i class="fa-solid fa-solid fa-tags"></i>
-                    <span>Manage Categories</span>
-                </a></li>
-                <li><a href="../admin/manage-location.php">
-                    <i class="fa-solid fa-solid fa-location-dot"></i>
-                    <span>Manage Locations</span>
-                </a></li>
-                <li><a href="../admin/report.php">
-                    <i class="fa-solid fa-solid fa-chart-column"></i>
-                    <span>Reports</span>
-                </a></li>
-                <li><a href="../student/settings.php">
-                    <i class="fa-solid fa-gear"></i>
-                    <span>Settings</span>
-                </a></li>
                 <li><a href="../auth/admin-logout.php">
                     <i class="fa-solid fa-right-from-bracket"></i>
                     <span>Log Out</span>

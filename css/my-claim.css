@@ -423,14 +423,6 @@ table tr th:nth-child(7){
     box-sizing: border-box;
 }
 
-/* .card-container {
-    width: 0;
-    flex: 0 0 250px;
-    border: 1px solid #B9B5D0;
-    border-radius: 10px;
-    box-sizing: border-box;
-} */
-
  .card-container i{
     width: 35px;
     height: 35px;
@@ -804,4 +796,100 @@ table tr th:nth-child(7){
     font-size: 14px;
     text-align: center;
     box-sizing: border-box;
+}
+
+@media (max-width:480px){
+    .submitted-report{
+        height: 95%;
+    }
+
+    .card{
+        display: flex;
+        flex-direction:row;
+        flex-wrap: wrap;
+        align-items:flex-start;
+        justify-content: center;
+        margin-left: 0;
+        gap: 12px;
+        width: 100%;
+        box-sizing: border-box;
+        padding: 0 10px;
+    }
+
+    .card-container{
+        max-width: 150px;
+        min-width: 140px;
+        box-sizing: border-box;
+    }
+
+    .table-container {
+        width: 92%;
+        max-width: 500px;
+        height: 91%;
+        margin: 0 auto;
+        overflow-x: auto;
+        overflow: hidden;
+        box-sizing: border-box;
+    }
+    .table-container th{
+        display: none;
+    }
+
+    .table-container table{
+        width: 100%;
+        table-layout: fixed;
+        border-collapse: collapse;
+    }
+
+    .table-container table,
+    .table-container tbody,
+    .table-container tr,
+    .table-container td {
+        display: block;
+        width: 100%;
+        box-sizing: border-box;
+    }
+    .table-container tr {
+        background: white;
+        border: 1px solid #D5D2E5;
+        border-radius: 10px;
+        padding:0;
+        margin-bottom: 16px;
+    }
+
+    .table-container td {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 12px 15px;
+        border: 1px solid #B9B5D0;
+        text-align: right;
+        font-size: 14px;
+        box-sizing: border-box;
+        gap: 10px;
+    }
+
+    .table-container td:last-child {
+        justify-content: none;
+    }
+    
+    .table-container td::before {
+        content: attr(data-label);
+        font-weight: 600;
+        text-align: left;
+        color: #302F68;
+        flex: 0 0 auto;
+        white-space: nowrap;
+        margin-right: 16px;
+    }
+
+    .item-details {
+        text-align: right;  
+    }
+
+    .action-dropdown{
+        width: 100%;
+        display: flex;
+        justify-content: flex-end;
+    }
 }

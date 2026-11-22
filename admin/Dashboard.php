@@ -1,7 +1,7 @@
 <?php 
 session_start();
 if (!isset($_SESSION["email"])) {
-    header("Location: ../auth/admin-login.php");
+     header("Location: ../auth/admin-login.php");
     exit();
     
 }
@@ -14,7 +14,7 @@ $claimModel=new Claim();
 $itemModel=new Item();
 $userModel=new User();
 try{
-    $item=$claimModel->getAllclaim();
+    $item = $claimModel->getPendingClaims();
     $totalClaim=$claimModel->personalcountreportclaim();
     $totalPending=$claimModel->countpending();
     $totalApprove=$claimModel->countapprove();
@@ -147,11 +147,6 @@ catch(PDOException $e){
             <a href="viewbyid.php?id=<?php echo $i['ItemID']; ?>">
                 <i class="fa-solid fa-eye"></i> View
             </a>
-
-            <a href="update.php?id=<?php echo $i['ItemID']; ?>">
-                <i class="fa-solid fa-pen"></i> Update
-            </a>
-
             <a href="delete.php?id=<?php echo $i['ItemID']; ?>"
                onclick="return confirm('Are you sure you want to delete this item?')"
                class="delete-option">

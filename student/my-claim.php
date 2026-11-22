@@ -1,7 +1,7 @@
 <?php 
 session_start();
 if (!isset($_SESSION["email"])) {
-    header("Location: ../auth/loguot.php");
+    header("Location: ../auth/login.php");
     exit();
 }
 
@@ -76,7 +76,6 @@ try {
         <h1>My Claims</h1>
         <p>Track the status of your claims.</p>
 </div>
-
         <div class="card">
             <div class="card-container">
                 <i class="fa-solid fa-file-lines"></i>
@@ -143,30 +142,32 @@ try {
                         foreach($item as $i){
                 ?>
                 <tr>
-                    <td><?php if(!empty($i["Photo"])){?>
+                    <td data-label="Photo"><?php if(!empty($i["Photo"])){?>
                 <img src="../pictures/<?= htmlspecialchars($i["Photo"]) ?>"
                          alt="Item Photo" width="60">
                 <?php } else { ?>
                     No Image
                 <?php } ?></td>
-                    <td><?php echo $i["ItemName"]?>
+                    <td data-label="Item Name"><?php echo $i["ItemName"]?>
                     <br>
                     <small>
                     <?php echo (substr($i["ClaimDetails"], 0, 40)) ?>...
                     </small>
                 </td>
-                    <td><?php echo $i["CategoryName"]?></td>
-                    <td><?php echo $i["ClaimDate"]?></td>
-                    <td><?php echo htmlspecialchars($i["ClaimStatus"]); ?></td>
-                    <td>
+                    <td data-label="Category"><?php echo $i["CategoryName"]?></td>
+                    <td data-label="Claim Date"><?php echo $i["ClaimDate"]?></td>
+                    <td data-label="Status"><?php echo htmlspecialchars($i["ClaimStatus"]); ?></td>
+                    <td data-label="Actions">
+                        <div class="action-buttons">
                         <a href="viewclaim.php?id=<?php echo $i["ClaimID"]?>" class="view-btn-claim">View</a>
                         <?php if($i["ReportType"]==="Found"){?>
                         <a href="delete-claim.php?id=<?php echo $i["ClaimID"]; ?>"
                             class="reject-claim"
                             onclick="return confirm('Are you sure you want to delete this claim?')">
                              Delete
-                        </a></td>
+                        </a>
                         <?php }?>
+</div>
                     </td>
                 </tr>
                  <?php }}?>

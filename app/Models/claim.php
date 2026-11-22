@@ -34,7 +34,8 @@
             INNER JOIN item
             ON claim.ItemID = item.ItemID
             INNER JOIN user
-            ON claim.UserID = user.UserID";
+            ON claim.UserID = user.UserID 
+            ORDER BY claim.ClaimDate ASC, claim.ClaimID ASC";
             
             $stmt=$this->conn->prepare($sql);
             $stmt->execute();
@@ -42,13 +43,13 @@
             return $item;
         }
 
-    public function ViewClaimById($id){
-        $sql = "SELECT claim.*, user.fullname AS ClaimantName
-            FROM claim
-            INNER JOIN user ON claim.UserID = user.UserID
-            WHERE claim.ClaimID = ?";
-        $stmt = $this->conn->prepare($sql);
-        $stmt->execute([$id]);
+        public function ViewClaimById($id){
+            $sql = "SELECT claim.*, user.fullname AS ClaimantName
+                FROM claim
+                INNER JOIN user ON claim.UserID = user.UserID
+                WHERE claim.ClaimID = ?";
+            $stmt = $this->conn->prepare($sql);
+            $stmt->execute([$id]);
 
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
@@ -102,7 +103,7 @@
         }
 
         public function updatestatus($claimID, $status){
-            $sql="UPDATE claim SET Status=?, ClaimDate = ? 
+            $sql="UPDATE claim SET Status=?, ClaimDate=? 
             WHERE ClaimID=?";
             $stmt=$this->conn->prepare($sql);
             $stmt->execute([
@@ -206,13 +207,29 @@
             return $stmt->fetch(PDO::FETCH_ASSOC);
         }
         public function getbyrecentclaim($status){
-            $sql="SELECT * FROM claim
-            WHERE claim.Status = ?
-            ORDER BY claim.ClaimID DESC
+            $sql="SELECT *
+            FROM claim
+            WHERE Status = ?
+            ORDER BY ClaimDate DESC, ClaimID DESC
             LIMIT 1";
             $stmt=$this->conn->prepare($sql);
             $stmt->execute([$status]);
             return $stmt->fetch(PDO::FETCH_ASSOC);
 
         }
+        
+        public function getPendingClaims(){
+            $sql = "SELECT claim.*,
+                   item.ItemName,
+                   user.fullname
+            FROM claim
+            INNER JOIN item ON claim.ItemID = item.ItemID
+            INNER JOIN user ON claim.UserID = user.UserID
+            WHERE claim.Status = 'Pending'
+            ORDER BY claim.ClaimDate ASC, claim.ClaimID ASC";
+            $stmt = $this->conn->prepare($sql);
+            $stmt->execute();
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        }
+
     }

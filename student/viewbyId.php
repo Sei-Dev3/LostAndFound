@@ -1,7 +1,7 @@
 <?php 
 session_start();
 if (!isset($_SESSION["email"])) {
-    header("Location: ../student/my-reports.php");
+    header("Location: ../auth/login.php");
     exit();
 }
 
@@ -9,13 +9,11 @@ require_once __DIR__. '/../vendor/autoload.php';
 use App\Models\Item;
 
 $itemModel=new Item();
-
+$userID = $_SESSION["UserID"];
 if(isset($_GET["id"])){
     $id=$_GET["id"];
 try{
     $item = $itemModel->ViewById($id);
-    
-    
 
 }catch(PDOException $e){
     echo $e->getMessage();
@@ -35,8 +33,9 @@ try{
     <title>Edit Lost Item Report</title>
 
 
-    <link rel="stylesheet" href="../css/update.css">
+    
     <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/update.css">
 
     <link rel="stylesheet"
     href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
@@ -55,7 +54,11 @@ try{
             <h1>Edit Lost Item Report</h1>
             <p>Update your item information below.</p>
         </div>
-
+<?php if (isset($_GET["error"])) { ?>
+    <p class="error-message">
+        <?php echo htmlspecialchars($_GET["error"]); ?>
+    </p>
+<?php } ?>
         <div class="edit-container">
 
             <form action="updateitem.php" method="POST" enctype="multipart/form-data">
@@ -123,7 +126,9 @@ try{
                     <a href="view.php?id=<?php echo urlencode((string)$id); ?>"
                        class="cancel-btn">Cancel</a>
 
-                    <input type="submit" name="up" value="Save Changes">
+                    <?php if ($item["UserID"] == $userID && $item["ReportType"] === "Lost") { ?>
+        <input type="submit" name="up" value="Save Changes">
+    <?php } ?>
                 </div>
 
             </form>

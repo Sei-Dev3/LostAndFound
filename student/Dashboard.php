@@ -1,7 +1,7 @@
 <?php 
 session_start();
 if (!isset($_SESSION["email"])) {
-    header("Location: ../auth/loguot.php");
+    header("Location: ../auth/login.php");
     exit();
 }
 
@@ -14,7 +14,7 @@ $categoryID = $_GET["category"] ?? "";
 
 try {
     if ($search !== "") {
-    $item = $itemModel->search($search, $userID);
+    $item = $itemModel->searchPublic($search);
 }  else if ($categoryID === "") {
     $item = $itemModel->getAll();
 } else {
@@ -124,15 +124,6 @@ try {
         <div class="recent-listing">
             <div class="recent-header">
             <h3>Recent Listings</h3>
-            <a href="view.php">View All →</a>
-</div>
-            <div class="btn">
-            <button type="button" class="lost-item-btn">
-                Lost Items
-</button>
-            <button type="button" class="found-item-btn">
-                Found Items
-            </button>
 </div>
             <div class="table-container">
     <table>

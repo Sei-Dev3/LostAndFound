@@ -212,3 +212,24 @@
     color: #6355D9;
     margin-top: 8px;
 }
+
+@media (max-width: 480px){
+    .fillout-container{
+        height: auto;
+        min-height: 95%;
+        padding-bottom: 15px;
+        box-sizing: border-box;
+    }
+
+    .photo-field{
+        width: 95%;
+        height: auto;
+        margin-left: 0;
+        box-sizing: border-box;
+    }
+
+    .upload-container{
+        width: 100%;
+        box-sizing: border-box;
+    }
+}

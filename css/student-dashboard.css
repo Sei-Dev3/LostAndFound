@@ -738,4 +738,18 @@ th{
     gap: 8px;
 }
 
+.search{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background-color: #FFFFFF;
+    border: 1px solid #D5D2E5;
+    border-radius: 10px;
+    width: 300px;
+    height: 20px;
+    padding: 10px;
+    opacity: 1;
+}
+
+
 }

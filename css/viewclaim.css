@@ -1,3 +1,17 @@
+.layout {
+    display: block;
+    width: 100%;
+    min-height: 100vh;
+}
+
+.dashboard-content {
+    width: 100%;
+    min-width: 0;
+    min-height: 100vh;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
 .claim-header {
     margin: 25px 20px;
 }
