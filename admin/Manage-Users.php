@@ -13,7 +13,8 @@ $user=$_GET["users"] ?? "";
 try{
     if ($user === "") {
     $item = $userModel->getAllUsers();
-} else {
+}
+else {
     $item = $userModel->getByRoles($user);
 }
 }catch(PDOException $e){
@@ -109,8 +110,10 @@ try{
                         <a href="viewbyuser.php?id=<?php echo $i["UserID"]; ?>" class="view-btn">
                             View
                         </a>
-                        <a href="" class="claim" onclick="return confirm('Are you sure?')">Delete</a></td>
-                    </td>
+                        <a href="delete-user.php?id=<?php echo $i['UserID']; ?>"
+                            onclick="return confirm('Are you sure you want to delete this user?')"
+                    class="delete-option"> Delete
+</a></td>
                 </tr>
                  <?php }}?>
             </table>

@@ -91,7 +91,8 @@ try{
                         </select>
 
                         <label>Date Lost</label>
-                <input type="date" name="datelost" value="<?php echo ($item["DateLost"])?>">
+                <input type="date" name="datelost"
+value="<?php echo date('Y-m-d', strtotime($item["DateLost"])); ?>">
 
                         <label>Description</label>
                         <textarea name="description" rows="5" required><?php
@@ -123,7 +124,7 @@ try{
                 </div>
 
                 <div class="edit-actions">
-                    <a href="view.php?id=<?php echo urlencode((string)$id); ?>"
+                    <a href="My-reports.php?id=<?php echo urlencode((string)$id); ?>"
                        class="cancel-btn">Cancel</a>
 
                     <?php if ($item["UserID"] == $userID && $item["ReportType"] === "Lost") { ?>

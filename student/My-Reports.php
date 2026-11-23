@@ -35,9 +35,9 @@ try{
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    
+       <link rel="stylesheet" href="../css/student-dashboard.css">
     <link rel="stylesheet" href="../css/my-report.css">
-    <link rel="stylesheet" href="../css/student-dashboard.css">
+ 
     <link
     rel="stylesheet"
     href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
@@ -96,7 +96,7 @@ try{
     <div class="submitted-report">
             <div class="report-headings">
             <h3>Your Submitted Reports</h3>
-            <a href="report-item.php" class="new-report-btn">+ New Report</a>
+            <!-- <a href="report-item.php" class="new-report-btn">+ New Report</a> -->
 </div>
             <div class="table-container">
             <table>
@@ -113,7 +113,7 @@ try{
                 if(empty($item)){
                 ?>
                 <tr>
-                    <td colspan="6">
+                    <td colspan="7">
                 <div class="empty-state">
                 <i class="fa-regular fa-folder-open"></i>
                 <h3>No Items Yet</h3>

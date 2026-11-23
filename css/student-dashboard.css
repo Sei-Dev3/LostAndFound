@@ -486,6 +486,10 @@ table tr th:nth-child(8){
         min-width: 0;
     }
 
+    .table-container{
+        height: 100% !important;
+    }
+
     .category {
         width: 230px;
     }

@@ -13,7 +13,7 @@ $categoryID = $_GET["category"] ?? "";
 $search = trim($_GET["search"] ?? "");
 try {
    if ($search !== "") {
-        $item = $itemModel->search($search, $userID);
+        $item = $itemModel->searchPublic($search);
     } 
     else if ($categoryID === "") {
     $item = $itemModel->getAll();

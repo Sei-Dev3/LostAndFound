@@ -14,21 +14,31 @@ $categoryID = $_GET["category"] ?? "";
 
 try {
     if ($search !== "") {
-    $item = $itemModel->searchPublic($search);
-}  else if ($categoryID === "") {
-    $item = $itemModel->getAll();
-} else {
-    $item = $itemModel->getAllCategory($categoryID);
-}
-    $totalLost=$itemModel->countlost();
-    $totalFound=$itemModel->countfound();
-    $totalReturn=$itemModel->countreturn();
-    $totalAvailable=$itemModel->countavailable();
-}catch(PDOException $e){
+        $item = $itemModel->searchPublic($search);
+
+    } elseif ($categoryID !== "") {
+        $item = $itemModel->getAllCategory($categoryID);
+
+    } else {
+        $item = $itemModel->getAll();
+    }
+
+    $totalLost = $itemModel->countlost();
+    $totalFound = $itemModel->countfound();
+    $totalReturn = $itemModel->countreturn();
+    $totalAvailable = $itemModel->countavailable();
+
+} catch (PDOException $e) {
     echo $e->getMessage();
-    $item=[];
+
+    $item = [];
+    $totalLost = ["total" => 0];
+    $totalFound = ["total" => 0];
+    $totalReturn = ["total" => 0];
+    $totalAvailable = ["total" => 0];
 }
 ?>
+
 
 
 
@@ -184,7 +194,9 @@ try {
                         echo $i["DateLost"];
                     }?>
                 </td>
-                    <td data-label="Status"><?php echo $i["Status"]?></td>
+                    <td data-label="Status">
+    <?php echo htmlspecialchars($i["ItemStatus"]); ?>
+</td>
                     <td data-label="Actions">
                         <div class="action-buttons">
                         <a href="viewbyId.php?id=<?php echo $i["ItemID"]?>" class="view-btn">View</a>

@@ -233,7 +233,10 @@
         }
 
         public function updatestatus($itemID, $status){
-            $sql="UPDATE item SET Status=? WHERE itemID=?";
+            $sql = "UPDATE item
+            SET Status = ?
+            WHERE ItemID = ?
+            AND ReportType IN ('Lost', 'Found')";
             $stmt=$this->conn->prepare($sql);
             $stmt->execute([
                 $status,
@@ -262,7 +265,14 @@
         public function getByStatus($status){
             $sql="SELECT item.*,
                    item.Status AS ItemStatus,
+                   category.CategoryName,
+                   location.LocationName
             FROM item
+             INNER JOIN category
+                ON item.CategoryID = category.CategoryID
+            INNER JOIN location
+                ON item.LocationID = location.LocationID
+            WHERE item.Status = ?
             ORDER BY item.ItemID DESC";
             $stmt=$this->conn->prepare($sql);
             $stmt->execute([$status]);

@@ -42,4 +42,22 @@
             $stmt->execute();
             return $stmt->fetch(PDO::FETCH_ASSOC);
         }
+        public function delete($userID) {
+
+            try {
+                $this->conn->beginTransaction();
+                $sql = "DELETE FROM claim WHERE UserID = ?";
+                $stmt = $this->conn->prepare($sql);
+                $stmt->execute([$userID]);
+
+                $sql = "DELETE FROM user WHERE UserID = ?";
+                $stmt = $this->conn->prepare($sql);
+                $stmt->execute([$userID]);
+                $this->conn->commit();
+                return "Deleted Successfully";
+            } catch (PDOException $e) {
+                $this->conn->rollBack();
+                throw $e;
+            }
+        }
     }

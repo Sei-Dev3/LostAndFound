@@ -180,8 +180,7 @@ if ($message === "") {
 </form>
                 <hr class="devider">
                 <div class="submit-cancel-btn">
-                    <button type="button" class="cancel">
-                        Cancel</button>
+                
                 <input type="Submit" value="Submit" name="sub" class="submit">    
                 </div>
             </div>

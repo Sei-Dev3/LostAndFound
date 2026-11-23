@@ -232,4 +232,24 @@
             return $stmt->fetchAll(PDO::FETCH_ASSOC);
         }
 
+        public function searchPublic($search){
+            $sql = "SELECT claim.*,
+                    claim.Status AS ClaimStatus,
+                    item.ItemName,
+                    item.Photo,
+                    item.ReportType,
+                    user.fullname
+                    
+            FROM claim
+            INNER JOIN user
+                ON claim.UserID = user.UserID
+            INNER JOIN item
+            ON claim.ItemID = item.ItemID
+            WHERE item.ItemName LIKE ?
+            ORDER BY claim.ItemID DESC";
+            $stmt = $this->conn->prepare($sql);
+            $stmt->execute(["%$search%"]);
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        }
+
     }

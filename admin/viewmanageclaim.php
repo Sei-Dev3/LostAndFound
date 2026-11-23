@@ -159,7 +159,7 @@ $claimID = $_GET["id"];
             </div>
 
             <div class="claim-actions">
-                <a href="manage-claims.php" class="cancel-btn">Cancel</a>
+                
                 <button type="submit" name="save_status" class="save-btn">
                     Save Changes
                 </button>

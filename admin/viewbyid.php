@@ -87,14 +87,21 @@ try {
                             <option value="3" <?php echo ($item["LocationID"] == 3) ? "selected" : ""; ?>>Office</option>   
                         </select>
 
-                        <label>Date Reported</label>
-                            <input type="date" name="datereported" value="<?php if ($item["ReportType"] === "Found") {
-                                    echo htmlspecialchars($item["DateFound"]);
-                            } else {
-                             echo htmlspecialchars($item["DateLost"]);
-                            }
-                            ?>" required>
+                        <label>Date:</label>
 
+                        <p>
+                        <?php
+                        if ($item['ReportType'] == 'Lost') {
+                            echo !empty($item['DateLost'])
+                            ? date('F d, Y h:i A', strtotime($item['DateLost']))
+                            : 'No date available';
+                        }else {
+                            echo !empty($item['DateFound'])
+                            ? date('F d, Y h:i A', strtotime($item['DateFound']))
+                        : 'No date available';
+    }
+    ?>
+</p>
                         <label>Description</label>
                         <textarea name="description" rows="5" required><?php
                             echo htmlspecialchars($item["Description"]);
@@ -133,7 +140,7 @@ try {
                     </div>
                 </div>
                 <div class="edit-actions">
-                    <a href="view.php?id=<?php echo urlencode((string)$id); ?>"
+                    <a href="manage-item.php?id=<?php echo urlencode((string)$id); ?>"
                        class="cancel-btn">Cancel</a>
                     <input type="submit" name="up" value="Save_status">
                 </div>

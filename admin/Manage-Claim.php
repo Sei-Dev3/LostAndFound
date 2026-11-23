@@ -13,7 +13,7 @@ $status=$_GET["Status"] ?? "";
 $search = trim($_GET["search"] ?? "");
 try{
     if ($search !== "") {
-        $item = $claimModel->search($search, $userID);
+        $item = $claimModel->searchPublic($search);
     }
     else if ($status === "") {
     $item = $claimModel->getAllclaim();
