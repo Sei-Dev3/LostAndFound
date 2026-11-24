@@ -104,12 +104,6 @@ if (isset($_GET["id"])) {
         <main class="dashboard-content">
             <div class="topbar1">
         <div class="topbar-action">
-            <button type="button" class="notification">
-                    <i class="fa-solid fa-bell"></i>
-                    <!-- <span class="notification-badge">3</span> -->
-                    </button>
-                <button type="button" class="circle-profile">
-</button>
 </div>
 </div>
         <div class="view-item">

@@ -7,12 +7,17 @@ if (!isset($_SESSION["email"])) {
 
 require_once __DIR__. '/../vendor/autoload.php';
 use App\Models\Item;
+use App\Models\Category;
+
+$categoryModel = new Category();
 $userID=$_SESSION["UserID"];
 $itemModel=new Item();
 $categoryID = $_GET["category"] ?? "";
    $search = trim($_GET["search"] ?? "");
 
 try {
+    $categories = $categoryModel->getAll();
+    
     if ($search !== "") {
         $item = $itemModel->searchPublic($search);
 
@@ -32,6 +37,7 @@ try {
     echo $e->getMessage();
 
     $item = [];
+    $categories=[];
     $totalLost = ["total" => 0];
     $totalFound = ["total" => 0];
     $totalReturn = ["total" => 0];
@@ -69,12 +75,7 @@ try {
 </div>
 </form>
         <div class="topbar-action">
-            <button type="button" class="notification">
-                    <i class="fa-solid fa-bell"></i>
-                    <!-- <span class="notification-badge">3</span> -->
-                    </button>
-                <button type="button" class="circle-profile">
-</button>
+
 </div>
 </div>
         <div class="dashboard-grid">
@@ -109,28 +110,16 @@ try {
         </div>
 </div>
         <div class="category">
-                        <h3>Filter by Category</h3>
-                            <a href="dashboard.php?category=1" class="category-btn">
-                                <i class="fa-solid fa-lock"></i>
-                                Bags
-                            </a>
-                            <a href="dashboard.php?category=2" class="category-btn">
-                                <i class="fa-solid fa-mobile-screen" class="category-btn"></i>
-                                Electronics
-                            </a>
-                            <a href="dashboard.php?category=3" class="category-btn">
-                                <i class="fa-solid fa-wallet"></i>
-                                Wallets
-                            </a>
-                                <a href="dashboard.php?category=4" class="category-btn">
-                                <i class="fa-solid fa-key"></i>
-                                Key
-                            </a>
-                            <a href="dashboard.php?category=5" class="category-btn">
-                                <i class="fa-solid fa-shirt"></i>
-                                Clothing
-                            </a>
-                </div>
+                <h3>Filter by Category</h3>
+
+                <?php foreach ($categories as $category) { ?>
+                    <a href="dashboard.php?category=<?php echo $category['CategoryID']; ?>"
+                    class="category-btn">
+                        <?php echo htmlspecialchars($category['CategoryName']); ?>
+
+                    </a>
+                <?php } ?>
+</div>
         <div class="recent-listing">
             <div class="recent-header">
             <h3>Recent Listings</h3>

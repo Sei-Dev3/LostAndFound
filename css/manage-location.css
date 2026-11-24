@@ -1,0 +1,231 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    width: 100%;
+    min-height: 100%;
+    font-family: Arial, sans-serif;
+    background-color: #F6F7FD;
+    overflow-x: hidden;
+}
+
+body {
+    overflow-y: auto;
+}
+
+.layout {
+    display: flex;
+    width: 100%;
+    min-height: 100vh;
+    height: auto;
+}
+
+.dashboard-content {
+    flex: 1;
+    min-width: 0;
+    min-height: 100vh;
+    height: auto;
+    padding: 25px;
+    background-color: #F6F7FD;
+}
+
+.page-header {
+    margin-bottom: 25px;
+}
+
+.page-header h2 {
+    color: #302F68;
+    font-size: 25px;
+    margin-bottom: 8px;
+}
+
+.page-header p {
+    color: #777;
+    font-size: 14px;
+}
+
+.location-form,
+.location-table {
+    width: 100%;
+    background-color: #FFFFFF;
+    padding: 25px;
+    border-radius: 12px;
+    margin-bottom: 25px;
+    border: 1px solid #E2E5EC;
+}
+
+.location-form h3,
+.location-table h3 {
+    color: #302F68;
+    font-size: 18px;
+    margin-bottom: 20px;
+}
+
+.location-form form {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.location-form label {
+    color: #302F68;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.location-form input {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #D5D5E0;
+    border-radius: 8px;
+    outline: none;
+    font-size: 14px;
+}
+
+.location-form input:focus {
+    border-color: #6355D9;
+}
+
+.location-form button,
+.edit-btn,
+.delete-btn,
+.cancel-btn {
+    padding: 10px 16px;
+    border: none;
+    border-radius: 7px;
+    text-decoration: none;
+    cursor: pointer;
+    text-align: center;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.location-form button {
+    background-color: #302F68;
+    color: white;
+    width: fit-content;
+}
+
+.location-form button:hover {
+    background-color: #6355D9;
+}
+
+.cancel-btn {
+    background-color: #E8E5FF;
+    color: #302F68;
+    width: fit-content;
+}
+
+.location-table table {
+    width: 100%;
+    min-width: 500px;
+    border-collapse: collapse;
+}
+
+.location-table th,
+.location-table td {
+    padding: 14px;
+    border-bottom: 1px solid #E8E8EF;
+    text-align: left;
+    font-size: 14px;
+}
+
+.location-table th {
+    position: sticky;
+    top: 0;
+    z-index: 2;
+    background-color: #F6F7FD;
+}
+
+.location-table td {
+    color: #444;
+}
+
+.location-table tbody tr:hover {
+    background-color: #F9F8FF;
+}
+
+.actions {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
+.actions form {
+    margin: 0;
+}
+
+.edit-btn {
+    background-color: #E8E5FF;
+    color: #302F68;
+}
+
+.edit-btn:hover {
+    background-color: #D8D3FF;
+}
+
+.delete-btn {
+    background-color: #FCE8E8;
+    color: #C0392B;
+}
+
+.delete-btn:hover {
+    background-color: #F8D5D5;
+}
+
+.message {
+    color: #C0392B;
+    background-color: #FCE8E8;
+    padding: 12px;
+    border-radius: 8px;
+    margin-bottom: 15px;
+    font-size: 14px;
+}
+
+@media (max-width: 768px) {
+    .dashboard-content {
+        padding: 18px;
+    }
+
+    .location-form,
+    .location-table {
+        padding: 18px;
+    }
+
+    .page-header h2 {
+        font-size: 21px;
+    }
+}
+
+@media (max-width: 480px) {
+    .dashboard-content {
+        padding: 12px;
+    }
+
+    .location-form,
+    .location-table {
+        padding: 15px;
+        margin-bottom: 15px;
+    }
+
+    .location-form h3,
+    .location-table h3 {
+        font-size: 16px;
+    }
+
+    .location-form button,
+    .cancel-btn {
+        width: 100%;
+    }
+
+    .page-header h2 {
+        font-size: 19px;
+    }
+
+    .page-header p {
+        font-size: 12px;
+    }
+}

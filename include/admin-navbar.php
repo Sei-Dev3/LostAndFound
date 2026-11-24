@@ -37,6 +37,14 @@
                     <i class="fa-solid fa-clipboard-check"></i>
                     <span>Manage Claims</span>
                 </a></li>
+                <li><a href="../admin/manage-category.php">
+                    <i class="fa-solid fa-clipboard-check"></i>
+                    <span>Manage Category</span>
+                </a></li>
+                <li><a href="../admin/manage-location.php">
+                    <i class="fa-solid fa-clipboard-check"></i>
+                    <span>Manage Location</span>
+                </a></li>
                 <li><a href="../auth/admin-logout.php">
                     <i class="fa-solid fa-right-from-bracket"></i>
                     <span>Log Out</span>

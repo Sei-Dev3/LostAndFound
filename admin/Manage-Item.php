@@ -8,10 +8,14 @@ if (!isset($_SESSION["email"])) {
 require_once __DIR__. '/../vendor/autoload.php';
 use App\Models\Item;
 $userID=$_SESSION["UserID"];
+use App\Models\Category;
+
+$categoryModel = new Category();
 $itemModel= new Item();
 $categoryID = $_GET["category"] ?? "";
 $search = trim($_GET["search"] ?? "");
 try {
+     $categories = $categoryModel->getAll();
    if ($search !== "") {
         $item = $itemModel->searchPublic($search);
     } 
@@ -26,6 +30,7 @@ try {
 } catch (PDOException $e) {
     echo $e->getMessage();
     $item = [];
+    $categories = [];
 }
 ?>
 
@@ -51,12 +56,6 @@ try {
                     <i class="fa-solid fa-bars"></i>
                 </button>
         <div class="topbar-action">
-            <button type="button" class="notification">
-                    <i class="fa-solid fa-bell"></i>
-                    <!-- <span class="notification-badge">3</span> -->
-                    </button>
-                <button type="button" class="circle-profile">
-</button>
 </div>
 </div>
     <div class="manage-heading">
@@ -76,16 +75,21 @@ try {
 </div>
 </form>
             <form method="GET" action="manage-item.php">
-            <select name="category" onchange="this.form.submit()">
-                <option value="">All Categories</option>
-                <option value="1" <?php if ($categoryID == "1") echo "selected"; ?>>Bags</option>
-                <option value="2" <?php if ($categoryID == "2") echo "selected"; ?>>Electronics</option>
-                <option value="3" <?php if ($categoryID == "3") echo "selected"; ?>>Wallets</option>
-                <option value="4" <?php if ($categoryID == "4") echo "selected"; ?>>Keys</option>
-                <option value="5" <?php if ($categoryID == "5") echo "selected"; ?>>Clothing</option>
-            </select>
-            
-</form>
+                <select name="category" onchange="this.form.submit()">
+                    <option value="">All Categories</option>
+
+                    <?php foreach ($categories as $category) { ?>
+                        <option value="<?php echo $category['CategoryID']; ?>"
+                            <?php
+                            if ($categoryID == $category['CategoryID']) {
+                                echo "selected";
+                            }
+                            ?>>
+                            <?php echo htmlspecialchars($category['CategoryName']); ?>
+                        </option>
+                    <?php } ?>
+                </select>
+            </form>
 </div>
             <div class="container2">
                 <table>

@@ -8,8 +8,14 @@ if (!isset($_SESSION["email"])) {
 
 require_once __DIR__ . '/../vendor/autoload.php';
 use App\Models\Item;
-
-$itemModel = new Item();
+use App\Models\Category;
+use App\Models\Location;
+$message ="";
+$itemModel=new Item();
+$categoryModel = new Category();
+$locationModel = new Location();
+$categories = $categoryModel->getAll();
+$locations = $locationModel->getAll();
 if (!isset($_GET["id"])) {
     exit("No Item ID provided.");
 }
@@ -70,37 +76,47 @@ try {
                         value="<?php echo htmlspecialchars($item["ItemName"]); ?>" required>
 
                         <label>Category</label>
-                        <select name="category" id="category">
-                            <option value="" disabled selected>Select Category</option>
-                            <option value="1" <?php echo ($item["CategoryID"] == 1) ? "selected" : ""; ?>>Bags</option>
-                            <option value="2" <?php echo ($item["CategoryID"] == 2) ? "selected" : ""; ?>>Electronics</option>
-                            <option value="3" <?php echo ($item["CategoryID"] == 3) ? "selected" : ""; ?>>Wallets</option>
-                            <option value="4" <?php echo ($item["CategoryID"] == 4) ? "selected" : ""; ?>>Keys</option>
-                            <option value="5" <?php echo ($item["CategoryID"] == 5) ? "selected" : ""; ?>>Clothing</option>
-                        </select>
+                            <select name="category" id="category" required>
+                                <option value="" disabled>Select Category</option>
 
-                        <label>Location</label>
-                        <select name="location" id="location">
-                            <option value="" disabled selected>Select Location</option>
-                            <option value="1" <?php echo ($item["LocationID"] == 1) ? "selected" : ""; ?>>Library</option>
-                            <option value="2" <?php echo ($item["LocationID"] == 2) ? "selected" : ""; ?>>Canteen</option>
-                            <option value="3" <?php echo ($item["LocationID"] == 3) ? "selected" : ""; ?>>Office</option>   
-                        </select>
+                                <?php foreach ($categories as $category) { ?>
+                                    <option value="<?php echo $category["CategoryID"]; ?>"
+                                        <?php
+                                        if ($item["CategoryID"] == $category["CategoryID"]) {
+                                            echo "selected";
+                                        }
+                                        ?>>
+                                        <?php echo htmlspecialchars($category["CategoryName"]); ?>
+                                    </option>
+                                <?php } ?>
+                            </select>
+                            <label>Location</label>
+<select name="location" id="location" required>
+    <option value="" disabled>Select Location</option>
 
+    <?php foreach ($locations as $location) { ?>
+        <option value="<?php echo $location["LocationID"]; ?>"
+            <?php
+            if ($item["LocationID"] == $location["LocationID"]) {
+                echo "selected";
+            }
+            ?>>
+            <?php echo htmlspecialchars($location["LocationName"]); ?>
+        </option>
+    <?php } ?>
+</select>
                         <label>Date:</label>
 
                         <p>
-                        <?php
-                        if ($item['ReportType'] == 'Lost') {
-                            echo !empty($item['DateLost'])
-                            ? date('F d, Y h:i A', strtotime($item['DateLost']))
-                            : 'No date available';
-                        }else {
-                            echo !empty($item['DateFound'])
-                            ? date('F d, Y h:i A', strtotime($item['DateFound']))
-                        : 'No date available';
-    }
-    ?>
+                        <input type="datetime-local"
+       name="datefound"
+       id="datefound"
+       value="<?php
+       if (!empty($item["DateFound"])) {
+           echo date('Y-m-d\TH:i', strtotime($item["DateFound"]));
+       }
+       ?>"
+       required>
 </p>
                         <label>Description</label>
                         <textarea name="description" rows="5" required><?php
@@ -142,7 +158,7 @@ try {
                 <div class="edit-actions">
                     <a href="manage-item.php?id=<?php echo urlencode((string)$id); ?>"
                        class="cancel-btn">Cancel</a>
-                    <input type="submit" name="up" value="Save_status">
+                    <input type="submit" name="up" value="Save Changes">
                 </div>
             </form>
         </div>

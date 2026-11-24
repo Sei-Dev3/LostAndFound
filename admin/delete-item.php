@@ -15,7 +15,7 @@ if(isset($_GET["id"])){
     $itemID=$_GET["id"];
     $userID = $_SESSION["UserID"];
     try{
-        echo $itemModel->deleteAdmin($itemID, $userID);
+        echo $itemModel->deleteAdmin($itemID);
         header("Location: manage-item.php");
     }catch(PDOException $e){
         echo $e->getMessage();

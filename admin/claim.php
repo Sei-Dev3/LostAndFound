@@ -7,8 +7,14 @@ if (!isset($_SESSION["email"])) {
 
 require_once __DIR__. '/../vendor/autoload.php';
 use App\Models\Item;
+use App\Models\Category;
+use App\Models\Location;
 $message ="";
 $itemModel=new Item();
+$categoryModel = new Category();
+$locationModel = new Location();
+$categories = $categoryModel->getAll();
+$location = $locationModel->getAll();
 if(isset($_POST["sub"])){
     $iname =$_POST["itemname"];
     $category=$_POST["category"];
@@ -89,16 +95,6 @@ if ($message === "") {
 <body>
     <div class="layout">
         <main class="dashboard-content">
-            <div class="topbar1">
-        <div class="topbar-action">
-            <button type="button" class="notification">
-                    <i class="fa-solid fa-bell"></i>
-                    <!-- <span class="notification-badge">3</span> -->
-                    </button>
-                <button type="button" class="circle-profile">
-</button>
-</div>
-</div>
         <div class="view-item">
         <a href="dashboard.php" class="view">← Dashboard</a>
 </div>
@@ -112,26 +108,31 @@ if ($message === "") {
                 <input type="text" name="itemname" placeholder="e.g Black wallet, iphone 13, Backpack" required>
                 </div>
                 <div class="label-input">
-                <label>Category</label>
-                 <select name="category" id="category" required>
-                    <option value="" disabled selected>Select Category</option>
-                    <option value="1">Bags</option>
-                    <option value="2">Electronics</option>
-                    <option value="3">Wallets</option>
-                    <option value="4">Keys</option>
-                    <option value="5">Clothing</option>
-                 </select>
-                </div>
+    <label>Category</label>
+
+    <select name="category" id="category" required>
+        <option value="" disabled selected>Select Category</option>
+
+        <?php foreach ($categories as $category) { ?>
+            <option value="<?php echo $category['CategoryID']; ?>">
+                <?php echo htmlspecialchars($category['CategoryName']); ?>
+            </option>
+        <?php } ?>
+
+    </select>
+</div>
             </div>
             <div class="column">
                 <div class="label-input">
                 <label>Location</label>
-                 <select name="location" id="location" required>
-                    <option value="" disabled selected>Select Location</option>
-                    <option value="1">Library</option>
-                    <option value="2">Canteen</option>
-                    <option value="3">Office</option>
-                 </select>
+                    <select name="location" id="location" required>
+                        <option value="" disabled selected>Select Location</option>
+                        <?php foreach ($location as $loc) { ?>
+                            <option value="<?php echo $loc['LocationID']; ?>">
+                                <?php echo htmlspecialchars($loc['LocationName']); ?>
+                            </option>
+                        <?php } ?>
+                    </select>
                 </div>
                 <div class="label-input">
                 <label>Date Found</label>

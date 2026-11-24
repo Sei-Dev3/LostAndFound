@@ -58,12 +58,6 @@ catch(PDOException $e){
                     <i class="fa-solid fa-bars"></i>
                 </button>
         <div class="topbar-action">
-            <button type="button" class="notification">
-                    <i class="fa-solid fa-bell"></i>
-                    <!-- <span class="notification-badge">3</span> -->
-                    </button>
-                <button type="button" class="circle-profile">
-</button>
 </div>
 </div>
     <div class="manage-heading">
@@ -147,7 +141,7 @@ catch(PDOException $e){
             <a href="viewbyid.php?id=<?php echo $i['ItemID']; ?>">
                 <i class="fa-solid fa-eye"></i> View
             </a>
-            <a href="delete.php?id=<?php echo $i['ItemID']; ?>"
+            <a href="delete-dash.php?id=<?php echo $i['ClaimID']; ?>"
                onclick="return confirm('Are you sure you want to delete this item?')"
                class="delete-option">
                 <i class="fa-solid fa-trash"></i> Delete
