@@ -7,12 +7,10 @@ class Queue {
     public function enqueue($item) {
         $this->items[] = $item;
     }
-
     public function dequeue() {
         if (empty($this->items)) {
             return null;
         }
-
         return array_shift($this->items);
     }
 
@@ -20,7 +18,6 @@ class Queue {
         if (empty($this->items)) {
             return null;
         }
-
         return $this->items[0];
     }
 

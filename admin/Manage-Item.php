@@ -1,22 +1,28 @@
-<?php 
-    session_start();
+<?php
+session_start();
+
 if (!isset($_SESSION["email"])) {
-     header("Location: ../auth/admin-login.php");
+    header("Location: ../auth/admin-login.php");
     exit();
 }
 
-require_once __DIR__. '/../vendor/autoload.php';
+require_once __DIR__ . '/../vendor/autoload.php';
+
 use App\Models\Item;
 use App\Models\Category;
 
 $categoryModel = new Category();
-$itemModel= new Item();
-$userID=$_SESSION["UserID"];
+$itemModel = new Item();
+
+$userID = $_SESSION["UserID"];
+
 $categoryID = $_GET["category"] ?? "";
 $search = trim($_GET["search"] ?? "");
+$sortBy = $_GET["sort"] ?? "ItemID";
+$order = $_GET["order"] ?? "DESC";
 try {
     $categories = $categoryModel->getAll();
-    $items = $itemModel->getAll();
+    $items = $itemModel->insertionSortItems($sortBy, $order);
     if ($categoryID !== "") {
         $filteredItems = [];
         foreach ($items as $i) {
@@ -81,21 +87,40 @@ try {
 </div>
 </form>
             <form method="GET" action="manage-item.php">
-                <select name="category" onchange="this.form.submit()">
-                    <option value="">All Categories</option>
+    <input type="hidden" name="search"
+           value="<?php echo htmlspecialchars($search); ?>">
+    <input type="hidden" name="category"
+           value="<?php echo htmlspecialchars($categoryID); ?>">
+    <select name="sort" onchange="this.form.submit()">
+        <option value="ItemID"
+            <?php if ($sortBy == "ItemID") { echo "selected"; } ?>>
+            Item ID
+        </option>
+        <option value="ItemName"
+            <?php if ($sortBy == "ItemName") { echo "selected"; } ?>>
+            Item Name
+        </option>
+        <option value="DateLost"
+            <?php if ($sortBy == "DateLost") { echo "selected"; } ?>>
+            Date Lost
+        </option>
+        <option value="DateFound"
+            <?php if ($sortBy == "DateFound") { echo "selected"; } ?>>
+            Date Found
+        </option>
+    </select>
+    <select name="order" onchange="this.form.submit()">
+        <option value="ASC"
+            <?php if ($order == "ASC") { echo "selected"; } ?>>
+            Ascending
+        </option>
+        <option value="DESC"
+            <?php if ($order == "DESC") { echo "selected"; } ?>>
+            Descending
+        </option>
+    </select>
 
-                    <?php foreach ($categories as $category) { ?>
-                        <option value="<?php echo $category['CategoryID']; ?>"
-                            <?php
-                            if ($categoryID == $category['CategoryID']) {
-                                echo "selected";
-                            }
-                            ?>>
-                            <?php echo htmlspecialchars($category['CategoryName']); ?>
-                        </option>
-                    <?php } ?>
-                </select>
-            </form>
+</form>
 </div>
             <div class="container2">
                 <table>

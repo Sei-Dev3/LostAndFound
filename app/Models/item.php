@@ -31,27 +31,18 @@
 
         // Store item records using ItemID as the key
         public function getItemsHashTable(){
-
             $items = $this->getAll();
-
             $hashTable = [];
-
             foreach ($items as $item) {
                 $hashTable[$item['ItemID']] = $item;
             }
-
             return $hashTable;
         }
-
-        // Search for a specific item using ItemID
         public function findItemHashTable($itemID){
-
             $hashTable = $this->getItemsHashTable();
-
             if (isset($hashTable[$itemID])) {
                 return $hashTable[$itemID];
             }
-
             return null;
         }
 
@@ -65,38 +56,23 @@
     // ==================================
 
     public function binarySearchItem($itemID) {
-
-        // Retrieve sorted item records
         $items = $this->getAll();
-
-        // Initialize search boundaries
         $low = 0;
         $high = count($items) - 1;
 
-        // Target Item ID
         $targetID = (int)$itemID;
-
-        // Binary Search
         while ($low <= $high) {
-
             $mid = (int)(($low + $high) / 2);
-
             $currentID = (int)$items[$mid]['ItemID'];
-
-            // Check if the item is found
             if ($currentID === $targetID) {
                 return $items[$mid];
             }
-
-            // Records are sorted in descending order
             if ($targetID > $currentID) {
                 $high = $mid - 1;
             } else {
                 $low = $mid + 1;
             }
         }
-
-        // Item not found
         return null;
     }
 
@@ -110,32 +86,20 @@
 // ==================================
 
 public function insertionSortItems($sortBy = 'ItemID', $order = 'DESC') {
-
-    // Get all item records
     $items = $this->getAll();
-
-    // Allowed sorting fields
     $allowedFields = ['ItemID', 'ItemName', 'DateLost', 'DateFound'];
 
     if (!in_array($sortBy, $allowedFields, true)) {
         $sortBy = 'ItemID';
     }
-
-    // Set sorting order
     $order = strtoupper($order) === 'ASC' ? 'ASC' : 'DESC';
 
-    // Insertion Sort Algorithm
     for ($i = 1; $i < count($items); $i++) {
-
         $key = $items[$i];
         $j = $i - 1;
-
         while ($j >= 0) {
-
             $currentValue = $items[$j][$sortBy] ?? '';
             $keyValue = $key[$sortBy] ?? '';
-
-            // Compare values
             if (is_numeric($currentValue) && is_numeric($keyValue)) {
                 $comparison = $currentValue <=> $keyValue;
             } else {
@@ -144,8 +108,6 @@ public function insertionSortItems($sortBy = 'ItemID', $order = 'DESC') {
                     (string)$keyValue
                 );
             }
-
-            // Determine sorting order
             $shouldShift = ($order === 'ASC')
                 ? ($comparison > 0)
                 : ($comparison < 0);
@@ -153,16 +115,11 @@ public function insertionSortItems($sortBy = 'ItemID', $order = 'DESC') {
             if (!$shouldShift) {
                 break;
             }
-
-            // Move item to the next position
             $items[$j + 1] = $items[$j];
             $j--;
         }
-
-        // Insert item into its correct position
         $items[$j + 1] = $key;
     }
-
     return $items;
 }
 

@@ -2,7 +2,7 @@
 session_start();
 
 if (!isset($_SESSION["email"])) {
-   header("Location: ../auth/admin-login.php");
+    header("Location: ../auth/admin-login.php");
     exit();
 }
 
@@ -10,8 +10,8 @@ require_once __DIR__ . '/../vendor/autoload.php';
 use App\Models\Item;
 use App\Models\Category;
 use App\Models\Location;
-$message ="";
-$itemModel=new Item();
+$message = "";
+$itemModel = new Item();
 $categoryModel = new Category();
 $locationModel = new Location();
 $categories = $categoryModel->getAll();
@@ -25,7 +25,7 @@ try {
         header("Location: viewbyid.php?id=" . urlencode($id));
         exit();
     }
-    $item = $itemModel->ViewById($id);
+    $item = $itemModel->findItemHashTable($id);
     if (!$item) {
         exit("Item not found.");
     }
@@ -64,6 +64,7 @@ try {
             <h1>Edit Lost and Found Item Report</h1>
             <p>Update your item information and the Status of the Item.</p>
         </div>
+        
         <div class="edit-container">
             <form action="updatefound.php" method="POST" enctype="multipart/form-data">
                 <div class="edit-grid">
