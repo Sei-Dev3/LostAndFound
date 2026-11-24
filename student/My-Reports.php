@@ -14,14 +14,16 @@ $userID=$_SESSION["UserID"];
 
 $item = [];
 try{
+    $items = $itemModel->myreport($userID);
+
     if ($search !== "") {
-        $item = $itemModel->search($search, $userID);
+        $item = $itemModel->linearSearch($items, $search);
     } else {
-        $item = $itemModel->myreport($userID);
+        $item = $items;
     }
-    $totalLost=$itemModel->personalcountreport($userID);
-    $totalReturn=$itemModel->countreturn($userID);
-    $totalUnresolved=$itemModel->countstatuslost($userID);
+    $totalLost = $itemModel->personalcountreport($userID);
+    $totalReturn = $itemModel->countreturn($userID);
+    $totalUnresolved = $itemModel->countstatuslost($userID);
 }catch(PDOException $e){
     echo $e->getMessage();
 }

@@ -17,17 +17,21 @@ $categoryID = $_GET["category"] ?? "";
 
 try {
     $categories = $categoryModel->getAll();
-    
-    if ($search !== "") {
-        $item = $itemModel->searchPublic($search);
-
-    } elseif ($categoryID !== "") {
-        $item = $itemModel->getAllCategory($categoryID);
-
-    } else {
-        $item = $itemModel->getAll();
+    $items = $itemModel->getAll();
+    if ($categoryID !== "") {
+        $filteredItems = [];
+        foreach ($items as $i) {
+            if ($i["CategoryID"] == $categoryID) {
+                $filteredItems[] = $i;
+            }
+        }
+        $items = $filteredItems;
     }
-
+    if ($search !== "") {
+        $item = $itemModel->linearSearch($items, $search);
+    } else {
+        $item = $items;
+    }
     $totalLost = $itemModel->countlost();
     $totalFound = $itemModel->countfound();
     $totalReturn = $itemModel->countreturn();
@@ -115,6 +119,8 @@ try {
                 <?php foreach ($categories as $category) { ?>
                     <a href="dashboard.php?category=<?php echo $category['CategoryID']; ?>"
                     class="category-btn">
+
+
                         <?php echo htmlspecialchars($category['CategoryName']); ?>
 
                     </a>

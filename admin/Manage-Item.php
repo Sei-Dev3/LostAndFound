@@ -7,26 +7,32 @@ if (!isset($_SESSION["email"])) {
 
 require_once __DIR__. '/../vendor/autoload.php';
 use App\Models\Item;
-$userID=$_SESSION["UserID"];
 use App\Models\Category;
 
 $categoryModel = new Category();
 $itemModel= new Item();
+$userID=$_SESSION["UserID"];
 $categoryID = $_GET["category"] ?? "";
 $search = trim($_GET["search"] ?? "");
 try {
-     $categories = $categoryModel->getAll();
-   if ($search !== "") {
-        $item = $itemModel->searchPublic($search);
-    } 
-    else if ($categoryID === "") {
-    $item = $itemModel->getAll();
-} else {
-    $item = $itemModel->getAllCategory($categoryID);
-}
+    $categories = $categoryModel->getAll();
+    $items = $itemModel->getAll();
+    if ($categoryID !== "") {
+        $filteredItems = [];
+        foreach ($items as $i) {
+            if ($i["CategoryID"] == $categoryID) {
+                $filteredItems[] = $i;
+            }
+        }
+        $items = $filteredItems;
+    }
+    if ($search !== "") {
+        $item = $itemModel->linearSearch($items, $search);
+    } else {
+        $item = $items;
+    }
     $totalLost = $itemModel->countlost();
     $totalFound = $itemModel->countfound();
-
 } catch (PDOException $e) {
     echo $e->getMessage();
     $item = [];

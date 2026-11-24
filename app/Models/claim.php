@@ -252,4 +252,16 @@
             return $stmt->fetchAll(PDO::FETCH_ASSOC);
         }
 
+        public function linearSearch($claims, $search) {
+            $results = [];
+
+            foreach ($claims as $claim) {
+                if (stripos($claim["ItemName"], $search) !== false) {
+                    $results[] = $claim;
+                }
+            }
+
+            return $results;
+        }
+
     }

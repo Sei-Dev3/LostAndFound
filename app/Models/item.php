@@ -232,6 +232,16 @@
             return $stmt->fetchAll(PDO::FETCH_ASSOC);
         }
 
+        public function linearSearch($items, $search) {
+            $results = [];
+            foreach ($items as $item) {
+                if (stripos($item["ItemName"], $search) !== false) {
+                    $results[] = $item;
+                }
+            }
+            return $results;
+        }
+
         public function updatestatus($itemID, $status){
             $sql = "UPDATE item
             SET Status = ?

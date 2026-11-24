@@ -1,28 +1,27 @@
-<?php 
+<?php
 session_start();
+
 if (!isset($_SESSION["email"])) {
-     header("Location: ../auth/admin-login.php");
+    header("Location: ../auth/admin-login.php");
     exit();
 }
-
-require_once __DIR__. '/../vendor/autoload.php';
+require_once __DIR__ . '/../vendor/autoload.php';
 use App\Models\Claim;
-$userID=$_SESSION["UserID"];
-$claimModel=new Claim();
-$status=$_GET["Status"] ?? "";
-$search = trim($_GET["search"] ?? "");
-try{
-    if ($search !== "") {
-        $item = $claimModel->searchPublic($search);
+use App\Models\Queue;
+$claimModel = new Claim();
+try {
+    $claims = $claimModel->getPendingClaims();
+    $claimQueue = new Queue();
+    foreach ($claims as $claim) {
+        $claimQueue->enqueue($claim);
     }
-    else if ($status === "") {
-    $item = $claimModel->getAllclaim();
-} else {
-    $item = $claimModel->getByStatus($status);
-}
-}catch(PDOException $e){
+    $nextClaim = $claimQueue->peek();
+    $item = $claimQueue->getAll();
+
+} catch (PDOException $e) {
     echo $e->getMessage();
-    $item=[];
+    $item = [];
+    $nextClaim = null;
 }
 ?>
 
@@ -51,12 +50,30 @@ try{
         <div class="topbar-action">
 </div>
 </div>
+
     <div class="manage-heading">
         <div class="heading-text">
         <h1>Manage Claims</h1>
         <p>View and manage claims requests for lost and found items.</p>
 </div>
 </div>
+
+<div class="next-claim">
+    <h3>Next Claim to Process</h3>
+
+    <?php
+    if ($nextClaim != null) {
+        echo "Claim ID: " . htmlspecialchars($nextClaim["ClaimID"]);
+        echo "<br>";
+        echo "Item: " . htmlspecialchars($nextClaim["ItemName"]);
+        echo "<br>";
+        echo "Claimant: " . htmlspecialchars($nextClaim["fullname"]);
+    } else {
+        echo "No pending claims.";
+    }
+    ?>
+</div>
+
         <div class="users-layout-container">
             <div class="users-container1">
                <form method="GET">
@@ -65,7 +82,11 @@ try{
                 <input type="search" placeholder="Search items..." name="search"
                 value="<?php echo htmlspecialchars($_GET['search'] ?? ''); ?>">
 </div>
+
+            
 </form>
+
+            
             <div class="users-filter">
                 <form method="GET" action="manage-claim.php">
             <select name="Status" onchange="this.form.submit()">
@@ -78,6 +99,7 @@ try{
 </form>
 </div>
 </div>
+            
             <div class="users-container2">
                 <div class="table-container">
                 <table>
@@ -118,7 +140,7 @@ try{
                 <?php echo $i["ClaimDate"]?>
 </td>
                     
-                    <td><?php echo $i["ClaimStatus"]?></td>
+                    <td><?php echo $i["Status"]?></td>
                     <td>
                        <a href="viewmanageclaim.php?id=<?php echo $i["ClaimID"]; ?>" class="view-btn-claim">
     View

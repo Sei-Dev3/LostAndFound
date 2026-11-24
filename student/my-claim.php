@@ -15,18 +15,27 @@ $userID=$_SESSION["UserID"];
 $status = $_GET["Status"] ?? "";
 $search = trim($_GET["search"] ?? "");
 try {
+    $claims = $claimModel->myclaim($userID);
+
+    if ($status !== "") {
+        $filteredClaims = [];
+        foreach ($claims as $claim) {
+            if ($claim["ClaimStatus"] == $status) {
+                $filteredClaims[] = $claim;
+            }
+        }
+        $claims = $filteredClaims;
+    }
     if ($search !== "") {
-        $item = $claimModel->search($search, $userID);
-    }
-    else if ($status === "") {
-        $item = $claimModel->myclaim($userID);
+        $item = $claimModel->linearSearch($claims, $search);
     } else {
-        $item = $claimModel->getByStatus($userID, $status);
+        $item = $claims;
     }
-    $totalClaim=$claimModel->personalcountreportclaim($userID);
-    $totalPending=$claimModel->countpending($userID);
-    $totalApprove=$claimModel->countapprove($userID);
-    $totalVerification=$claimModel->countVerification($userID);
+    $totalClaim = $claimModel->personalcountreportclaim($userID);
+    $totalPending = $claimModel->countpending($userID);
+    $totalApprove = $claimModel->countapprove($userID);
+    $totalVerification = $claimModel->countVerification($userID);
+
 } catch (PDOException $e) {
     echo $e->getMessage();
     $item = [];
